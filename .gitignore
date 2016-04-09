@@ -71,3 +71,6 @@ CHANGELOG.md
 
 # IDEA
 .idea
+
+#client/scripts/**/*.js
+#client/scripts/**/*.js.map
