@@ -1,1 +1,8 @@
 <div>Parcours</div>
+
+<p *ngIf="errorMessage">Erreur : {{errorMessage}}</p>
+
+<p>Liste :</p>
+<div *ngFor="#track of tracks">
+    Parcours {{track.name}}
+</div>

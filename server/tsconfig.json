@@ -18,6 +18,7 @@
     "./**/*.ts"
   ],
   "files": [
-    "../typings/tsd.d.ts"
+    "../typings/tsd.d.ts",
+    "../common/mm.d.ts"
   ]
 }

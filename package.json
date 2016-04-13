@@ -36,7 +36,8 @@
     "fuse:build:android": "cd dist/${TARGET-app}/${MODE-dev} && fuse build --target=Android --run",
     "fuse:preview:ios": "cd dist/${TARGET-app}/${MODE-dev} && fuse preview --target=iOS",
     "fuse:preview:android": "cd dist/${TARGET-app}/${MODE-dev} && fuse preview --target=Android",
-        "postinstall": "tsd install"
+    "postinstall": "tsd install",
+    "server":"ts-node server/main"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.8",

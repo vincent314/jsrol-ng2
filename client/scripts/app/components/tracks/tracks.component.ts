@@ -1,10 +1,29 @@
+import {Component, OnInit} from 'angular2/core';
+import {JsrolService} from '../../services/jsrolService';
+import ITrack = mm.ITrack;
 
-import {Component} from "angular2/core";
 @Component({
-    selector:'tracks',
+    selector: 'tracks',
     styles: [require('./tracks.component.scss').toString()],
     template: require('./tracks.component.html')
 })
-export class TracksComponent{
-    
+export class TracksComponent implements OnInit {
+
+    public tracks:ITrack[];
+    public errorMessage:string;
+
+    constructor(private jsrolService:JsrolService) {
+    }
+
+    ngOnInit() {
+        this.getTracks();
+    }
+
+    getTracks() {
+        this.jsrolService.getTracks()
+            .subscribe(
+                tracks => this.tracks = tracks,
+                error => this.errorMessage = <any>error
+            );
+    }
 }
