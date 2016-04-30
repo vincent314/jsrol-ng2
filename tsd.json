@@ -46,6 +46,12 @@
         },
         "mime/mime.d.ts": {
             "commit": "ec9eb4b28c74665a602c22db3457f0a76fa0fa23"
+        },
+        "polymer/polymer.d.ts": {
+            "commit": "08ed4e9f1869e37e29514d862e0158b40e550232"
+        },
+        "webcomponents.js/webcomponents.js.d.ts": {
+            "commit": "08ed4e9f1869e37e29514d862e0158b40e550232"
         }
     }
 }

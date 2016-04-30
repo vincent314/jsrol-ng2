@@ -3,6 +3,10 @@
 <p *ngIf="errorMessage">Erreur : {{errorMessage}}</p>
 
 <p>Liste :</p>
-<div *ngFor="#track of tracks">
-    Parcours {{track.name}}
-</div>
+
+<paper-listbox>
+    <paper-item *ngFor="#track of tracks">
+        Parcours {{track.name}}
+    </paper-item>
+</paper-listbox>
+

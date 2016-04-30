@@ -5,7 +5,7 @@ var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var PostCompilePlugin = require('./plugins/PostCompilePlugin');
+// var PostCompilePlugin = require('./plugins/PostCompilePlugin');
 var autoprefixer = require('autoprefixer');
 var DEFAULT_TARGET = 'app';
 var target = process.env.TARGET || DEFAULT_TARGET;
@@ -83,7 +83,8 @@ module.exports = {
         alias: {
             angular2: path.resolve('./node_modules/angular2'),
             rxjs: path.resolve('./node_modules/rxjs')
-        }
+        },
+        modulesDirectories: ["node_modules", "bower_components"]
     },
     postcss: function() {
         return [autoprefixer];
@@ -286,9 +287,12 @@ module.exports = {
             }] : [])
 
         ),
-        new PostCompilePlugin({
-            filename: path.join(distFolder, 'bundle.js'),
-            isFuse: isTargetFuse(target)
-        })
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
+        )
+        // new PostCompilePlugin({
+        //     filename: path.join(distFolder, 'bundle.js'),
+        //     isFuse: isTargetFuse(target)
+        // })
     ].concat(pluginsProd)
 };

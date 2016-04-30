@@ -1,0 +1,25 @@
+{
+  "name": "jsrol-ng-2",
+  "description": "Starter kit project with angular2 and webpack",
+  "main": "",
+  "authors": [
+    "Vincent <vincent314@hotmail.fr>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/vincent314/jsrol-ng2",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^1.4.0",
+    "polymer-elements": "^0.3.0",
+    "paper-button": "PolymerElements/paper-button#^1.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.0.0",
+    "paper-elements": "Polymer/paper-elements#^0.5.6"
+  }
+}
