@@ -9,8 +9,9 @@ import ITrack = mm.ITrack;
 })
 export class TracksComponent implements OnInit {
 
-    public tracks:ITrack[];
+    public tracks:ITrackExt[];
     public errorMessage:string;
+    public kmlUrl:string;
 
     constructor(private jsrolService:JsrolService) {
     }
@@ -25,5 +26,11 @@ export class TracksComponent implements OnInit {
                 tracks => this.tracks = tracks,
                 error => this.errorMessage = <any>error
             );
+    }
+
+    public onClick(track){
+        var map:any = document.querySelector('google-map');
+        map.kml = track.kmlUrl;
+        console.log(track.kmlUrl);
     }
 }

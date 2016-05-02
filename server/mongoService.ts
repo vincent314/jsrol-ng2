@@ -27,6 +27,12 @@ export class MongoService {
     }
 
     public getTracks():Promise<ITrackModel[]> {
-        return Track.find({}).exec();
+        return Track.find({})
+            .select({kml:0,gpx:0})
+            .exec();
+    }
+
+    public getTrack(id):Promise<ITrackModel>{
+        return Track.findById(id).exec();
     }
 }

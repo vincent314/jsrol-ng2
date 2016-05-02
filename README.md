@@ -1,5 +1,10 @@
 # jsrol-ng-2
 
+## Quick start
+
+```
+npm install -g bower tsd typescript ts-node
+```
 
 ## Usage
 

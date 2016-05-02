@@ -3,6 +3,7 @@ import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
 import ITrack = mm.ITrack;
 import {config} from '../config/config';
+import * as _ from 'lodash';
 
 @Injectable()
 export class JsrolService {
@@ -11,9 +12,12 @@ export class JsrolService {
 
     }
 
-    public getTracks():Observable<ITrack[]> {
+    public getTracks():Observable<ITrackExt[]> {
         return this.http.get(config.server.baseUrl + '/tracks')
-            .map(res => <ITrack[]>res.json())
+            .map(res => _.map(res.json(), (track:ITrackExt)=>
+                _.extend(track,
+                    {kmlUrl: `${config.server.baseUrl}/track/${track._id}/kml`})
+            ))
             .catch(this.handleError);
     }
 

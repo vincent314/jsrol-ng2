@@ -2,11 +2,22 @@
 
 <p *ngIf="errorMessage">Erreur : {{errorMessage}}</p>
 
+<style>
+    google-map {
+        height: 600px;
+    }
+</style>
+<paper-card elevation="2">
+    <google-map latitude="51.505" longitude="-0.09" apiKey="AIzaSyBPraonjNl0JeA2nzIOFe6nWOYwyH9GLH0">
+
+    </google-map>
+</paper-card>
+
 <p>Liste :</p>
 
 <paper-listbox>
     <paper-item *ngFor="#track of tracks">
-        Parcours {{track.name}}
+        <div (click)="onClick(track)">Parcours {{track.name}} - {{track._id}}</div>
     </paper-item>
 </paper-listbox>
 
