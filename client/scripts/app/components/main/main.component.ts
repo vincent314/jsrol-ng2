@@ -3,6 +3,7 @@ import {RouteConfig, RouterOutlet, RouterLink} from 'angular2/router';
 import {CalendarComponent} from '../calendar/calendar.component';
 import {TracksComponent} from '../tracks/tracks.component';
 import {JsrolService} from '../../services/jsrolService';
+declare var firebase:any;
 
 @Component({
     selector: 'main',
@@ -16,4 +17,8 @@ import {JsrolService} from '../../services/jsrolService';
     {path: '/tracks', name: 'Tracks', component: TracksComponent}
 ])
 export class MainComponent {
+
+    constructor(){
+
+    }
 }

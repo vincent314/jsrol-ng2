@@ -21,9 +21,11 @@ export class TracksComponent implements OnInit {
 
     getTracks() {
         this.jsrolService.getTracks()
-            .subscribe(
-                tracks => this.tracks = tracks,
-                error => this.errorMessage = <any>error
-            );
+            .then((snapshot:FirebaseDataSnapshot) =>{
+                this.tracks = snapshot.val();
+            })
+            .catch((error)=>{
+                this.errorMessage = error;
+            });
     }
 }

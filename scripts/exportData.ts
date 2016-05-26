@@ -1,0 +1,2 @@
+import MongoClient = require('mongodb');
+

@@ -13,5 +13,7 @@ import 'angular2/router';
 import 'angular2/http';
 
 // Other vendors for example jQuery or Lodash
+require('firebase');
+declare var firebase:any;
 
 // css

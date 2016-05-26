@@ -5,7 +5,7 @@ var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var PostCompilePlugin = require('./plugins/PostCompilePlugin');
+// var PostCompilePlugin = require('./plugins/PostCompilePlugin');
 var autoprefixer = require('autoprefixer');
 var DEFAULT_TARGET = 'app';
 var target = process.env.TARGET || DEFAULT_TARGET;
@@ -285,10 +285,10 @@ module.exports = {
                 to: '../hooks' // we need to go up one folder in the case of ionic2
             }] : [])
 
-        ),
-        new PostCompilePlugin({
-            filename: path.join(distFolder, 'bundle.js'),
-            isFuse: isTargetFuse(target)
-        })
+        )
+        // new PostCompilePlugin({
+        //     filename: path.join(distFolder, 'bundle.js'),
+        //     isFuse: isTargetFuse(target)
+        // })
     ].concat(pluginsProd)
 };

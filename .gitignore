@@ -75,3 +75,6 @@ CHANGELOG.md
 #client/scripts/**/*.js
 #client/scripts/**/*.js.map
 server/password.ts
+typings/
+
+client/scripts/app/config/password.ts
