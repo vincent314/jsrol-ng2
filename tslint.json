@@ -73,7 +73,7 @@
     ],
     "use-strict": false,
     "variable-name": false,
-    "whitespace": [true,
+    "whitespace": [false,
       "check-branch",
       "check-decl",
       "check-operator",

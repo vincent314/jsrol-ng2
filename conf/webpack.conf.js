@@ -37,6 +37,12 @@ module.exports = {
         loaders: [
           'ts'
         ]
+      },
+      {
+        test: /\.png$/,
+        loaders:[
+            'file'
+        ]
       }
     ]
   },
