@@ -1,12 +1,12 @@
 import 'leaflet';
+import 'leaflet-omnivore';
 import {Component} from '@angular/core';
 
 import 'leaflet/dist/leaflet.css';
 import './map.scss';
 import {ActivatedRoute} from '@angular/router';
 import {JsrolService} from '../../services/jsrol.service';
-import {Observable} from 'rxjs/Rx';
-import Kml = jsrol.Kml;
+import {Subscription} from 'rxjs/Rx';
 
 @Component({
     selector: 'map',
@@ -19,7 +19,7 @@ import Kml = jsrol.Kml;
 })
 export class MapComponent {
     private id:string;
-    private kml:Observable<Kml>;
+    private kml:Subscription;
     private route:ActivatedRoute;
     private jsrolService:JsrolService;
 
@@ -34,7 +34,11 @@ export class MapComponent {
             this.id = params['id'];
 
             console.log(this.id);
-            this.kml = this.jsrolService.getKml(this.id);
+            this.kml = this.jsrolService.getKml(this.id)
+                .subscribe((kml) => {
+                    console.log(kml);
+                    // omnivore.kml.parse(kml);
+                });
         });
 
         this.initMap();

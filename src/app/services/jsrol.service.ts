@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import {AngularFire} from 'angularfire2/angularfire2';
 import moment = require('moment');
 import Event = jsrol.Event;
+import Track = jsrol.Track;
 
 @Injectable()
 export class JsrolService {
@@ -37,7 +38,7 @@ export class JsrolService {
             });
     }
 
-    getKml(id:string){
-        return this.af.object('/kmls');
+    getKml(id:string) {
+        return this.af.object('/kmls/' + id);
     }
 }

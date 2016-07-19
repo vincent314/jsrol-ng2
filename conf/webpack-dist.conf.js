@@ -3,6 +3,8 @@ const conf = require('./gulp.conf');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SplitByPathPlugin = require('webpack-split-by-path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -16,18 +18,19 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        loaders: [
-          'style',
-          'css',
-          'sass',
-          'postcss'
-        ]
+        loaders: ExtractTextPlugin.extract('style', 'css?minimize!sass', 'postcss')
       },
       {
         test: /\.ts$/,
         exclude: /node_modules/,
         loaders: [
           'ts'
+        ]
+      },
+      {
+        test: /.html$/,
+        loaders: [
+          'html'
         ]
       }
     ]
@@ -44,12 +47,17 @@ module.exports = {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {unused: true, dead_code: true} // eslint-disable-line camelcase
-    })
+    }),
+    new SplitByPathPlugin([{
+      name: 'vendor',
+      path: path.join(__dirname, '../node_modules')
+    }]),
+    new ExtractTextPlugin('/index-[contenthash].css')
   ],
   postcss: () => [autoprefixer],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
-    filename: 'index-[hash].js'
+    filename: '[name]-[hash].js'
   },
   resolve: {
     extensions: [
@@ -60,7 +68,9 @@ module.exports = {
       '.ts'
     ]
   },
-  entry: `./${conf.path.src('index')}`,
+  entry: {
+    app: `./${conf.path.src('index')}`
+  },
   ts: {
     configFileName: 'conf/ts.conf.json'
   },

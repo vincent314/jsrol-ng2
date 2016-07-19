@@ -5,5 +5,11 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false
-  }
+  },
+  "filesGlob": [
+    "**/*.ts",
+    "**/*.tsx",
+    "!typings/**",
+    "!node_modules/**"
+  ]
 }

@@ -9,7 +9,7 @@ import {MapComponent} from '../map/map.component';
 @Component({
     directives: [TrackListComponent, EventListComponent, MD_TABS_DIRECTIVES, MapComponent],
     providers: [JsrolService],
-    template:`
+    template: `
         <md-tab-group>
         <md-tab>
             <template md-tab-label>Randonnées</template>

@@ -39,6 +39,6 @@ export class TrackListComponent {
     }
 
     onTrackClick(track:Track) {
-        this.router.navigate(['/map']);
+        this.router.navigate(['/map', track.kml]);
     }
 }

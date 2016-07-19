@@ -39,9 +39,15 @@ module.exports = {
         ]
       },
       {
+        test: /.html$/,
+        loaders: [
+          'html'
+        ]
+      },
+      {
         test: /\.png$/,
         loaders:[
-            'file'
+          'file'
         ]
       }
     ]
