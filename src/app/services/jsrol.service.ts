@@ -39,6 +39,6 @@ export class JsrolService {
     }
 
     getKml(id:string) {
-        return this.af.object('/kmls/' + id);
+        return this.af.database.object('/kmls/' + id);
     }
 }
