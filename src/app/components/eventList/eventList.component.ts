@@ -28,9 +28,10 @@ import {Router} from '@angular/router';
 export class EventListComponent {
     public events:Observable<Event[]>;
     jsrolService:JsrolService;
+    router:Router;
     dateTime:Date;
 
-    constructor(jsrolService:JsrolService, router:Router {
+    constructor(jsrolService:JsrolService, router:Router) {
         this.jsrolService = jsrolService;
         this.router = router;
     }
@@ -41,6 +42,5 @@ export class EventListComponent {
     }
 
     onLoopClick(loop:string){
-        this.router.navigate('/map')
     }
 }
