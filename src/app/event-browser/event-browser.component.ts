@@ -1,13 +1,13 @@
 import {Component, ViewChild, Renderer, ElementRef} from '@angular/core';
-import {TrackListComponent} from '../trackList/trackList.component';
-import {EventListComponent} from '../eventList/eventList.component';
-import {JsrolService} from '../../services/jsrol.service';
-import {MapComponent} from '../map/map.component';
-import {MDL} from '../../directives/MdlUpgrade.directive';
+import {TrackListComponent} from '../components/trackList/trackList.component';
+import {EventListComponent} from './event-list.component';
+import {JsrolService} from '../services/jsrol.service';
+import {MapComponent} from '../components/map/map.component';
+import {MDL} from '../directives/MdlUpgrade.directive';
 import {ActivatedRoute, Params} from '@angular/router';
 import * as _ from 'lodash';
 require('material-design-lite/material.js');
-import Event = jsrol.Event;
+import Event = jsrol.EventModel;
 import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 
@@ -45,7 +45,7 @@ import {AsyncPipe} from '@angular/common';
       </main>
     </div>`
 })
-export class DisplayComponent {
+export class EventBrowserComponent {
     @ViewChild('mdlLayout') mdlLayout: ElementRef;
     currentEvent$: Observable<Event>;
     loop1$: Observable<string>;
@@ -57,6 +57,10 @@ export class DisplayComponent {
     }
 
     ngOnInit() {
+        this.loadCurrentEvent();
+    }
+
+    private loadCurrentEvent() {
         this.currentEvent$ = this.route.params
             .flatMap((params: Params): Observable<Event> => {
                 const eventId: string = params['eventId'];
@@ -84,7 +88,6 @@ export class DisplayComponent {
     }
 
     onEventClick() {
-        console.log(this.mdlLayout);
         this.mdlLayout.nativeElement.MaterialLayout.toggleDrawer();
     }
 }

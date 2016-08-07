@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../../services/jsrol.service.ts';
-import Track = jsrol.Track;
+import Track = jsrol.TrackModel;
 import {Router} from '@angular/router';
 
 @Component({

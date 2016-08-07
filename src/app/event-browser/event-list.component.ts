@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {JsrolService} from '../../services/jsrol.service.ts';
+import {JsrolService} from '../services/jsrol.service.ts';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import Event = jsrol.Event;
+import Event = jsrol.EventModel;
 
 @Component({
     selector: 'event-list',

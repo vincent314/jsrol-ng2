@@ -5,8 +5,8 @@ import './map.scss';
 import {JsrolService} from '../../services/jsrol.service';
 import {Subscription} from 'rxjs/Rx';
 const omnivore = require('leaflet-omnivore');
-import Event = jsrol.Event;
-import Track = jsrol.Track;
+import Event = jsrol.EventModel;
+import Track = jsrol.TrackModel;
 
 @Component({
     selector: 'map',

@@ -1,5 +1,5 @@
 declare module jsrol{
-    export interface Track{
+    export interface TrackModel{
         id:string;
         name:string;
         type: string;

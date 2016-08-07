@@ -1,10 +1,10 @@
-/// <reference path="../domain/index.ts"/>
+/// <reference path="../model/index.ts"/>
 
 import {Injectable} from '@angular/core';
 import {AngularFire} from 'angularfire2/angularfire2';
 import moment = require('moment');
-import Event = jsrol.Event;
-import Track = jsrol.Track;
+import Event = jsrol.EventModel;
+import Track = jsrol.TrackModel;
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
