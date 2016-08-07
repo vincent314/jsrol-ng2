@@ -1,5 +1,6 @@
 declare module jsrol{
     export interface Event{
+        $key:string;
         name:string;
         type:string;
         dateTime:Date|string;

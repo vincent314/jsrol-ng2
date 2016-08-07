@@ -1,3 +1,7 @@
+@import "./variables";
+@import "~material-design-lite/src/color-definitions";
+@import "~material-design-lite/src/material-design-lite-grid.scss";
+@import "~material-design-lite/src/material-design-lite.scss";
+
 body {
-  background-color: lightgrey;
 }

@@ -1,46 +1,39 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../../services/jsrol.service.ts';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
-import {MD_PROGRESS_CIRCLE_DIRECTIVES} from '@angular2-material/progress-circle';
-import Event = jsrol.Event;
 import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
+import Event = jsrol.Event;
 
 @Component({
     selector: 'event-list',
-    directives: [MD_LIST_DIRECTIVES, MD_PROGRESS_CIRCLE_DIRECTIVES],
+    pipes: [DatePipe],
     template: `
-    <div [hidden]="events | async">
-        <md-spinner></md-spinner>
-    </div>
-    <md-list>
-        <md-list-item *ngFor="let event of events | async ">
-            <h3 md-line>{{event.name}}</h3>
-            <p md-line>{{event.dateTime}}</p>
-            <p md-line>
-                <button md-mini-fab color="primary" (click)="onLoopClick(event.loop1)">1</button>
-                <button md-mini-fab color="primary" (click)="onLoopClick(event.loop2)">2</button>
-            </p>
-        </md-list-item>
-    </md-list>
-    `
+    <nav class="mdl-navigation">
+      <div class="mdl-navigation__link" *ngFor="let event of events | async ">
+        <div (click)="onEventClick(event)">
+            <div class="mdl-card__title">
+                <h6 class="mdl-card__title-text">{{event.name}}</h6>
+            </div>
+            <div>{{event.dateTime | date:'dd/MM/yyyy'}}</div>
+        </div>
+      </div>
+    </nav>
+`
 })
 export class EventListComponent {
-    public events:Observable<Event[]>;
-    jsrolService:JsrolService;
-    router:Router;
-    dateTime:Date;
+    events: Observable<Event[]>;
+    dateTime: Date;
 
-    constructor(jsrolService:JsrolService, router:Router) {
-        this.jsrolService = jsrolService;
-        this.router = router;
+    constructor(private jsrolService: JsrolService, private router: Router) {
     }
 
     ngOnInit() {
         this.dateTime = new Date();
-        this.events = this.jsrolService.getEvents();
+        this.events = this.jsrolService.getEvents(new Date().getTime());
     }
 
-    onLoopClick(loop:string){
+    onEventClick(event: Event) {
+        this.router.navigate([`/display/${event.$key}`]);
     }
 }

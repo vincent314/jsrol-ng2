@@ -5,6 +5,7 @@
     "geojson": "registry:dt/geojson#0.0.0+20160619034323",
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#dc9dabe74a5be62613b17a3605309783a12ff28a",
     "leaflet": "registry:dt/leaflet#1.0.0+20160630180443",
+    "lodash": "registry:dt/lodash#3.10.0+20160720001309",
     "node": "registry:dt/node#6.0.0+20160709114037"
   }
 }

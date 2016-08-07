@@ -12,16 +12,18 @@ import {routes, Root} from './routes';
 
 declare var process: any;
 if (process.env.NODE_ENV === 'production') {
-  enableProdMode();
+    enableProdMode();
 }
 
 bootstrap(Root, [
-  FIREBASE_PROVIDERS,
-  defaultFirebase({
-    apiKey: "AIzaSyDOWtDx2pTTgY8jnqxI6_Yh-cvo8VByP-Y",
-    authDomain: "fire-rol.firebaseapp.com",
-    databaseURL: "https://fire-rol.firebaseio.com",
-    storageBucket: "fire-rol.appspot.com",
-  }),
-  provideRouter(routes)
+    FIREBASE_PROVIDERS,
+    defaultFirebase({
+        apiKey: 'AIzaSyDOWtDx2pTTgY8jnqxI6_Yh-cvo8VByP-Y',
+        authDomain: 'fire-rol.firebaseapp.com',
+        databaseURL: 'https://fire-rol.firebaseio.com',
+        storageBucket: 'fire-rol.appspot.com',
+    }),
+    provideRouter(routes)
 ]);
+
+var defaultLocale = 'fr_FR';
