@@ -34,6 +34,6 @@ export class EventListComponent {
     }
 
     onEventClick(event: Event) {
-        this.router.navigate([`/display/${event.$key}`]);
+        this.router.navigate(['/event-browser',event.$key]);
     }
 }

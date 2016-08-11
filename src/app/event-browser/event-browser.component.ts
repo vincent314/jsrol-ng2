@@ -1,18 +1,18 @@
-import {Component, ViewChild, Renderer, ElementRef} from '@angular/core';
+import {Component, ViewChild, ElementRef} from '@angular/core';
 import {TrackListComponent} from '../components/trackList/trackList.component';
 import {EventListComponent} from './event-list.component';
 import {JsrolService} from '../services/jsrol.service';
-import {MapComponent} from '../components/map/map.component';
+import {MapComponent} from '../map/map.component';
 import {MDL} from '../directives/MdlUpgrade.directive';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, ROUTER_DIRECTIVES, Router} from '@angular/router';
 import * as _ from 'lodash';
-require('material-design-lite/material.js');
-import Event = jsrol.EventModel;
 import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
+require('material-design-lite/material.js');
+import EventModel = jsrol.EventModel;
 
 @Component({
-    directives: [TrackListComponent, EventListComponent, MapComponent, MDL],
+    directives: [TrackListComponent, EventListComponent, MapComponent, MDL, ROUTER_DIRECTIVES],
     providers: [JsrolService],
     pipes: [AsyncPipe],
     template: `<!-- Always shows a header, even in smaller screens. -->
@@ -26,9 +26,7 @@ import {AsyncPipe} from '@angular/common';
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" [hidden]="!(loop1 | async)" >Boucle 1</a>
-            <a class="mdl-navigation__link" [hidden]="!(loop2 | async)" >Boucle 2</a>
-            <a class="mdl-navigation__link" [hidden]="!(loop3 | async)" >Boucle 3</a>
+            <a *ngFor="let loop of (loops$ | async); let i = index" class="mdl-navigation__link" [routerLink]="['track', loop]">Boucle {{i + 1}}</a>
           </nav>
         </div>
       </header>
@@ -36,23 +34,16 @@ import {AsyncPipe} from '@angular/common';
         <event-list (click)="onEventClick()"></event-list>
       </div>
       <main class="mdl-layout__content">
-        <!--<div [hidden]="currentEvent$ | async" class="page-content">-->
-            <!--<p>Pas de carte à afficher</p>-->
-        <!--</div>-->
-        <!--<div [hidden]="!currentEvent$ | async" class="page-content">-->
-            <!--<map [event]="currentEvent$"></map>-->
-        <!--</div>-->
+        <router-outlet></router-outlet>
       </main>
     </div>`
 })
 export class EventBrowserComponent {
     @ViewChild('mdlLayout') mdlLayout: ElementRef;
-    currentEvent$: Observable<Event>;
-    loop1$: Observable<string>;
-    loop2$: Observable<string>;
-    loop3$: Observable<string>;
+    currentEvent$: Observable<EventModel>;
+    loops$: Observable<string[]>;
 
-    constructor(private route: ActivatedRoute, private jsRolService: JsrolService, private renderer: Renderer) {
+    constructor(private route: ActivatedRoute, private jsRolService: JsrolService, private router: Router) {
 
     }
 
@@ -62,29 +53,43 @@ export class EventBrowserComponent {
 
     private loadCurrentEvent() {
         this.currentEvent$ = this.route.params
-            .flatMap((params: Params): Observable<Event> => {
+            .flatMap((params: Params): Observable<EventModel> => {
                 const eventId: string = params['eventId'];
+                console.log(`eventId=${eventId}`);
 
                 if (!eventId) {
                     return this.jsRolService.getEvents(new Date().getTime(), 1)
-                        .map((events: Event[]) => {
+                        .map((events: EventModel[]) => {
                             if (!_.isEmpty(events)) {
-                                return events[0];
-                            } else {
-                                return null;
+                                this.router.navigate(['event-browser', events[0].$key]);
                             }
+                            return null;
                         });
                 } else {
                     return this.jsRolService.getEvent(eventId);
                 }
             });
 
-        this.loop1$ = this.currentEvent$.map((event: Event) => event.loop1 as string);
-        this.loop2$ = this.currentEvent$.map((event: Event) => event.loop2 as string);
-        this.loop3$ = this.currentEvent$.map((event: Event) => event.loop3 as string);
-        this.currentEvent$.subscribe((event: Event) => {
-            console.log(event);
-        });
+        this.loops$ = this.currentEvent$
+            .map<string[]>((event: EventModel) => {
+                const loops: string[] = [];
+
+                if(!event){
+                    return loops;
+                }
+
+                if (event.loop1) {
+                    loops.push(event.loop1 as string);
+                }
+                if (event.loop2) {
+                    loops.push(event.loop2 as string);
+                }
+                if (event.loop3) {
+                    loops.push(event.loop3 as string);
+                }
+                console.log(loops);
+                return loops;
+            });
     }
 
     onEventClick() {
