@@ -2,10 +2,10 @@
 
 import {Injectable} from '@angular/core';
 import {AngularFire} from 'angularfire2/angularfire2';
+import {Observable} from 'rxjs/Rx';
 import moment = require('moment');
 import Event = jsrol.EventModel;
 import Track = jsrol.TrackModel;
-import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class JsrolService {
@@ -25,7 +25,7 @@ export class JsrolService {
         return this.af.database.object(`/events/${id}`);
     }
 
-    getEvents(fromTimestamp: number, limit: number = 3): Observable<Event[]> {
+    getEvents(fromTimestamp: number, limit: number = 5): Observable<Event[]> {
         return this.af.database
             .list('/events', {
                 query: {
