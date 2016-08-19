@@ -1,5 +1,5 @@
 import 'leaflet';
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, Output, EventEmitter} from '@angular/core';
 import 'leaflet/dist/leaflet.css';
 import './map.scss';
 import {JsrolService} from '../services/jsrol.service';
@@ -17,12 +17,12 @@ import ILayer = L.ILayer;
     </div>`
 })
 export class MapComponent implements OnChanges, OnInit {
-    private map: L.Map;
-
-    @Input()
-    private trackId: string;
-    private mapLayers: ILayer[];
-    private isReady: boolean = false;
+    map: L.Map;
+    COLORS: string[] = ['#AA0000', '#00AA00', '#0000AA'];
+    @Input() trackId: string;
+    @Output() trackLoaded = new EventEmitter();
+    mapLayers: ILayer[];
+    isReady: boolean = false;
 
     constructor(public jsrolService: JsrolService) {
     }
@@ -39,7 +39,7 @@ export class MapComponent implements OnChanges, OnInit {
                 console.log('Map loaded');
             });
 
-        this.map.setView([51.505, -0.09], 13);
+        this.map.setView([50.63,3.06], 13);
         L.Icon.Default.imagePath = '/images';
 
         // create the tile layer with correct attribution
@@ -52,11 +52,19 @@ export class MapComponent implements OnChanges, OnInit {
 
     ngOnChanges(changes: any) {
         console.log('MAP - OnChanges …');
-        if (changes.trackId && changes.trackId.currentValue) {
-            this.jsrolService.getTrack(changes.trackId.currentValue)
-                .map((track: TrackModel) => track.kml)
-                .concatMap((kmlId: string) => this.loadKml(kmlId))
-                .subscribe();
+
+        if (changes.trackId) {
+            this.clearMap();
+
+            if (changes.trackId.currentValue) {
+                this.jsrolService.getTrack(changes.trackId.currentValue)
+                    .map((track: TrackModel) => {
+                        this.trackLoaded.emit(track);
+                        return track.kml
+                    })
+                    .concatMap((kmlId: string) => this.loadKml(kmlId))
+                    .subscribe();
+            }
         }
     }
 
@@ -64,12 +72,15 @@ export class MapComponent implements OnChanges, OnInit {
         return this.jsrolService.getKml(kmlId)
             .filter(() => this.isReady)
             .do((kmlObject) => {
-                this.clearMap();
-
                 var kmlContent = kmlObject.$value;
                 const layer = omnivore.kml.parse(kmlContent);
 
                 layer.addTo(this.map);
+
+                layer.setStyle({
+                    color: this.getRandomColor()
+                });
+
                 this.map.fitBounds(layer.getBounds());
                 this.mapLayers.push(layer);
             });
@@ -80,5 +91,9 @@ export class MapComponent implements OnChanges, OnInit {
             this.mapLayers.forEach((layer) => this.map.removeLayer(layer));
             this.mapLayers = [];
         }
+    }
+
+    getRandomColor():string {
+        return this.COLORS[Math.floor(this.COLORS.length * Math.random())];
     }
 }

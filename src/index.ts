@@ -5,7 +5,7 @@ import 'zone.js/dist/zone';
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {FIREBASE_PROVIDERS, defaultFirebase} from 'angularfire2';
 import './index.scss';
-
+import 'mdi/scss/materialdesignicons.scss';
 import {provideRouter} from '@angular/router';
 import {enableProdMode} from '@angular/core';
 import {routes, Root} from './routes';

@@ -10,12 +10,12 @@ import EventModel = jsrol.EventModel;
     pipes: [DatePipe],
     template: `
     <nav class="mdl-navigation">
-      <div class="mdl-navigation__link" *ngFor="let event of events$ | async ">
+      <div class="mdl-navigation__link" *ngFor="let event of events$ | async " title="{{types[event.type]?.label}}">
         <div (click)="onEventClick(event)">
             <div class="mdl-card__title">
-                <h6 class="mdl-card__title-text">{{event.name}}</h6>
+                {{event.name}}
             </div>
-            <div>{{event.dateTime | date:'dd/MM/yyyy'}}</div>
+            <div><i class="mdi mdi-calendar"></i> {{event.dateTime | date:'dd/MM/yyyy'}}</div>
         </div>
       </div>
     </nav>
@@ -24,6 +24,13 @@ import EventModel = jsrol.EventModel;
 export class EventListComponent {
     events$: Observable<EventModel[]>;
     dateTime: Date;
+
+    types:any = {
+        LRFN: {label: 'Friday Night', color: '#0000AA'},
+        ROL_PARADE: {label: 'ROL parade', color: '#FFFFFF'},
+        RANDOXYGENE: {label: 'Randoxygène', color: '#00AA00'},
+        ROL_CITY: {label: 'ROL City', color: '#AA0000'}
+    };
 
     constructor(private jsrolService: JsrolService, private router: Router) {
     }
@@ -34,6 +41,10 @@ export class EventListComponent {
     }
 
     onEventClick(event: EventModel) {
-        this.router.navigate(['/event-browser',event.$key]);
+        this.router.navigate([''], {
+            queryParams: {
+                eventId: event.$key
+            }
+        });
     }
 }

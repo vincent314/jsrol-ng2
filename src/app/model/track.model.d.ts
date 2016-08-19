@@ -1,8 +1,10 @@
-declare module jsrol{
-    export interface TrackModel{
-        id:string;
-        name:string;
+declare module jsrol {
+    export interface TrackModel {
+        $key: string;
+        id: string;
+        name: string;
         type: string;
         kml: string;
+        distance: number;
     }
 }

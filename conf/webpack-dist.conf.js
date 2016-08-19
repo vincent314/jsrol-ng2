@@ -38,6 +38,12 @@ module.exports = {
                 loaders: [
                     'file'
                 ]
+            },
+            {
+                test: /\.(svg|eot|ttf|woff|woff2)$/,
+                loaders: [
+                    'file'
+                ]
             }
         ]
     },
