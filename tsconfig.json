@@ -11,6 +11,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "!typings/**",
-    "!node_modules/**"
+    "!node_modules/**",
+    "!dist/**/*.ts"
   ]
 }

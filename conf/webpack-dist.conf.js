@@ -94,5 +94,8 @@ module.exports = {
     },
     node: {
         fs: 'empty'
+    },
+    htmlLoader: {
+        minimize: false // workaround for ng2
     }
 };

@@ -21,7 +21,7 @@ export class JsrolService {
         });
     }
 
-    getEvent(id:string): Observable<Event> {
+    getEvent(id: string): Observable<Event> {
         return this.af.database.object(`/events/${id}`);
     }
 

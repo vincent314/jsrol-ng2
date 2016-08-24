@@ -6,3 +6,5 @@ jspm_packages/
 bower_components/
 .idea/
 typings/
+out/
+tmp/

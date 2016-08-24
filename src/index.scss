@@ -1,7 +1,7 @@
-@import "./variables";
-@import "~material-design-lite/src/color-definitions";
-@import "~material-design-lite/src/material-design-lite-grid.scss";
-@import "~material-design-lite/src/material-design-lite.scss";
+@import "variables";
+@import "../node_modules/material-design-lite/src/color-definitions";
+@import "../node_modules/material-design-lite/src/material-design-lite-grid";
+@import "../node_modules/material-design-lite/src/material-design-lite";
 
 body {
 }

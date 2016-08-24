@@ -11,6 +11,6 @@ import EventModel = jsrol.EventModel;
 `
     }
 )
-export class EventDetailsComponent{
-    @Input() event:EventModel;
+export class EventDetailsComponent {
+    @Input() event: EventModel;
 }

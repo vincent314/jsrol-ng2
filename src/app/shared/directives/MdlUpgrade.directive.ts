@@ -5,7 +5,7 @@ declare const componentHandler:any;
 @Directive({
     selector:'[mdl]'
 })
-export class MDL extends AfterViewInit{
+export class MDL implements AfterViewInit{
     ngAfterViewInit(){
         componentHandler.upgradeAllRegistered();
     }

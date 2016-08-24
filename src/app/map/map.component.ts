@@ -39,7 +39,7 @@ export class MapComponent implements OnChanges, OnInit {
                 console.log('Map loaded');
             });
 
-        this.map.setView([50.63,3.06], 13);
+        this.map.setView([50.63, 3.06], 13);
         L.Icon.Default.imagePath = '/images';
 
         // create the tile layer with correct attribution
@@ -60,7 +60,7 @@ export class MapComponent implements OnChanges, OnInit {
                 this.jsrolService.getTrack(changes.trackId.currentValue)
                     .map((track: TrackModel) => {
                         this.trackLoaded.emit(track);
-                        return track.kml
+                        return track.kml;
                     })
                     .concatMap((kmlId: string) => this.loadKml(kmlId))
                     .subscribe();
@@ -93,7 +93,7 @@ export class MapComponent implements OnChanges, OnInit {
         }
     }
 
-    getRandomColor():string {
+    getRandomColor(): string {
         return this.COLORS[Math.floor(this.COLORS.length * Math.random())];
     }
 }

@@ -1,0 +1,22 @@
+<div mdl #mdlLayout class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <!-- spinner -->
+    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate" [hidden]="currentEvent"></div>
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <event-details [event]="currentEvent"></event-details>
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a *ngFor="let loop of loops; let i = index" class="mdl-layout__tab"
+               [class.is-active]="loop.$key == currentTrack?.$key"
+               [routerLink]="['']" [queryParams]="{eventId:currentEvent.$key,trackId:loop.$key}">
+                Boucle {{i + 1}} (<i class="mdi mdi-math-compass"></i> {{loop.distance | number}} km)
+            </a>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer" #drawer>
+        <event-list (click)="onEventClick()"></event-list>
+    </div>
+    <main class="mdl-layout__content">
+        <map [trackId]="trackId$ | async" (trackLoaded)="onTrackLoaded($event)"></map>
+    </main>
+</div>

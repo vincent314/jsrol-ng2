@@ -25,7 +25,7 @@ export class EventListComponent {
     events$: Observable<EventModel[]>;
     dateTime: Date;
 
-    types:any = {
+    types: any = {
         LRFN: {label: 'Friday Night', color: '#0000AA'},
         ROL_PARADE: {label: 'ROL parade', color: '#FFFFFF'},
         RANDOXYGENE: {label: 'Randoxygène', color: '#00AA00'},
