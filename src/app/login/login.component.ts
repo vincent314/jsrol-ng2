@@ -44,12 +44,6 @@ export class LoginComponent /*implements OnInit*/ {
             email: '',
             password: ''
         });
-        // console.log('LoginComponent onInit');
-        // const redirect = this.authService.redirectUrl;
-        // console.log('LoginComponent redirect', redirect);
-        // if (redirect) {
-        //     this.router.navigate([redirect]);
-        // }
     }
 
     doLogin(event: Event) {

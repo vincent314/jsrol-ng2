@@ -7,10 +7,13 @@ import {AuthService} from '../services/auth.service';
 import {JsrolService} from '../services/jsrol.service';
 import {AuthGuard} from '../services/auth-guard.service';
 import {SharedModule} from '../shared/shared.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {AdminService} from './admin.service';
 @NgModule({
-    imports: [BrowserModule,routing, SharedModule],
+    imports: [BrowserModule, ReactiveFormsModule, routing, SharedModule, HttpModule],
     declarations: [AdminTrackListComponent, AdminComponent],
-    providers: [AuthService, JsrolService, AuthGuard],
+    providers: [AuthService, JsrolService, AuthGuard, AdminService],
     bootstrap: [AdminComponent]
 })
 export class AdminModule {

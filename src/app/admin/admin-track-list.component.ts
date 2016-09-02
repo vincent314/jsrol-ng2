@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../services/jsrol.service.ts';
 import {Router} from '@angular/router';
+import './admin-track-list.component.scss';
 import TrackModel = jsrol.TrackModel;
 
 @Component({
@@ -26,6 +27,10 @@ import TrackModel = jsrol.TrackModel;
             </li>
         </ul>
     </div>
+    <button id="add-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect"
+    (click)="router.navigate(['admin','addTrack'])">
+      <i class="material-icons">add</i>
+    </button>
 `
 })
 export class AdminTrackListComponent {

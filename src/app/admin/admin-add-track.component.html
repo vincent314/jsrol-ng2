@@ -1,0 +1,36 @@
+<div mdl id="login-card" class="mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Nouveau parcours</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        <form [formGroup]="addForm" (submit)="onSubmit()" action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label class="mdl-textfield__label" for="name-input">Nom</label>
+                <input class="mdl-textfield__input" type="text" id="name-input" formControlName="name" required>
+            </div>
+            <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                <label class="mdl-selectfield__label" for="type-input">Type</label>
+                <select formControlName="type" id="type-input">
+                    <option value="LRFN">Friday Night</option>
+                    <option value="ROL_CITY">ROL City</option>
+                    <option value="RANDOXYGENE">Randoxygène</option>
+                </select>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label class="mdl-textfield__label" for="distance-input">Distance en km</label>
+                <input class="mdl-textfield__input" type="text" id="distance-input"
+                       pattern="[0-9]*(\.[0-9]+)?"
+                       formControlName="distance" required>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label class="mdl-textfield__label" for="kmlContent-input">Contenu KML</label>
+                <textarea class="mdl-textfield__input" type="text" rows="10" id="kmlContent-input"
+                       formControlName="kmlContent"></textarea>
+            </div>
+
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
+                <i class="material-icons">save</i>
+            </button>
+        </form>
+    </div>
+</div>

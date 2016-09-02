@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Rx';
 import moment = require('moment');
 import Event = jsrol.EventModel;
 import Track = jsrol.TrackModel;
+import TrackModel = jsrol.TrackModel;
 
 @Injectable()
 export class JsrolService {
@@ -50,4 +51,9 @@ export class JsrolService {
     getKml(id: string): Observable<any> {
         return this.af.database.object(`/kmls/${id}`);
     }
+
+    saveTrack(track:TrackModel):void{
+        // TODO
+    }
+
 }
