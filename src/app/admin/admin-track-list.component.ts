@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../services/jsrol.service.ts';
 import {Router} from '@angular/router';
 import './admin-track-list.component.scss';
-import TrackModel = jsrol.TrackModel;
+import {TrackModel} from '../model/track.model';
 
 @Component({
     selector: 'admin-track-list',

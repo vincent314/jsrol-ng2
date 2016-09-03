@@ -2,12 +2,10 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../services/jsrol.service.ts';
 import {Router} from '@angular/router';
-import {DatePipe} from '@angular/common';
-import EventModel = jsrol.EventModel;
+import {EventModel} from '../model/event.model';
 
 @Component({
     selector: 'event-list',
-    pipes: [DatePipe],
     template: `
     <nav class="mdl-navigation">
       <div class="mdl-navigation__link" *ngFor="let event of events$ | async " title="{{types[event.type]?.label}}">

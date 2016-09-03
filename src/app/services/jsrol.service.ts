@@ -1,12 +1,9 @@
-/// <reference path="../model/index.ts"/>
-
 import {Injectable} from '@angular/core';
 import {AngularFire} from 'angularfire2/angularfire2';
 import {Observable} from 'rxjs/Rx';
+import {TrackModel} from '../model/track.model';
+import {EventModel} from '../model/event.model';
 import moment = require('moment');
-import Event = jsrol.EventModel;
-import Track = jsrol.TrackModel;
-import TrackModel = jsrol.TrackModel;
 
 @Injectable()
 export class JsrolService {
@@ -14,7 +11,7 @@ export class JsrolService {
     constructor(private af: AngularFire) {
     }
 
-    getTracks(): Observable<Track[]> {
+    getTracks(): Observable<TrackModel[]> {
         return this.af.database.list('/tracks', {
             query: {
                 orderByChild: 'name'
@@ -22,11 +19,11 @@ export class JsrolService {
         });
     }
 
-    getEvent(id: string): Observable<Event> {
+    getEvent(id: string): Observable<EventModel> {
         return this.af.database.object(`/events/${id}`);
     }
 
-    getEvents(fromTimestamp: number, limit: number = 5): Observable<Event[]> {
+    getEvents(fromTimestamp: number, limit: number = 5): Observable<EventModel[]> {
         return this.af.database
             .list('/events', {
                 query: {
@@ -37,14 +34,14 @@ export class JsrolService {
             })
             .map((result: any[])=> {
                 result.forEach((e)=> {
-                    let event: Event = e as Event;
+                    let event: EventModel = e as EventModel;
                     event.dateTime = moment(event.dateTime).toDate();
                 });
                 return result;
             });
     }
 
-    getTrack(id: string): Observable<Track> {
+    getTrack(id: string): Observable<TrackModel> {
         return this.af.database.object(`/tracks/${id}`);
     }
 

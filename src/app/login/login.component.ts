@@ -47,9 +47,8 @@ export class LoginComponent /*implements OnInit*/ {
     }
 
     doLogin(event: Event) {
-        console.log('submit', this.loginForm.value);
         this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((authState: FirebaseAuthState)=> {
-            console.log(this.authService.redirectUrl);
+            console.log(authState);
             const redirect = this.authService.redirectUrl || '/admin/tracks';
             this.router.navigate([redirect]);
         })
