@@ -6,7 +6,6 @@ import {Observable, Subscription} from 'rxjs';
 import 'material-design-lite/material.js';
 import {EventModel} from '../model/event.model';
 import {TrackModel} from '../model/track.model';
-require('material-design-lite/material.js');
 
 @Component({
   providers: [JsrolService],

@@ -11,9 +11,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AdminService} from './admin.service';
 import {AdminAddTrackComponent} from './admin-add-track.component';
+import {AdminEventListComponent} from './admin-event-list.component';
 @NgModule({
     imports: [BrowserModule, ReactiveFormsModule, routing, SharedModule, HttpModule],
-    declarations: [AdminTrackListComponent, AdminComponent, AdminAddTrackComponent],
+    declarations: [AdminTrackListComponent, AdminComponent, AdminAddTrackComponent, AdminEventListComponent],
     providers: [AuthService, JsrolService, AuthGuard, AdminService],
     bootstrap: [AdminComponent]
 })

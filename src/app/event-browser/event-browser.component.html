@@ -4,6 +4,11 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <event-details [event]="currentEvent"></event-details>
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" [routerLink]="['admin','tracks']"><i class="mdi mdi-settings"></i>Admin</a>
+            </nav>
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
             <a *ngFor="let loop of loops; let i = index" class="mdl-layout__tab"

@@ -3,12 +3,13 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {FirebaseAuthState} from 'angularfire2';
-require('./login.scss');
+import 'material-design-lite/material.js';
 
 @Component({
     selector: 'login',
+    styles: [require('./login.scss')],
     template: `
-<div id="login-container">
+<div mdl id="login-container">
     <div id="login-card" class="mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Connexion</h2>

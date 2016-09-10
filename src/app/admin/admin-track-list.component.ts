@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../services/jsrol.service.ts';
 import {Router} from '@angular/router';
-import './admin-track-list.component.scss';
 import {TrackModel} from '../model/track.model';
 
 @Component({
     selector: 'admin-track-list',
+    styles : [require('./admin-track-list.component.scss')],
     template: `
     <div class="track-list-container">
         <ul class="mdl-list">

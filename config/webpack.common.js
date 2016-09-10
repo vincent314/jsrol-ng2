@@ -19,7 +19,7 @@ const HtmlElementsPlugin = require('./html-elements-plugin');
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
+  title: 'JSROL by @vincent31416',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
@@ -180,7 +180,13 @@ module.exports = {
       {
         test: /\.(jpg|png|gif)$/,
         loader: 'file'
-      }
+      },
+      // {
+      //   test: /\.(svg|eot|ttf|woff|woff2)(\?v=[0-9.]+)?$/,
+      //   loaders: [
+      //     'url-loader?limit=30000&name=[name]-[hash].[ext]'
+      //   ]
+      // }
     ]
 
   },
@@ -226,7 +232,14 @@ module.exports = {
       {
         from: 'node_modules/leaflet/dist/leaflet.css',
         to: 'css'
-      }]),
+      },
+      {
+        from: 'node_modules/mdi/fonts/*',
+        to: 'fonts',
+        flatten: true
+      },
+
+    ]),
 
     /*
      * Plugin: HtmlWebpackPlugin
