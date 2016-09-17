@@ -77,6 +77,7 @@ module.exports = function(config) {
      */
     browsers: [
       'Chrome'
+      // 'PhantomJS'
     ],
 
     customLaunchers: {

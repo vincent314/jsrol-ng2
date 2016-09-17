@@ -1,8 +1,9 @@
 export interface TrackModel {
-  $key: string;
-  id: string;
+  $key?: string;
+  id?: string;
   name: string;
   type: string;
-  kml: string;
+  kml?: string;
+  kmlContent?: string;
   distance: number;
 }

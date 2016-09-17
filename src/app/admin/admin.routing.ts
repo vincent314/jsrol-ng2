@@ -2,7 +2,7 @@ import {RouterModule, Route} from '@angular/router';
 import {AuthGuard} from '../services/auth-guard.service';
 import {AdminComponent} from './admin.component';
 import {AdminTrackListComponent} from './admin-track-list.component';
-import {AdminAddTrackComponent} from './admin-add-track.component';
+import {AdminEditTrackComponent} from './admin-edit-track.component';
 import {AdminEventListComponent} from './admin-event-list.component';
 
 const routes: Route[] = [
@@ -17,7 +17,11 @@ const routes: Route[] = [
       },
       {
         path: 'addTrack',
-        component: AdminAddTrackComponent
+        component: AdminEditTrackComponent
+      },
+      {
+        path: 'editTrack/:trackId',
+        component: AdminEditTrackComponent
       },
       {
         path: 'events',

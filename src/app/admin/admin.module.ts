@@ -10,11 +10,11 @@ import {SharedModule} from '../shared/shared.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AdminService} from './admin.service';
-import {AdminAddTrackComponent} from './admin-add-track.component';
+import {AdminEditTrackComponent} from './admin-edit-track.component';
 import {AdminEventListComponent} from './admin-event-list.component';
 @NgModule({
     imports: [BrowserModule, ReactiveFormsModule, routing, SharedModule, HttpModule],
-    declarations: [AdminTrackListComponent, AdminComponent, AdminAddTrackComponent, AdminEventListComponent],
+    declarations: [AdminTrackListComponent, AdminComponent, AdminEditTrackComponent, AdminEventListComponent],
     providers: [AuthService, JsrolService, AuthGuard, AdminService],
     bootstrap: [AdminComponent]
 })

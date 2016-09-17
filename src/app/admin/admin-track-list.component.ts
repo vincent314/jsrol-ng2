@@ -21,8 +21,8 @@ import {TrackModel} from '../model/track.model';
                     </span>
                 </span>
                 <span class="mdl-list__item-secondary-content">
-                  <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">mode edit</i></a>
-                  <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">delete</i></a>
+                  <a class="mdl-list__item-secondary-action" (click)="router.navigate(['admin','editTrack', track.$key])"><i class="material-icons">mode edit</i></a>
+                  <a class="mdl-list__item-secondary-action" (click)="onTrackDelete(track)"><i class="material-icons">delete</i></a>
                 </span>
             </li>
         </ul>
@@ -49,5 +49,13 @@ export class AdminTrackListComponent {
 
     onTrackClick(track: TrackModel) {
         this.router.navigate(['/map', track.kml]);
+    }
+
+    onTrackEdit(track: TrackModel){
+      this.jsrolService.updateTrack(track);
+    }
+
+    onTrackDelete(track: TrackModel){
+      this.jsrolService.deleteTrack(track);
     }
 }

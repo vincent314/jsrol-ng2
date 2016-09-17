@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {EventListComponent} from './event-list.component';
+import {EventListComponent} from './event-list/event-list.component';
 import {MapComponent} from '../map/map.component';
 import {TrackDetailsComponent} from './track-details.component';
 import {EventDetailsComponent} from './event-details.component';

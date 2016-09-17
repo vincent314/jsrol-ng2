@@ -60,3 +60,7 @@ npm-debug.log
 .idea/
 *.swp
 /tmp
+
+# JS #
+*.js
+*.js.map
