@@ -1,5 +1,5 @@
 "use strict";
-$/*
+/*
  * Angular 2 decorators and services
  */
 var core_1 = require('@angular/core');
@@ -18,7 +18,7 @@ var App = (function () {
                 require('./app.style.scss')
             ],
             template: " \n    <main>\n      <router-outlet></router-outlet>\n    </main>\n  "
-        }),
+        }), 
         __metadata('design:paramtypes', [])
     ], App);
     return App;
