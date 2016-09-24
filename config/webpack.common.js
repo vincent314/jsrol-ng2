@@ -255,7 +255,7 @@ module.exports = function(options) {
        */
       new CopyWebpackPlugin([{
         from: 'src/assets',
-        to: 'assets'
+        to: ''
       },
         {
           from: 'node_modules/leaflet/dist/leaflet.css',
