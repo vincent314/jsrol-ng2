@@ -126,3 +126,7 @@ interface NodeModule extends WebpackModule {
 }
 interface Global extends GlobalEnvironment {
 }
+
+
+//////////////////
+declare const componentHandler:any;

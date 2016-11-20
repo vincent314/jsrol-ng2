@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import {JsrolService} from '../services/jsrol.service';
-import {TrackModel} from '../model/track.model';
+import {JsrolService} from '../../services/jsrol.service';
+import {TrackModel} from '../../model/track.model';
 import {ActivatedRoute} from '@angular/router';
-import {KmlModel} from '../model/kml.model';
 @Component({
   selector: 'add-track',
-  template: require('./admin-edit-track.component.html')
+  templateUrl: './admin-edit-track.component.html'
 })
 export class AdminEditTrackComponent implements OnInit {
   addForm: FormGroup;
@@ -29,15 +28,16 @@ export class AdminEditTrackComponent implements OnInit {
       .flatMap(params => {
         return this.jsrolService.getTrack(params['trackId']);
       })
-      .flatMap((track: TrackModel)=> {
-        return this.jsrolService.getKml(track.kml)
-          .map((kml: KmlModel)=> {
-            track.kmlContent = kml.$value;
-          });
-      })
+      // .flatMap((track: TrackModel)=> {
+      //   return this.jsrolService.getKml(track.kml)
+      //     .map((kml: KmlModel)=> {
+      //       track.kmlContent = kml.$value;
+      //     });
+      // })
       .subscribe((track: TrackModel)=> {
-        console.log(track);
+        console.log('EDIT TRACK',track);
         this.addForm = this.fb.group(track);
+        componentHandler.upgradeAllRegistered();
       });
   }
 

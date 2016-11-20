@@ -4,7 +4,7 @@ import {FirebaseAuth} from 'angularfire2';
 
 @Component({
     selector: 'admin',
-    template: require('./admin.component.html')
+    templateUrl: './admin.component.html'
 })
 export class AdminComponent implements OnInit {
     currentTab: string;
