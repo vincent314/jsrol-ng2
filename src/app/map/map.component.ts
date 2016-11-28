@@ -5,7 +5,8 @@ import {JsrolService} from '../services/jsrol.service';
 import {Observable} from 'rxjs';
 import {TrackModel} from '../model/track.model';
 const omnivore = require('leaflet-omnivore');
-import ILayer = L.ILayer;
+import Layer = L.Layer;
+import LatLngBounds = L.LatLngBounds;
 
 @Component({
   selector: 'map',
@@ -20,7 +21,7 @@ export class MapComponent implements OnChanges, OnInit {
   COLORS: string[] = ['#AA0000', '#00AA00', '#0000AA'];
   @Input() trackId: string;
   @Output() trackLoaded = new EventEmitter();
-  mapLayers: ILayer[];
+  mapLayers: Layer[];
   isReady: boolean = false;
 
   constructor(public jsrolService: JsrolService) {
@@ -44,7 +45,7 @@ export class MapComponent implements OnChanges, OnInit {
     // create the tile layer with correct attribution
     const osmUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     const osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-    const osm: L.TileLayer = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+    const osm: L.TileLayer = L.tileLayer(osmUrl, {attribution: osmAttrib});
 
     this.map.addLayer(osm);
   }
@@ -72,7 +73,7 @@ export class MapComponent implements OnChanges, OnInit {
       .filter(() => this.isReady)
       .do((kmlObject) => {
         var kmlContent = kmlObject.$value;
-        const layer = omnivore.kml.parse(kmlContent);
+        const layer:any = omnivore.kml.parse(kmlContent);
 
         layer.addTo(this.map);
 
@@ -80,7 +81,7 @@ export class MapComponent implements OnChanges, OnInit {
           color: this.getRandomColor()
         });
 
-        this.map.fitBounds(layer.getBounds());
+        this.map.fitBounds(layer.getBounds() as LatLngBounds,{});
         this.mapLayers.push(layer);
       });
   }

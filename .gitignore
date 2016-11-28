@@ -64,3 +64,5 @@ npm-debug.log
 # JS #
 *.js
 *.js.map
+
+yarn.lock

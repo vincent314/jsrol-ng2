@@ -37,7 +37,7 @@ export class AdminEditTrackComponent implements OnInit {
       .subscribe((track: TrackModel)=> {
         console.log('EDIT TRACK',track);
         this.addForm = this.fb.group(track);
-        componentHandler.upgradeAllRegistered();
+        // componentHandler.upgradeAllRegistered();
       });
   }
 
