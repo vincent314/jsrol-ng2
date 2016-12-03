@@ -3,10 +3,11 @@ import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../../services/jsrol.service.ts';
 import {Router} from '@angular/router';
 import {EventModel} from '../../model/event.model';
+import moment = require('moment');
 
 @Component({
-    selector: 'event-list',
-    template: `
+  selector: 'event-list',
+  template: `
     <nav class="mdl-navigation">
       <div class="mdl-navigation__link" *ngFor="let event of events$ | async " title="{{types[event.type]?.label}}">
         <div (click)="onEventClick(event)">
@@ -20,29 +21,31 @@ import {EventModel} from '../../model/event.model';
 `
 })
 export class EventListComponent {
-    events$: Observable<EventModel[]>;
-    dateTime: Date;
+  events$: Observable<EventModel[]>;
+  dateTime: Date;
 
-    types: any = {
-        LRFN: {label: 'Friday Night', color: '#0000AA'},
-        ROL_PARADE: {label: 'ROL parade', color: '#FFFFFF'},
-        RANDOXYGENE: {label: 'Randoxygène', color: '#00AA00'},
-        ROL_CITY: {label: 'ROL City', color: '#AA0000'}
-    };
+  types: any = {
+    LRFN: {label: 'Friday Night', color: '#0000AA'},
+    ROL_PARADE: {label: 'ROL parade', color: '#FFFFFF'},
+    RANDOXYGENE: {label: 'Randoxygène', color: '#00AA00'},
+    ROL_CITY: {label: 'ROL City', color: '#AA0000'}
+  };
 
-    constructor(private jsrolService: JsrolService, private router: Router) {
-    }
+  constructor(private jsrolService: JsrolService, private router: Router) {
+  }
 
-    ngOnInit() {
-        this.dateTime = new Date();
-        this.events$ = this.jsrolService.getEvents(new Date().getTime());
-    }
+  ngOnInit() {
+    const currentDate = moment('2016-07-01');
 
-    onEventClick(event: EventModel) {
-        this.router.navigate([''], {
-            queryParams: {
-                eventId: event.$key
-            }
-        });
-    }
+    this.dateTime = currentDate.toDate();
+    this.events$ = this.jsrolService.getEvents(currentDate.valueOf());
+  }
+
+  onEventClick(event: EventModel) {
+    this.router.navigate([''], {
+      queryParams: {
+        eventId: event.$key
+      }
+    });
+  }
 }

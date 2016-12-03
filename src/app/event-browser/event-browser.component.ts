@@ -2,10 +2,11 @@ import {Component, ViewChild, ElementRef, OnInit, OnDestroy} from '@angular/core
 import {JsrolService} from '../services/jsrol.service';
 import {Params, ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subscription, BehaviorSubject} from 'rxjs';
 import 'material-design-lite/material.js';
 import {EventModel} from '../model/event.model';
 import {TrackModel} from '../model/track.model';
+import moment = require('moment');
 
 @Component({
   providers: [JsrolService],
@@ -16,33 +17,39 @@ import {TrackModel} from '../model/track.model';
 })
 export class EventBrowserComponent implements OnInit, OnDestroy {
   @ViewChild('mdlLayout') mdlLayout: ElementRef;
-  currentEvent: EventModel;
-  currentTrack: TrackModel;
-  loops: TrackModel[];
-  trackId$: Observable<string>;
-  sub: Subscription;
+  event$ = new BehaviorSubject<EventModel>({});
+  tracks$ = new BehaviorSubject<TrackModel[]>([]);
+  currentTrack$ = new BehaviorSubject<TrackModel>({});
+
+  eventSubscription: Subscription;
+  tracksSubscription: Subscription;
+  currentTrackSubscription: Subscription;
 
   constructor(private jsRolService: JsrolService, private route: ActivatedRoute, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.loadCurrentEventAndLoop();
-
-    this.trackId$ = this.route.queryParams
-      .map((params: Params) => params['trackId']);
+    this.eventSubscription = this.loadEvents();
+    this.tracksSubscription = this.loadTracks();
+    this.currentTrackSubscription = this.loadCurrentTrack();
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.eventSubscription.unsubscribe();
+    this.tracksSubscription.unsubscribe();
+    this.currentTrackSubscription.unsubscribe();
   }
 
-  private loadCurrentEventAndLoop(): void {
-    this.sub = this.route.queryParams
+  private loadEvents(): Subscription {
+    const fromDate: number = moment('2016-07-01').valueOf();
+
+    // EVENTS
+    return this.route.queryParams
       .flatMap((params: Params): Observable<Object> => {
         const eventId: string = params['eventId'];
         if (!eventId) {
-          return this.jsRolService.getEvents(new Date().getTime(), 1)
+          return this.jsRolService.getEvents(fromDate, 1)
             .map((events: EventModel[]) => {
               if (!_.isEmpty(events)) {
                 this.router.navigate([''], {
@@ -57,19 +64,66 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
           return this.jsRolService.getEvent(eventId);
         }
       })
-      .do((event: EventModel) => {
-        this.currentEvent = event;
-        this.currentTrack = null;
-      })
-      .flatMap((event: EventModel) => {
-        const loopObservables = this.mapLoops(event);
-        if (loopObservables.length === 0) {
-          this.loops = [];
+      .subscribe({
+        next: (event: EventModel) => {
+          if (!event) {
+            return;
+          }
+          console.log({event});
+          this.event$.next(event);
+        },
+        error: (err) => {
+          console.log(err);
         }
+      });
+  }
+
+  private loadTracks(): Subscription {
+    // TRACKS
+    return this.event$.flatMap((event: EventModel) => {
+      if (!event) {
+        return;
+      }
+
+      const loopObservables = this.mapLoops(event);
+
+      if (loopObservables.length > 0) {
         return Observable.zip(...loopObservables);
+      } else {
+        return Observable.from([[]]);
+      }
+    }).subscribe({
+      next: (loops: TrackModel[]) => {
+        this.tracks$.next(loops);
+        // this.loops = loops;
+        if (loops.length > 0) {
+          this.currentTrack$.next(loops[0]);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  private loadCurrentTrack(): Subscription {
+    return this.route.queryParams
+      .flatMap((params: Params) => {
+        const trackId: string = params['trackId'];
+        if (trackId) {
+          return this.jsRolService.getTrack(trackId);
+        } else {
+          return Observable.empty();
+        }
       })
-      .subscribe((loops: TrackModel[]) => {
-        this.loops = loops;
+      .subscribe({
+        next: (track: TrackModel) => {
+          console.log({track});
+          this.currentTrack$.next(track);
+        },
+        error: (err) => {
+          console.log(err);
+        }
       });
   }
 
@@ -99,6 +153,6 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
   }
 
   onTrackLoaded(track: TrackModel) {
-    this.currentTrack = track;
+    this.currentTrack$.next(track);
   }
 }
