@@ -1,6 +1,5 @@
 import 'leaflet';
 import {Component, OnChanges, OnInit} from '@angular/core';
-import './map.scss';
 import {JsrolService} from '../services/jsrol.service';
 import {Observable, Subject} from 'rxjs';
 import {TrackModel} from '../model/track.model';
@@ -11,7 +10,7 @@ import LatLngBounds = L.LatLngBounds;
 @Component({
   selector: 'map',
   providers: [JsrolService],
-  styles: [require('./map.scss')],
+  styleUrls: ['map.scss'],
   template: `<div>
         <div id="mapid"></div>
     </div>`,

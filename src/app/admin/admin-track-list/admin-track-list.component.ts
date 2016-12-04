@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {JsrolService} from '../../services/jsrol.service.ts';
+import {JsrolService} from '../../services/jsrol.service';
 import {Router} from '@angular/router';
 import {TrackModel} from '../../model/track.model';
 
@@ -11,12 +11,8 @@ import {TrackModel} from '../../model/track.model';
 })
 export class AdminTrackListComponent {
     public tracks$: Observable<TrackModel[]>;
-    jsrolService: JsrolService;
-    router: Router;
 
-    constructor(jsrolService: JsrolService, router: Router) {
-        this.jsrolService = jsrolService;
-        this.router = router;
+    constructor(private jsrolService: JsrolService, private router: Router) {
     }
 
     ngOnInit() {

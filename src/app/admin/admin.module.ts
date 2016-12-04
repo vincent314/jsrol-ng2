@@ -13,6 +13,10 @@ import {AdminService} from './admin.service';
 import {AdminEditTrackComponent} from './admin-edit-track/admin-edit-track.component';
 import {AdminEventListComponent} from './admin-event-list/admin-event-list.component';
 import {AdminEditEventComponent} from './admin-edit-event/admin-edit-event.component';
+import {FloatingComponent} from './floating.component';
+
+require('mdl-selectfield/dist/mdl-selectfield');
+
 @NgModule({
     imports: [BrowserModule, ReactiveFormsModule, routing, SharedModule, HttpModule],
     declarations: [
@@ -20,7 +24,8 @@ import {AdminEditEventComponent} from './admin-edit-event/admin-edit-event.compo
       AdminComponent,
       AdminEditTrackComponent,
       AdminEventListComponent,
-      AdminEditEventComponent
+      AdminEditEventComponent,
+      FloatingComponent
     ],
     providers: [AuthService, JsrolService, AuthGuard, AdminService],
     bootstrap: [AdminComponent]

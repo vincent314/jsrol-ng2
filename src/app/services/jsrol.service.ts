@@ -4,6 +4,8 @@ import {Observable} from 'rxjs/Rx';
 import {TrackModel} from '../model/track.model';
 import {EventModel} from '../model/event.model';
 import {KmlModel} from '../model/kml.model';
+import {TypeModel} from '../model/type.model';
+import * as _ from 'lodash';
 import moment = require('moment');
 
 @Injectable()
@@ -11,6 +13,7 @@ export class JsrolService {
 
   tracks$: FirebaseListObservable<TrackModel[]>;
   kml$: FirebaseListObservable<KmlModel[]>;
+  types$: FirebaseListObservable<TypeModel[]>;
 
   constructor(private af: AngularFire) {
     this.tracks$ = this.af.database.list('/tracks', {
@@ -20,6 +23,8 @@ export class JsrolService {
     });
 
     this.kml$ = this.af.database.list('/kml');
+
+    this.types$ = this.af.database.list('/types');
   }
 
   getTracks(): Observable<TrackModel[]> {
@@ -39,8 +44,8 @@ export class JsrolService {
           limitToFirst: limit
         }
       })
-      .map((result: any[])=> {
-        result.forEach((e)=> {
+      .map((result: any[]) => {
+        result.forEach((e) => {
           let event: EventModel = e as EventModel;
           event.dateTime = moment(event.dateTime).toDate();
         });
@@ -66,6 +71,29 @@ export class JsrolService {
 
   updateTrack(track: TrackModel): void {
     this.tracks$.update(track.$key, track);
+  }
+
+  getTypes(): Observable<TypeModel[]> {
+    return this.types$;
+  }
+
+  getEventLoops(event: EventModel): Observable<TrackModel[]> {
+    if (!event) {
+      return Observable.from([]);
+    }
+
+    const loopObservables: Observable<TrackModel>[] = _([event.loop1, event.loop2, event.loop3])
+      .filter((loopId: string) => loopId)
+      .map((loop: string) => this.getTrack(loop))
+      .value();
+
+    console.log({loopObservables});
+
+    if (loopObservables.length === 0) {
+      return Observable.from([]);
+    }
+
+    return Observable.zip(...loopObservables);
   }
 
 }

@@ -31,6 +31,10 @@ const routes: Route[] = [
       {
         path: 'events/edit/:eventId',
         component: AdminEditEventComponent
+      },
+      {
+        path: 'events/edit',
+        component: AdminEditEventComponent
       }
     ]
   }

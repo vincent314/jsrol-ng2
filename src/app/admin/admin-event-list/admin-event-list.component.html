@@ -7,9 +7,14 @@
                     <span>{{event.name}}</span>
                 </span>
       <span class="mdl-list__item-secondary-content">
-                  <a class="mdl-list__item-secondary-action" [routerLink]="['edit',event.$key]"><i class="material-icons">mode edit</i></a>
+                  <a class="mdl-list__item-secondary-action" [routerLink]="['edit',event.$key]"><i
+                    class="material-icons">mode edit</i></a>
                   <a class="mdl-list__item-secondary-action" (click)="deleteEvent(event)"><i class="material-icons">delete</i></a>
                 </span>
     </li>
   </ul>
 </div>
+<button id="add-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect"
+        (click)="router.navigate(['admin','events','edit'])">
+  <i class="material-icons">add</i>
+</button>

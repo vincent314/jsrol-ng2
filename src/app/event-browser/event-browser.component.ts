@@ -80,30 +80,19 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
 
   private loadTracks(): Subscription {
     // TRACKS
-    return this.event$.flatMap((event: EventModel) => {
-      if (!event) {
-        return;
-      }
-
-      const loopObservables = this.mapLoops(event);
-
-      if (loopObservables.length > 0) {
-        return Observable.zip(...loopObservables);
-      } else {
-        return Observable.from([[]]);
-      }
-    }).subscribe({
-      next: (loops: TrackModel[]) => {
-        this.tracks$.next(loops);
-        // this.loops = loops;
-        if (loops.length > 0) {
-          this.currentTrack$.next(loops[0]);
+    return this.event$
+      .flatMap(this.jsRolService.getEventLoops.bind(this.jsRolService))
+      .subscribe({
+        next: (loops: TrackModel[]) => {
+          this.tracks$.next(loops);
+          if (loops.length > 0) {
+            this.currentTrack$.next(loops[0]);
+          }
+        },
+        error: (err) => {
+          console.log(err);
         }
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+      });
   }
 
   private loadCurrentTrack(): Subscription {
@@ -125,27 +114,6 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
           console.log(err);
         }
       });
-  }
-
-  private mapLoops(event: EventModel): Observable<TrackModel>[] {
-    const loops: Observable<TrackModel>[] = [];
-
-    if (!event) {
-      return loops;
-    }
-
-    var push = (loop: string) => loops.push(this.jsRolService.getTrack(loop));
-
-    if (event.loop1) {
-      push(event.loop1 as string);
-    }
-    if (event.loop2) {
-      push(event.loop2 as string);
-    }
-    if (event.loop3) {
-      push(event.loop3 as string);
-    }
-    return loops;
   }
 
   onEventClick() {

@@ -222,6 +222,10 @@ module.exports = function (options) {
           to: 'css'
         },
         {
+          from: 'node_modules/mdl-selectfield/dist/mdl-selectfield.css',
+          to: 'css'
+        },
+        {
           from: 'node_modules/mdi/fonts/*',
           to: 'fonts',
           flatten: true
