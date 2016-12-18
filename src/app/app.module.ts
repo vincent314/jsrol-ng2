@@ -12,6 +12,7 @@ import {FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders, 
 import {EventBrowserModule} from './event-browser/event-browser.module';
 import {AdminModule} from './admin/admin.module';
 import {LoginModule} from './login/login.module';
+import {MdlModule} from 'angular2-mdl';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -31,7 +32,15 @@ const APP_PROVIDERS = [
   firebaseAuthConfig({
     provider: AuthProviders.Password,
     method: AuthMethods.Password
-  })
+  }),
+  {
+    provide: 'TYPES', useValue: [
+    {key: 'RANDOXYGENE', value: 'Randoxygène'},
+    {key: 'LRFN', value: 'Friday Night'},
+    {key: 'ROL_CITY', value: 'ROL City'},
+    {key: 'ROL_PARADE', value: 'ROL Parade'}
+  ]
+  }
 ];
 
 /**
@@ -49,7 +58,8 @@ const APP_PROVIDERS = [
     RouterModule.forRoot(ROUTES, {useHash: false}),
     EventBrowserModule,
     AdminModule,
-    LoginModule
+    LoginModule,
+    MdlModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

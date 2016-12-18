@@ -1,8 +1,5 @@
 @import "./variables";
-@import "~mdi/scss/materialdesignicons";
-@import "~material-design-lite/src/color-definitions";
-@import "~material-design-lite/src/material-design-lite-grid.scss";
-@import "~material-design-lite/src/material-design-lite.scss";
+@import '~angular2-mdl/scss/material-design-lite';
 
 html, body{
   height: 100%;
@@ -12,3 +9,6 @@ html, body{
 span.active {
   background-color: gray;
 }
+
+@import '~@angular2-mdl-ext/popover/popover';
+@import '~@angular2-mdl-ext/select/select';

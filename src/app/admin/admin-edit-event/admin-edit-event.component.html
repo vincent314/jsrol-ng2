@@ -1,42 +1,43 @@
-<div>
-  <h4>Évènement</h4>
-  <form [formGroup]="addForm" (submit)="onSubmit()" action="#">
+<mdl-card mdl-shadow="2">
+  <mdl-card-title>
+    <h2 mdl-card-title-text>Évènement</h2>
+  </mdl-card-title>
+  <form  (submit)="onSubmit()" >
     <div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="name-input">Nom</label>
-        <input class="mdl-textfield__input" type="text" id="name-input" formControlName="name" required>
-      </div>
+      <mdl-textfield type="text" label="Nom"
+                     name="name"
+                     [(ngModel)]="editForm.name" floating-label required></mdl-textfield>
     </div>
-    <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-      <label for="type-input" class="mdl-selectfield__label">Type</label>
-      <select id="type-input" class="mdl-selectfield__select"
-              formControlName="type">
-        <option *ngFor="let type of types$ | async" [attr.value]="type.$key">{{type.$value}}</option>
-      </select>
+    <mdl-select type="text"
+                [(ngModel)]="editForm.type"
+                label="Type"
+                placeholder="type"
+                name="type"
+                floating-label required>
+      <mdl-option *ngFor="let option of TYPES" [value]="option.key">{{option.value}}</mdl-option>
+    </mdl-select>
+
+    <div>
+      <mdl-textfield type="text" label="Date"
+                     name="date"
+                     floating-label required
+                     [(ngModel)]="editForm.dateTime"
+      ></mdl-textfield>
     </div>
 
     <div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" id="date-input"
-               formControlName="dateTime">
-        <label class="mdl-textfield__label" for="date-input">Date</label>
-        <span class="mdl-textfield__error">Format de la date jj/mm/aaaa</span>
-      </div>
-    </div>
-
-    <div>
-      <ul class="mdl-list">
-        <li *ngFor="let loop of (loops$ | async); let i=index" class="mdl-list__item">
+      <mdl-list>
+        <mdl-list-item *ngFor="let loop of (loops$ | async); let i=index" >
           <span>Boucle {{i}}</span>
           <span class="mdl-list__item-primary-content">{{loop.name}}</span>
-        </li>
-      </ul>
+        </mdl-list-item>
+      </mdl-list>
     </div>
 
     <div>
-      <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
-        <i class="material-icons">save</i>
+      <button mdl-button mdl-button-type="fab" type="submit">
+        <mdl-icon>save</mdl-icon>
       </button>
     </div>
   </form>
-</div>
+</mdl-card>

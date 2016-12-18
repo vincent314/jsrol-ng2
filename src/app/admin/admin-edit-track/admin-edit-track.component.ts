@@ -1,31 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder} from '@angular/forms';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {JsrolService} from '../../services/jsrol.service';
 import {TrackModel} from '../../model/track.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
+import {MdlSelectComponent} from '@angular2-mdl-ext/select';
+import {MdlSnackbarService} from 'angular2-mdl';
+
 @Component({
   selector: 'add-track',
   templateUrl: './admin-edit-track.component.html'
 })
 export class AdminEditTrackComponent implements OnInit {
-  addForm: FormGroup;
+  track:TrackModel;
 
-  constructor(private fb: FormBuilder, private jsrolService: JsrolService,
-              private route: ActivatedRoute) {
+  @ViewChild('typeSelect') typeSelect: MdlSelectComponent;
+
+  constructor(@Inject('TYPES') private TYPES:any[], private jsrolService: JsrolService,
+              private route: ActivatedRoute, private mdlSnackbarService: MdlSnackbarService) {
   }
 
   ngOnInit(): void {
-    this.addForm = this.fb.group(
-      {
-        name: '',
-        type: '',
-        distance: 0,
-        kmlContent: ''
-      }
-    );
+    this.track = {
+      name: '',
+      type: '',
+      kmlContent: '',
+      distance: 0
+    };
+
 
     this.route.params
-      .flatMap(params => {
+      .filter((params:Params) => params['trackId'])
+      .flatMap((params:Params) => {
         return this.jsrolService.getTrack(params['trackId']);
       })
       // .flatMap((track: TrackModel)=> {
@@ -35,14 +39,18 @@ export class AdminEditTrackComponent implements OnInit {
       //     });
       // })
       .subscribe((track: TrackModel)=> {
-        console.log('EDIT TRACK',track);
-        this.addForm = this.fb.group(track);
-        // componentHandler.upgradeAllRegistered();
+        this.track = track;
       });
   }
 
   onSubmit(): void {
-    console.log(this.addForm);
-    this.jsrolService.saveTrack(this.addForm.value as TrackModel);
+    this.jsrolService.saveTrack(this.track);
+    this.mdlSnackbarService.showSnackbar({
+      message: 'Parcours enregistré'
+    });
+  }
+
+  onTypeChanged(){
+    console.log(this.track);
   }
 }

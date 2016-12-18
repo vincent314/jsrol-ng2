@@ -25,7 +25,7 @@ export class AdminEventListComponent{
   }
 
   onEventClick(event:EventModel){
-    console.log(event);
+    this.router.navigate(['admin','events','edit', event.$key])
   }
 
   deleteEvent(event:EventModel){

@@ -20,11 +20,7 @@ export class AdminTrackListComponent {
     }
 
     onTrackClick(track: TrackModel) {
-        this.router.navigate(['/map', track.kml]);
-    }
-
-    onTrackEdit(track: TrackModel){
-      this.jsrolService.updateTrack(track);
+      this.router.navigate(['admin', 'tracks', 'edit', track.$key]);
     }
 
     onTrackDelete(track: TrackModel){

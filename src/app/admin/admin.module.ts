@@ -7,17 +7,18 @@ import {AuthService} from '../services/auth.service';
 import {JsrolService} from '../services/jsrol.service';
 import {AuthGuard} from '../services/auth-guard.service';
 import {SharedModule} from '../shared/shared.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AdminService} from './admin.service';
 import {AdminEditTrackComponent} from './admin-edit-track/admin-edit-track.component';
 import {AdminEventListComponent} from './admin-event-list/admin-event-list.component';
 import {AdminEditEventComponent} from './admin-edit-event/admin-edit-event.component';
+import {MdlModule} from 'angular2-mdl';
+import {MdlSelectModule} from '@angular2-mdl-ext/select';
 
-require('mdl-selectfield/dist/mdl-selectfield');
 
 @NgModule({
-    imports: [BrowserModule, ReactiveFormsModule, routing, SharedModule, HttpModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, SharedModule, HttpModule, MdlModule, MdlSelectModule],
     declarations: [
       AdminTrackListComponent,
       AdminComponent,
