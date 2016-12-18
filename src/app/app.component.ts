@@ -11,7 +11,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styles: [
-    require('./app.style.scss')
+    require('./app.component.scss')
   ],
   template: ` 
     <main>
