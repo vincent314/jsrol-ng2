@@ -9,8 +9,7 @@ import LatLngBounds = L.LatLngBounds;
 
 @Component({
   selector: 'map',
-  providers: [JsrolService],
-  styleUrls: ['map.scss'],
+  styles: [require('./map.scss')],
   template: `<div>
         <div id="mapid"></div>
     </div>`,
@@ -30,15 +29,12 @@ export class MapComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.mapLayers = [];
 
-
     this.map = L.map('mapid');
     Observable.fromEvent(this.map, 'load')
-      .first()
-      .concat(this.track$)
-      .map((track: TrackModel) => {
+      .combineLatest(this.track$, (load,track:TrackModel)=>{
         return track.kml;
       })
-      .flatMap((kmlId: string) => this.loadKml(kmlId))
+      .flatMap(this.loadKml.bind(this))
       .subscribe();
 
     this.map.setView([50.63, 3.06], 13);

@@ -73,10 +73,6 @@ export class JsrolService {
     this.tracks$.update(track.$key, track);
   }
 
-  getTypes(): Observable<TypeModel[]> {
-    return this.types$;
-  }
-
   getEventLoops(event: EventModel): Observable<TrackModel[]> {
     if (!event) {
       return Observable.from([]);

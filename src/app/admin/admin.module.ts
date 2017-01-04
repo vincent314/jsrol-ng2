@@ -6,7 +6,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AuthService} from '../services/auth.service';
 import {JsrolService} from '../services/jsrol.service';
 import {AuthGuard} from '../services/auth-guard.service';
-import {SharedModule} from '../shared/shared.module';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AdminService} from './admin.service';
@@ -18,7 +17,7 @@ import {MdlSelectModule} from '@angular2-mdl-ext/select';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, SharedModule, HttpModule, MdlModule, MdlSelectModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, MdlModule, MdlSelectModule],
     declarations: [
       AdminTrackListComponent,
       AdminComponent,

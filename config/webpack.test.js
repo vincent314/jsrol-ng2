@@ -130,6 +130,15 @@ module.exports = function (options) {
           exclude: [helpers.root('src/index.html')]
         },
 
+
+        /**
+         * SASS loader support *.scss files
+         */
+        {
+          test: /\.scss$/,
+          loaders: ['raw-loader','sass-loader']
+        },
+
         /**
          * Raw loader support for *.html
          * Returns file content as string

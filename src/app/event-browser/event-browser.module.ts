@@ -6,10 +6,9 @@ import {EventDetailsComponent} from './event-details.component';
 import {EventBrowserComponent} from './event-browser.component';
 import {routing} from './event-browser.routing';
 import {BrowserModule} from '@angular/platform-browser';
-import {SharedModule} from '../shared/shared.module';
 import {LoopLinkComponent} from './loop-link.component';
 @NgModule({
-        imports: [BrowserModule, routing, SharedModule],
+        imports: [BrowserModule, routing],
         declarations: [
             EventListComponent,
             MapComponent,
