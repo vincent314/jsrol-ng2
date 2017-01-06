@@ -69,7 +69,6 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
           if (!event) {
             return;
           }
-          console.log({event});
           this.event$.next(event);
         },
         error: (err) => {
@@ -85,9 +84,7 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (loops: TrackModel[]) => {
           this.tracks$.next(loops);
-          if (loops.length > 0) {
-            this.currentTrack$.next(loops[0]);
-          }
+          this.currentTrack$.next(loops[0]);
         },
         error: (err) => {
           console.log(err);
@@ -107,7 +104,6 @@ export class EventBrowserComponent implements OnInit, OnDestroy {
       })
       .subscribe({
         next: (track: TrackModel) => {
-          console.log({track});
           this.currentTrack$.next(track);
         },
         error: (err) => {

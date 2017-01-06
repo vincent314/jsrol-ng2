@@ -75,7 +75,7 @@ export class JsrolService {
 
   getEventLoops(event: EventModel): Observable<TrackModel[]> {
     if (!event) {
-      return Observable.from([]);
+      return Observable.of([]);
     }
 
     const loopObservables: Observable<TrackModel>[] = _([event.loop1, event.loop2, event.loop3])
@@ -83,10 +83,8 @@ export class JsrolService {
       .map((loop: string) => this.getTrack(loop))
       .value();
 
-    console.log({loopObservables});
-
     if (loopObservables.length === 0) {
-      return Observable.from([]);
+      return Observable.of([]);
     }
 
     return Observable.zip(...loopObservables);
