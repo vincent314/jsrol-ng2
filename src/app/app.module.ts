@@ -13,6 +13,7 @@ import {EventBrowserModule} from './event-browser/event-browser.module';
 import {AdminModule} from './admin/admin.module';
 import {LoginModule} from './login/login.module';
 import {MdlModule} from 'angular2-mdl';
+import {TranslateModule} from 'ng2-translate';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -59,7 +60,8 @@ const APP_PROVIDERS = [
     EventBrowserModule,
     AdminModule,
     LoginModule,
-    MdlModule
+    MdlModule,
+    TranslateModule.forRoot()
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

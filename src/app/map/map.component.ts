@@ -17,7 +17,7 @@ import LatLngBounds = L.LatLngBounds;
 })
 export class MapComponent implements OnChanges, OnInit {
   map: L.Map;
-  COLORS: string[] = ['#AA0000', '#00AA00', '#0000AA'];
+  COLORS: string[] = ['#0000AA'];
   track: TrackModel;
   mapLayers: Layer[];
 

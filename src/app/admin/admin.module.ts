@@ -14,16 +14,19 @@ import {AdminEventListComponent} from './admin-event-list/admin-event-list.compo
 import {AdminEditEventComponent} from './admin-edit-event/admin-edit-event.component';
 import {MdlModule} from 'angular2-mdl';
 import {MdlSelectModule} from '@angular2-mdl-ext/select';
+import {SharedModule} from '../shared/shared.module';
+import {FilterComponent} from './admin-filter/filter.component';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, MdlModule, MdlSelectModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, MdlModule, MdlSelectModule, SharedModule],
     declarations: [
       AdminTrackListComponent,
       AdminComponent,
       AdminEditTrackComponent,
       AdminEventListComponent,
-      AdminEditEventComponent
+      AdminEditEventComponent,
+      FilterComponent
     ],
     providers: [AuthService, JsrolService, AuthGuard, AdminService],
     bootstrap: [AdminComponent]

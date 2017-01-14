@@ -12,7 +12,7 @@ import moment = require('moment');
 export class JsrolService {
 
   tracks$: FirebaseListObservable<TrackModel[]>;
-  kml$: FirebaseListObservable<KmlModel[]>;
+  kmls$: FirebaseListObservable<KmlModel[]>;
   types$: FirebaseListObservable<TypeModel[]>;
 
   constructor(private af: AngularFire) {
@@ -22,7 +22,7 @@ export class JsrolService {
       }
     });
 
-    this.kml$ = this.af.database.list('/kml');
+    this.kmls$ = this.af.database.list('/kmls');
 
     this.types$ = this.af.database.list('/types');
   }
@@ -61,16 +61,43 @@ export class JsrolService {
     return this.af.database.object(`/kmls/${id}`);
   }
 
-  saveTrack(track: TrackModel): void {
-    this.tracks$.push(track)
+  saveTrack(track: TrackModel, kml: string): TrackModel {
+    // Should save a new KML or keep existing ?
+    let kmlObject = {};
+    if(kml){
+      console.debug('Saving a new KML', kml);
+      kmlObject = {kml:this.saveKml(kml).key};
+    }
+
+    const newTrack: TrackModel = Object.assign(
+      {},
+      track,
+      kmlObject);
+
+    if(newTrack.$key){
+      console.debug('Update track');
+      this.tracks$.update(newTrack.$key, newTrack);
+    } else {
+      console.debug('Create a new track');
+      this.tracks$.push(newTrack);
+    }
+    return newTrack;
+
+  }
+
+  saveKml(kml: string): firebase.database.ThenableReference {
+    return this.kmls$.push(kml);
+  }
+
+  removeKml(kml: string){
+    this.kmls$.remove(kml);
   }
 
   deleteTrack(track: TrackModel): void {
+    if(track.kml) {
+      this.removeKml(track.kml);
+    }
     this.tracks$.remove(track.$key);
-  }
-
-  updateTrack(track: TrackModel): void {
-    this.tracks$.update(track.$key, track);
   }
 
   getEventLoops(event: EventModel): Observable<TrackModel[]> {

@@ -2,6 +2,7 @@
  * Angular 2 decorators and services
  */
 import {Component, ViewEncapsulation} from '@angular/core';
+import {TranslateService} from 'ng2-translate';
 
 /*
  * App Component
@@ -20,6 +21,10 @@ import {Component, ViewEncapsulation} from '@angular/core';
   `
 })
 export class App {
+  constructor(translate:TranslateService){
+    translate.setDefaultLang('fr');
+  }
+
 }
 
 /*

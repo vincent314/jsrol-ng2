@@ -1,0 +1,13 @@
+{
+  "ADMIN": "Administration",
+  "TYPES": {
+    "LRFN": "Friday Night",
+    "RANDOXYGENE": "Randoxygène",
+    "ROL_CITY": "ROL City",
+    "ROL_PARADE": "ROL Parade"
+  },
+  "TRACK": "Parcours",
+  "EVENT": "Évènement",
+  "BACK": "Retour",
+  "TYPE": "Type"
+}

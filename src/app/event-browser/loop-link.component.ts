@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
+import {Component} from '@angular/core';
 import {TrackModel} from '../model/track.model';
 import {EventModel} from '../model/event.model';
 @Component({
@@ -10,20 +10,10 @@ import {EventModel} from '../model/event.model';
       </a>`,
   inputs: ['loop', 'index', 'currentTrack', 'event']
 })
-export class LoopLinkComponent implements OnInit, OnChanges{
+export class LoopLinkComponent{
 
   loop:TrackModel;
   index:number;
   currentTrack: TrackModel;
   event:EventModel;
-
-  constructor(){
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log({currentEvent:changes['event'].currentValue});
-  }
 }

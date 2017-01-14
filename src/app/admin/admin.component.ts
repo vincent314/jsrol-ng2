@@ -9,7 +9,7 @@ interface RouteData{
 @Component({
   selector: 'admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['admin.component.scss'],
+  styleUrls: ['./admin.component.scss'],
   animations: [trigger('openClose', [
     state('collapsed, void',style({
       right: '-10px'

@@ -1,0 +1,12 @@
+<div class="filter">
+  <mdl-select type="text"
+              [(ngModel)]="type"
+              label="Type"
+              placeholder="type"
+              name="type"
+              (change)="onTypeFilterChange()"
+              floating-label required>
+    <mdl-option value="">Tous</mdl-option>
+    <mdl-option *ngFor="let option of TYPES" [value]="option.key">{{option.value}}</mdl-option>
+  </mdl-select>
+</div>

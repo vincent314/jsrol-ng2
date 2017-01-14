@@ -4,6 +4,5 @@ export interface TrackModel {
   name?: string;
   type?: string;
   kml?: string;
-  kmlContent?: string;
   distance?: number;
 }
