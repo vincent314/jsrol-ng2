@@ -2,13 +2,13 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {TypeModel} from '../../model/type.model';
 import {Observable, Subject} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
-import {Params, ActivatedRoute} from '@angular/router';
+import {Params, ActivatedRoute, Router} from '@angular/router';
 import {EventModel} from '../../model/event.model';
 import {TrackModel} from '../../model/track.model';
+import * as _ from 'lodash';
 import moment = require('moment');
 
-
-interface EditForm{
+interface EditForm {
   name: string,
   type: string,
   dateTime: number,
@@ -19,40 +19,69 @@ interface EditForm{
 
 @Component({
   selector: 'jsrol-edit-event',
-  templateUrl: './admin-edit-event.component.html',
-  styleUrls: ['admin-edit-event.component.scss']
+  template: require('./admin-edit-event.component.html'),
+  styles: [require('./admin-edit-event.component.scss')]
 })
-export class AdminEditEventComponent implements OnInit{
+export class AdminEditEventComponent implements OnInit {
   editForm: EditForm;
   types$: Observable<TypeModel[]>;
-  loops$: Observable<TrackModel[]>;
-  event$ = new Subject<EventModel>();
+  loops$:Subject<TrackModel[]> = new Subject<TrackModel[]>();
 
 
-  constructor(@Inject('TYPES') private TYPES:any[], private jsrolService: JsrolService, private route: ActivatedRoute) {
+  constructor(@Inject('TYPES') private TYPES: any[],
+              private jsrolService: JsrolService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.editForm = {
       name: '',
       type: '',
-      dateTime: 0,
-      loop1: '',
-      loop2: '',
-      loop3: ''
+      dateTime: 0
     };
 
-    // this.addForm.statusChanges.subscribe((value) => console.log({value}));
     this.route.params
       .filter((params: Params) => params['eventId'])
-      .flatMap((params: Params) => this.jsrolService.getEvent(params['eventId']))
+      .flatMap((params: Params) => {
+        return this.jsrolService.getEvent(params['eventId']);
+      })
       .subscribe((event: EventModel) => {
         Object.assign(this.editForm, event, {
           dateTime: moment(event.dateTime).format('DD/MM/YYYY')
         });
 
-        this.loops$ = this.jsrolService.getEventLoops(event);
+        this.loadLoops(event);
       });
   }
 
+  onSubmit() {
+    console.debug('Submit performed');
+  }
+
+  deleteLoop(index: number) {
+    const keys = ['loop1', 'loop2', 'loop3'];
+
+    this.editForm[keys[index]] = '';
+    const values = _(keys)
+      .map(loop => this.editForm[loop])
+      .compact()
+      .value();
+
+    _(keys).forEach((key, i) => this.editForm[key] = (i < values.length) ? values[i] : '');
+    this.loadLoops(this.editForm);
+
+  }
+
+  addLoop() {
+    console.debug('add loop performed');
+    this.router.navigate(['loop'], {relativeTo: this.route});
+  }
+
+  loadLoops(event:EventModel){
+    this.jsrolService.getEventLoops(event)
+      .subscribe((loops: TrackModel[]) => {
+        this.loops$.next(loops);
+      });
+  }
 }

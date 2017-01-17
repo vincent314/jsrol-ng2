@@ -1,8 +1,8 @@
 <mdl-card mdl-shadow="2">
   <mdl-card-title>
-    <h2 mdl-card-title-text>Évènement</h2>
+    <h2 mdl-card-title-text>{{'EVENT' | translate}}</h2>
   </mdl-card-title>
-  <form  (submit)="onSubmit()" >
+  <form (submit)="onSubmit()">
     <div>
       <mdl-textfield type="text" label="Nom"
                      name="name"
@@ -25,14 +25,19 @@
       ></mdl-textfield>
     </div>
 
-    <div>
-      <mdl-list>
-        <mdl-list-item *ngFor="let loop of (loops$ | async); let i=index" >
-          <span>Boucle {{i}}</span>
-          <span class="mdl-list__item-primary-content">{{loop.name}}</span>
-        </mdl-list-item>
-      </mdl-list>
-    </div>
+    <ul>
+      <li *ngFor="let loop of (loops$ | async); let i=index">
+        <mdl-chip
+          mdl-action-icon="cancel" (action-click)="deleteLoop(i)" mdl-label="{{loop.name}}">
+          <span mdl-chip-contact class="mdl-color--blue mdl-color-text--white">{{i+1}}</span>
+        </mdl-chip>
+      </li>
+      <li>
+        <mdl-button mdl-button-type="icon" mdl-ripple (click)="addLoop()">
+          <mdl-icon>add</mdl-icon>
+        </mdl-button>
+      </li>
+    </ul>
 
     <div>
       <button mdl-button mdl-button-type="fab" type="submit">
@@ -41,3 +46,5 @@
     </div>
   </form>
 </mdl-card>
+
+<router-outlet></router-outlet>

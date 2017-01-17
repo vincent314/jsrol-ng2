@@ -5,6 +5,7 @@ import {AdminTrackListComponent} from './admin-track-list/admin-track-list.compo
 import {AdminEditTrackComponent} from './admin-edit-track/admin-edit-track.component';
 import {AdminEventListComponent} from './admin-event-list/admin-event-list.component';
 import {AdminEditEventComponent} from './admin-edit-event/admin-edit-event.component';
+import {AdminLoopPopinComponent} from './admin-loop-popin/admin-loop-popin.component';
 
 const routes: Route[] = [
   {
@@ -30,11 +31,17 @@ const routes: Route[] = [
       },
       {
         path: 'events/edit/:eventId',
-        component: AdminEditEventComponent
+        component: AdminEditEventComponent,
+        children: [
+          {
+            path: 'loop',
+            component: AdminLoopPopinComponent
+          }
+        ]
       },
       {
         path: 'events/edit',
-        component: AdminEditEventComponent
+        component: AdminEditEventComponent,
       }
     ]
   }

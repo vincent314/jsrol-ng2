@@ -1,5 +1,13 @@
 {
-  "ADMIN": "Administration",
+  "ADMIN": {
+    "TITLE": "Administration",
+    "EVENT": {
+      "ADD_LOOP": {
+        "TITLE": "Ajouter un parcours",
+        "ACTION": "Ajouter"
+      }
+    }
+  },
   "TYPES": {
     "LRFN": "Friday Night",
     "RANDOXYGENE": "Randoxygène",

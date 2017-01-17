@@ -9,7 +9,15 @@ import {TranslateModule} from 'ng2-translate';
     TrackFilterPipe
   ],
   providers: [
-    JsrolService
+    JsrolService,
+    {
+      provide: 'TYPES', useValue: [
+      {key: 'RANDOXYGENE', value: 'Randoxygène'},
+      {key: 'LRFN', value: 'Friday Night'},
+      {key: 'ROL_CITY', value: 'ROL City'},
+      {key: 'ROL_PARADE', value: 'ROL Parade'}
+    ]
+    }
   ],
   exports: [
     MapComponent, TrackFilterPipe, TranslateModule
