@@ -25,7 +25,7 @@
       ></mdl-textfield>
     </div>
 
-    <ul>
+    <ul class="loop-list">
       <li *ngFor="let loop of (loops$ | async); let i=index">
         <mdl-chip
           mdl-action-icon="cancel" (action-click)="deleteLoop(i)" mdl-label="{{loop.name}}">

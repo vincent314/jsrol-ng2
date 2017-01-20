@@ -1,6 +1,4 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
-import {TrackModel} from '../../model/track.model';
-import {FilterModel} from '../../model/filter.model';
 
 @Pipe({name: 'trackFilter'})
 @Injectable()

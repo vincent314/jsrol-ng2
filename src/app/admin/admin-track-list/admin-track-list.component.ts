@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../../services/jsrol.service';
 import {Router} from '@angular/router';
-import {TrackModel} from '../../model/track.model';
-import {FilterModel} from '../../model/filter.model';
 
 
 @Component({

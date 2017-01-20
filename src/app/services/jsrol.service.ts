@@ -1,10 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2/angularfire2';
 import {Observable} from 'rxjs/Rx';
-import {TrackModel} from '../model/track.model';
-import {EventModel} from '../model/event.model';
-import {KmlModel} from '../model/kml.model';
-import {TypeModel} from '../model/type.model';
 import * as _ from 'lodash';
 import moment = require('moment');
 

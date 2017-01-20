@@ -134,3 +134,5 @@ interface Global extends GlobalEnvironment  {}
 
 // ----------- CUSTOM ------------
 declare const componentHandler: any;
+
+/// <reference path="./model-typings.d.ts"/>

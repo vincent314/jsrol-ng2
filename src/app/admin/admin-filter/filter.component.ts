@@ -1,5 +1,4 @@
 import {Component, Inject, EventEmitter} from '@angular/core';
-import {FilterModel} from '../../model/filter.model';
 
 @Component({
   selector: 'jsrol-filter',

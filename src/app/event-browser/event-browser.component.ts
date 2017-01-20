@@ -4,8 +4,6 @@ import {Params, ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {Observable, Subscription, BehaviorSubject} from 'rxjs';
 import 'material-design-lite/material.js';
-import {EventModel} from '../model/event.model';
-import {TrackModel} from '../model/track.model';
 import moment = require('moment');
 
 @Component({

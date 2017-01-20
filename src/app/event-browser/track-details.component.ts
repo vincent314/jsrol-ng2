@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {TrackModel} from '../model/track.model';
 @Component({
     selector: 'track-details',
     template: `

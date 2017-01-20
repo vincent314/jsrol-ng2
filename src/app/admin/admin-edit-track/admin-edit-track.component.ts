@@ -1,6 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {JsrolService} from '../../services/jsrol.service';
-import {TrackModel} from '../../model/track.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {MdlSnackbarService} from 'angular2-mdl';
 import {Subject} from 'rxjs';

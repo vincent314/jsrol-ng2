@@ -2,8 +2,6 @@ import {TestBed, fakeAsync, inject, tick} from '@angular/core/testing';
 import {JsrolService} from './jsrol.service';
 import {AngularFire} from 'angularfire2';
 import {Observable} from 'rxjs';
-import {EventModel} from '../model/event.model';
-import {TrackModel} from '../model/track.model';
 import moment = require('moment');
 
 describe('Test JSROL service', () => {

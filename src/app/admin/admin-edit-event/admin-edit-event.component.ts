@@ -1,10 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {TypeModel} from '../../model/type.model';
 import {Observable, Subject} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
 import {Params, ActivatedRoute, Router} from '@angular/router';
-import {EventModel} from '../../model/event.model';
-import {TrackModel} from '../../model/track.model';
 import * as _ from 'lodash';
 import moment = require('moment');
 
