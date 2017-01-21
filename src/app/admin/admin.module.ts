@@ -17,6 +17,7 @@ import {MdlSelectModule} from '@angular2-mdl-ext/select';
 import {SharedModule} from '../shared/shared.module';
 import {FilterComponent} from './admin-filter/filter.component';
 import {AdminLoopPopinComponent} from './admin-loop-popin/admin-loop-popin.component';
+import {TrackListSelectComponent} from './track-list-selector/track-list-selector.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {AdminLoopPopinComponent} from './admin-loop-popin/admin-loop-popin.compo
       AdminEventListComponent,
       AdminEditEventComponent,
       AdminLoopPopinComponent,
-      FilterComponent
+      FilterComponent,
+      TrackListSelectComponent
     ],
     providers: [AuthService, JsrolService, AuthGuard, AdminService],
     bootstrap: [AdminComponent]

@@ -1,0 +1,17 @@
+<jsrol-filter (filterChanged)="onFilterChanged($event)"></jsrol-filter>
+
+<div class="track-list-container">
+  <mdl-list>
+    <mdl-list-item lines="3" mdl-ripple *ngFor="let track of tracks$ | async | trackFilter:filter"
+                   (click)="onTrackClick(track)">
+      <mdl-list-item-primary-content>
+        <span>{{track.name}}</span>
+        <span class="mdl-list__item-text-body">
+                        <span><i class="mdi mdi-math-compass"></i> {{track.distance | number}} km</span>
+                        <span>{{'TYPES.' + track.type | translate}}</span>
+                    </span>
+      </mdl-list-item-primary-content>
+      <a (click)="onTrackDelete(track)"><mdl-icon>delete</mdl-icon></a>
+    </mdl-list-item>
+  </mdl-list>
+</div>

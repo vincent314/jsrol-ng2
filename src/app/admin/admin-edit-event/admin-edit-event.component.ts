@@ -3,6 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
 import {Params, ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
+import {routerTransition} from '../../router.animation';
 import moment = require('moment');
 
 interface EditForm {
@@ -17,7 +18,8 @@ interface EditForm {
 @Component({
   selector: 'jsrol-edit-event',
   template: require('./admin-edit-event.component.html'),
-  styles: [require('./admin-edit-event.component.scss')]
+  styles: [require('./admin-edit-event.component.scss')],
+  animations: [routerTransition()]
 })
 export class AdminEditEventComponent implements OnInit {
   editForm: EditForm;

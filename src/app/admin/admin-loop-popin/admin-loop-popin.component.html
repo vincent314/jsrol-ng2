@@ -1,5 +1,11 @@
-<div id="popup" class="overlay">
-  <div class="popup">
-    <h1>{{'ADMIN.EVENT.ADD_LOOP.TITLE' | translate}}</h1>
-  </div>
+<div class="popup__overlay">
+  <mdl-card mdl-shadow="4" class="popup__content">
+    <mdl-card-title><h2 mdl-card-title-text>{{'ADMIN.EVENT.ADD_LOOP.TITLE' | translate}}</h2></mdl-card-title>
+    <track-list-selector (trackClick)="onTrackClick($event)"></track-list-selector>
+    <mdl-card-menu>
+      <button mdl-button mdl-button-type="icon" [routerLink]="['../']" mdl-ripple>
+        <mdl-icon>close</mdl-icon>
+      </button>
+    </mdl-card-menu>
+  </mdl-card>
 </div>
