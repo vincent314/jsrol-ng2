@@ -16,12 +16,13 @@ import {MdlModule} from 'angular2-mdl';
 import {MdlSelectModule} from '@angular2-mdl-ext/select';
 import {SharedModule} from '../shared/shared.module';
 import {FilterComponent} from './admin-filter/filter.component';
-import {AdminLoopPopinComponent} from './admin-loop-popin/admin-loop-popin.component';
+import {AdminLoopPopinComponent} from './admin-loop-dialog/admin-loop-dialog.component';
 import {TrackListSelectComponent} from './track-list-selector/track-list-selector.component';
+import {Ng2PaginationModule} from 'ng2-pagination';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, MdlModule, MdlSelectModule, SharedModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, MdlModule, MdlSelectModule, SharedModule, Ng2PaginationModule],
     declarations: [
       AdminTrackListComponent,
       AdminComponent,

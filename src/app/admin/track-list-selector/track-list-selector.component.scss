@@ -1,0 +1,5 @@
+@import "../../variables.scss";
+
+.pagination__controls /deep/ .ng2-pagination .current {
+  background: unquote("rgb(#{$color-primary})") !important;
+}

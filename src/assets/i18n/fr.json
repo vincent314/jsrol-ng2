@@ -4,7 +4,8 @@
     "EVENT": {
       "ADD_LOOP": {
         "TITLE": "Ajouter un parcours",
-        "ACTION": "Ajouter"
+        "ACTION": "Ajouter",
+        "DATE": "Date"
       }
     }
   },
@@ -17,5 +18,10 @@
   "TRACK": "Parcours",
   "EVENT": "Évènement",
   "BACK": "Retour",
-  "TYPE": "Type"
+  "TYPE": "Type",
+  "LOOPS": "Boucles",
+  "PAGINATION": {
+    "PREVIOUS": "Précédent",
+    "NEXT": "Suivant"
+  }
 }

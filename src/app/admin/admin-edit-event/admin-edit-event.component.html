@@ -18,22 +18,25 @@
     </mdl-select>
 
     <div>
-      <mdl-textfield type="text" label="Date"
+      <h6>{{'ADMIN.EVENT.ADD_LOOP.DATE' | translate}}</h6>
+      <mdl-textfield type="date"
                      name="date"
-                     floating-label required
+                     required
                      [(ngModel)]="editForm.dateTime"
       ></mdl-textfield>
     </div>
 
-    <ul class="loop-list">
-      <li *ngFor="let loop of (loops$ | async); let i=index">
+    <h6>{{'LOOPS' | translate}}</h6>
+    <ul class="loop__list">
+      <li *ngFor="let loop of loops; let i=index">
         <mdl-chip
           mdl-action-icon="cancel" (action-click)="deleteLoop(i)" mdl-label="{{loop.name}}">
           <span mdl-chip-contact class="mdl-color--blue mdl-color-text--white">{{i+1}}</span>
         </mdl-chip>
       </li>
       <li>
-        <mdl-button mdl-button-type="icon" mdl-ripple (click)="addLoop()">
+        <mdl-button mdl-button-type="icon" mdl-ripple (click)="onAdd()"
+                    *ngIf="loops.length < 3">
           <mdl-icon>add</mdl-icon>
         </mdl-button>
       </li>
@@ -47,4 +50,4 @@
   </form>
 </mdl-card>
 
-<router-outlet [@routerTransition]=""></router-outlet>
+<admin-loop-dialog (trackClick)="onTrackClick($event)" #adminLoopDialog></admin-loop-dialog>

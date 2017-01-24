@@ -5,12 +5,16 @@ import {JsrolService} from '../../services/jsrol.service';
 @Component({
   selector: 'track-list-selector',
   template: require('./track-list-selector.component.html'),
-  outputs: ['trackClick']
+  styles: [require('./track-list-selector.component.scss')],
+  outputs: ['trackClick'],
+  inputs: ['itemsPerPage','actionDelete']
 })
 export class TrackListSelectComponent {
   tracks$: Observable<TrackModel[]>;
   filter: FilterModel;
   trackClick = new EventEmitter<TrackModel>();
+  itemsPerPage:number;
+  actionDelete:boolean = true;
 
   constructor(private jsrolService: JsrolService, ){
 

@@ -1,4 +1,4 @@
-<track-list-selector (trackClick)="onTrackClick($event)"></track-list-selector>
+<track-list-selector (trackClick)="onTrackClick($event)" itemsPerPage="10" [actionDelete]="true"></track-list-selector>
 <button id="add-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect"
         (click)="router.navigate(['admin','addTrack'])">
   <mdl-icon>add</mdl-icon>

@@ -1,15 +1,13 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Component, OnInit, Inject, ViewChild} from '@angular/core';
 import {JsrolService} from '../../services/jsrol.service';
-import {Params, ActivatedRoute, Router} from '@angular/router';
-import * as _ from 'lodash';
-import {routerTransition} from '../../router.animation';
+import {Params, ActivatedRoute} from '@angular/router';
+import {AdminLoopPopinComponent} from '../admin-loop-dialog/admin-loop-dialog.component';
 import moment = require('moment');
 
 interface EditForm {
-  name: string,
-  type: string,
-  dateTime: number,
+  name?: string,
+  type?: string,
+  dateTime?: Date,
   loop1?: string,
   loop2?: string,
   loop3?: string
@@ -18,26 +16,24 @@ interface EditForm {
 @Component({
   selector: 'jsrol-edit-event',
   template: require('./admin-edit-event.component.html'),
-  styles: [require('./admin-edit-event.component.scss')],
-  animations: [routerTransition()]
+  styles: [require('./admin-edit-event.component.scss')]
 })
 export class AdminEditEventComponent implements OnInit {
   editForm: EditForm;
-  types$: Observable<TypeModel[]>;
-  loops$:Subject<TrackModel[]> = new Subject<TrackModel[]>();
-
+  loops: TrackModel[]=[];
+  @ViewChild('adminLoopDialog')
+  adminLoopDialog:AdminLoopPopinComponent;
+  currentLoopIdx:number;
 
   constructor(@Inject('TYPES') private TYPES: any[],
               private jsrolService: JsrolService,
-              private route: ActivatedRoute,
-              private router: Router) {
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.editForm = {
       name: '',
       type: '',
-      dateTime: 0
     };
 
     this.route.params
@@ -46,41 +42,38 @@ export class AdminEditEventComponent implements OnInit {
         return this.jsrolService.getEvent(params['eventId']);
       })
       .subscribe((event: EventModel) => {
-        Object.assign(this.editForm, event, {
-          dateTime: moment(event.dateTime).format('DD/MM/YYYY')
-        });
-
+        Object.assign(this.editForm, event, {dateTime: moment(event.dateTime).format('YYYY-MM-DD')});
         this.loadLoops(event);
       });
   }
 
   onSubmit() {
-    console.debug('Submit performed');
+    const event:EventModel = Object.assign({}, this.editForm, {
+      dateTime: moment(this.editForm).valueOf()
+    });
+    this.jsrolService.saveEvent(event);
   }
 
   deleteLoop(index: number) {
-    const keys = ['loop1', 'loop2', 'loop3'];
-
-    this.editForm[keys[index]] = '';
-    const values = _(keys)
-      .map(loop => this.editForm[loop])
-      .compact()
-      .value();
-
-    _(keys).forEach((key, i) => this.editForm[key] = (i < values.length) ? values[i] : '');
-    this.loadLoops(this.editForm);
-
-  }
-
-  addLoop() {
-    console.debug('add loop performed');
-    this.router.navigate(['loop'], {relativeTo: this.route});
+    this.loops.splice(index,1);
   }
 
   loadLoops(event:EventModel){
     this.jsrolService.getEventLoops(event)
       .subscribe((loops: TrackModel[]) => {
-        this.loops$.next(loops);
+        this.loops = loops;
       });
+  }
+
+  onAdd(){
+    this.currentLoopIdx = this.loops.length;
+    this.adminLoopDialog.show();
+  }
+
+  onTrackClick(track:TrackModel){
+    if(this.currentLoopIdx < 3){
+      this.editForm['loop' + (this.currentLoopIdx + 1)] = track.$key;
+      this.loops[this.currentLoopIdx] = track;
+    }
   }
 }

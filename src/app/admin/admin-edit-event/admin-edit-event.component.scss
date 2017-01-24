@@ -1,9 +1,9 @@
 @import "../../mixins";
 
-input:required:invalid{
+input:required:invalid {
   background-color: #0074D9;
 }
 
-.loop-list{
+.loop__list {
   @include no-bullet-list();
 }

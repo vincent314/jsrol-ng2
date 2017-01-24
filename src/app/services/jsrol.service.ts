@@ -10,6 +10,7 @@ export class JsrolService {
   tracks$: FirebaseListObservable<TrackModel[]>;
   kmls$: FirebaseListObservable<KmlModel[]>;
   types$: FirebaseListObservable<TypeModel[]>;
+  events$: FirebaseListObservable<EventModel[]>;
 
   constructor(private af: AngularFire) {
     this.tracks$ = this.af.database.list('/tracks', {
@@ -21,6 +22,8 @@ export class JsrolService {
     this.kmls$ = this.af.database.list('/kmls');
 
     this.types$ = this.af.database.list('/types');
+
+    this.events$ = this.af.database.list('/events');
   }
 
   getTracks(): Observable<TrackModel[]> {
@@ -111,6 +114,19 @@ export class JsrolService {
     }
 
     return Observable.zip(...loopObservables);
+  }
+
+  saveEvent(event:EventModel): EventModel {
+    if(!event){
+      return null;
+    }
+
+    if(event.$key) {
+      this.events$.update(event.$key, _.omit(event,['$key','$exist']));
+    } else {
+      this.events$.push(event);
+    }
+    return event;
   }
 
 }

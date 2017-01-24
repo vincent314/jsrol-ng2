@@ -1,8 +1,13 @@
 <jsrol-filter (filterChanged)="onFilterChanged($event)"></jsrol-filter>
 
 <div class="track-list-container">
+  {{actionDelete}}
+  <pagination-controls class="pagination__controls" (pageChange)="p = $event"
+                       previousLabel="{{'PAGINATION.PREVIOUS' | translate}}"
+                       nextLabel="{{'PAGINATION.NEXT' | translate}}"></pagination-controls>
   <mdl-list>
-    <mdl-list-item lines="3" mdl-ripple *ngFor="let track of tracks$ | async | trackFilter:filter"
+    <mdl-list-item lines="3" mdl-ripple
+                   *ngFor="let track of tracks$ | async | trackFilter:filter | paginate:{ itemsPerPage: itemsPerPage, currentPage: p}"
                    (click)="onTrackClick(track)">
       <mdl-list-item-primary-content>
         <span>{{track.name}}</span>
@@ -11,7 +16,9 @@
                         <span>{{'TYPES.' + track.type | translate}}</span>
                     </span>
       </mdl-list-item-primary-content>
-      <a (click)="onTrackDelete(track)"><mdl-icon>delete</mdl-icon></a>
+      <a *ngIf="actionDelete" (click)="onTrackDelete(track)">
+        <mdl-icon>delete</mdl-icon>
+      </a>
     </mdl-list-item>
   </mdl-list>
 </div>

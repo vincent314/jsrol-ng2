@@ -18,7 +18,7 @@ export class AdminEventListComponent{
   }
 
   getEvents(){
-    const fromDate: number = moment('2016-07-01').valueOf();
+    const fromDate: number = moment('2017-01-20').valueOf();
 
     this.events$ = this.jsrolService.getEvents(fromDate);
   }
