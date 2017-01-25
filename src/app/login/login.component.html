@@ -1,0 +1,16 @@
+<div id="login-container">
+  <mdl-card mdl-shadow="2">
+    <mdl-card-title>
+      <h2 mdl-card-title>Connexion</h2>
+    </mdl-card-title>
+    <mdl-card-supporting-text>
+      <form action="#">
+        <mdl-textfield type="text" label="email" name="email" [(ngModel)]="email" floating-label required></mdl-textfield>
+        <mdl-textfield type="password" label="password" name="password" [(ngModel)]="password" floating-label required></mdl-textfield>
+      </form>
+    </mdl-card-supporting-text>
+    <mdl-card-actions mdl-card-border>
+      <button (click)="doLogin()"  mdl-button mdl-colored mdl-ripple>Connexion</button>
+    </mdl-card-actions>
+  </mdl-card>
+</div>

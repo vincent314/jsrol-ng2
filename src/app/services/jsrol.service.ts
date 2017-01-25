@@ -122,7 +122,7 @@ export class JsrolService {
     }
 
     if(event.$key) {
-      this.events$.update(event.$key, _.omit(event,['$key','$exist']));
+      this.events$.update(event.$key, _.omit(event,['$key','$exists']));
     } else {
       this.events$.push(event);
     }
