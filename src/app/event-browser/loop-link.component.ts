@@ -10,10 +10,10 @@ import {EventModel} from '../model/event.model';
       </a>`,
   inputs: ['loop', 'index', 'currentTrack', 'event']
 })
-export class LoopLinkComponent{
+export class LoopLinkComponent {
 
-  loop:TrackModel;
-  index:number;
+  loop: TrackModel;
+  index: number;
   currentTrack: TrackModel;
-  event:EventModel;
+  event: EventModel;
 }

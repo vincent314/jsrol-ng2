@@ -1,9 +1,10 @@
-import {Component, ViewChild, ElementRef, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {JsrolService} from '../services/jsrol.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {BehaviorSubject} from 'rxjs';
 import 'material-design-lite/material.js';
+import {MdlLayoutComponent} from 'angular2-mdl';
 import moment = require('moment');
 
 interface EventBrowserParams{
@@ -19,7 +20,7 @@ interface EventBrowserParams{
   template: require('./event-browser.component.html')
 })
 export class EventBrowserComponent implements OnInit {
-  @ViewChild('mdlLayout') mdlLayout: ElementRef;
+  @ViewChild('mdlLayout') mdlLayout: MdlLayoutComponent;
   event$ = new BehaviorSubject<EventModel>({});
   tracks$ = new BehaviorSubject<TrackModel[]>([]);
   currentTrack$ = new BehaviorSubject<TrackModel>({});
@@ -86,7 +87,7 @@ export class EventBrowserComponent implements OnInit {
   }
 
   onEventClick() {
-    this.mdlLayout.nativeElement.MaterialLayout.toggleDrawer();
+    this.mdlLayout.toggleDrawer();
   }
 
   onTrackLoaded(track: TrackModel) {

@@ -1,30 +1,23 @@
-<div #mdlLayout class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <!-- spinner -->
-  <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate" [hidden]="event$ | async"></div>
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
+<mdl-layout #mdlLayout mdl-layout-fixed-header>
+  <mdl-layout-header>
+    <mdl-layout-header-row>
       <event-details [event]="event$ | async"></event-details>
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation -->
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" [routerLink]="['admin','tracks']"><i class="mdi mdi-settings"></i>Admin</a>
-      </nav>
-    </div>
-
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <loop-link  *ngFor="let loop of tracks$ | async; let i = index"
+      <mdl-layout-spacer></mdl-layout-spacer>
+    </mdl-layout-header-row>
+    <div class="jsrol-header__row mdl-layout__header-row">
+      <loop-link *ngFor="let loop of tracks$ | async; let i = index"
                  [loop]="loop"
                  [index]="i"
                  [currentTrack]="currentTrack$ | async"
                  [event]="event$ | async"
       ></loop-link>
     </div>
-
-  </header>
-  <div class="mdl-layout__drawer" #drawer>
+  </mdl-layout-header>
+  <mdl-layout-drawer #drawer>
     <event-list (click)="onEventClick()"></event-list>
-  </div>
-  <main class="mdl-layout__content">
+  </mdl-layout-drawer>
+  <mdl-layout-content>
     <map [track]="currentTrack$ | async"></map>
-  </main>
-</div>
+  </mdl-layout-content>
+</mdl-layout>
+
