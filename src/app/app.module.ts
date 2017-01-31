@@ -1,4 +1,4 @@
-import {NgModule, ApplicationRef} from '@angular/core';
+import {NgModule, ApplicationRef, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
@@ -33,7 +33,8 @@ const APP_PROVIDERS = [
   firebaseAuthConfig({
     provider: AuthProviders.Password,
     method: AuthMethods.Password
-  })
+  }),
+  { provide: LOCALE_ID, useValue: "fr-FR" }
 ];
 
 /**

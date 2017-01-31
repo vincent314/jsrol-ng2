@@ -4,8 +4,8 @@ import {Component, Input} from '@angular/core';
         selector: 'event-details',
         template: `
         <div *ngIf="event">
-          <span class="mdl-layout-title">{{event.name}}</span>
-          <span><i class="mdi mdi-calendar"></i>{{event.dateTime | date:'dd/MM/yyyy'}}</span>
+          <span class="mdl-layout-title">{{event.dateTime | date:'EEEE d MMMM y'}}</span>
+          <span>{{event.name}}</span>
         </div>
 `
     }

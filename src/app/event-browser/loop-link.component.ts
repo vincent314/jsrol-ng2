@@ -6,7 +6,7 @@ import {EventModel} from '../model/event.model';
   template: `<a class="mdl-layout__tab"
          [class.is-active]="loop.$key === currentTrack?.$key"
          [routerLink]="['']" [queryParams]="{eventId:event?.$key,trackId:loop.$key}">
-        Boucle {{index + 1}} (<i class="mdi mdi-math-compass"></i> {{loop.distance | number}} km)
+        Boucle {{index + 1}} (<i class="mdi mdi-math-compass"></i>{{loop.distance | number}} km)
       </a>`,
   inputs: ['loop', 'index', 'currentTrack', 'event']
 })

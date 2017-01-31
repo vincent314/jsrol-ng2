@@ -18,7 +18,6 @@
     </mdl-select>
 
     <div>
-      <h6>{{'ADMIN.EVENT.ADD_LOOP.DATE' | translate}}</h6>
       <mdl-textfield type="date"
                      name="date"
                      required
@@ -26,19 +25,18 @@
       ></mdl-textfield>
     </div>
 
-    <h6>{{'LOOPS' | translate}}</h6>
+    <div>{{'LOOPS' | translate}}
+      <mdl-button mdl-button-type="icon" mdl-ripple (click)="onAdd()"
+                  *ngIf="loops.length < 3">
+        <mdl-icon>add</mdl-icon>
+      </mdl-button>
+    </div>
     <ul class="loop__list">
       <li *ngFor="let loop of loops; let i=index">
         <mdl-chip
           mdl-action-icon="cancel" (action-click)="deleteLoop(i)" mdl-label="{{loop.name}}">
           <span mdl-chip-contact class="mdl-color--blue mdl-color-text--white">{{i+1}}</span>
         </mdl-chip>
-      </li>
-      <li>
-        <mdl-button mdl-button-type="icon" mdl-ripple (click)="onAdd()"
-                    *ngIf="loops.length < 3">
-          <mdl-icon>add</mdl-icon>
-        </mdl-button>
       </li>
     </ul>
 

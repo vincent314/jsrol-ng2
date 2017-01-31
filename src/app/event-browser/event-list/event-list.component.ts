@@ -12,9 +12,9 @@ import moment = require('moment');
       <div class="mdl-navigation__link" *ngFor="let event of events$ | async " title="{{types[event.type]?.label}}">
         <div (click)="onEventClick(event)">
             <div class="mdl-card__title">
-                {{event.name}}
+                {{event.dateTime | date:'EEEE d MMMM y'}}
             </div>
-            <div><i class="mdi mdi-calendar"></i> {{event.dateTime | date:'dd/MM/yyyy'}}</div>
+            <div>{{event.name}}</div>
         </div>
       </div>
     </nav>
