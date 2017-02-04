@@ -1,6 +1,11 @@
 <mdl-card mdl-shadow="2">
   <mdl-card-title>
-    <h2 mdl-card-title-text>{{'EVENT' | translate}}</h2>
+    <h2 mdl-card-title-text>
+      <button mdl-button (click)="onGoBack()">
+        <mdl-icon>navigate_before</mdl-icon>
+      </button>
+      {{'EVENT' | translate}}
+    </h2>
   </mdl-card-title>
   <form (submit)="onSubmit()">
     <div>

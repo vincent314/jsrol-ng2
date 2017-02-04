@@ -34,6 +34,7 @@ export class JsrolService {
     return this.af.database.object(`/events/${id}`);
   }
 
+
   getEvents(fromTimestamp: number, limit: number = 5): Observable<EventModel[]> {
     return this.af.database
       .list('/events', {
@@ -60,7 +61,7 @@ export class JsrolService {
     return this.af.database.object(`/kmls/${id}`);
   }
 
-  saveTrack(track: TrackModel, kml: string): TrackModel {
+  saveTrack(track: TrackModel, kml?: string): TrackModel {
     // Should save a new KML or keep existing ?
     let kmlObject = {};
     if(kml){
@@ -98,6 +99,11 @@ export class JsrolService {
     }
     this.tracks$.remove(track.$key);
   }
+
+  deleteEvent(key:string){
+    this.events$.remove(key);
+  }
+
 
   getEventLoops(event: EventModel): Observable<TrackModel[]> {
     if (!event) {

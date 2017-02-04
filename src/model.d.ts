@@ -24,6 +24,7 @@ interface TrackModel {
   type?: string;
   kml?: string;
   distance?: number;
+  openRunnerId?: string;
 }
 
 interface TypeModel {

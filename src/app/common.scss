@@ -3,8 +3,12 @@
   padding-left: 0;
 }
 
-jsrol-header {
+.jsrol-header {
   &__row {
-    height: auto !important;
+    align-items: flex-end;
+
+    .mdl-layout__tab {
+      margin-right: 20px;
+    }
   }
 }

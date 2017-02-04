@@ -2,16 +2,23 @@
   <mdl-layout-header>
     <mdl-layout-header-row>
       <mdl-layout-title>{{'ADMIN.TITLE' | translate:params }}</mdl-layout-title>
-
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" routerLink="/admin/tracks" routerLinkActive="is-active">{{'TRACK' | translate }}</a>
-        <a class="mdl-navigation__link" routerLink="/admin/events" routerLinkActive="is-active">{{'EVENT' | translate }}</a>
-      </nav>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" routerLink="/"><i class="mdi mdi-settings"></i>{{ 'BACK' | translate }}</a>
       </nav>
     </mdl-layout-header-row>
+    <div class="jsrol-header__row mdl-layout__header-row">
+      <div>
+        <a class="mdl-layout__tab"
+           routerLink="/admin/tracks"
+           routerLinkActive="is-active">{{'TRACK' | translate }} </a>
+      </div>
+      <div>
+        <a class="mdl-layout__tab"
+           routerLink="/admin/events"
+           routerLinkActive="is-active">{{'EVENT' | translate }}</a>
+      </div>
+    </div>
   </mdl-layout-header>
 
   <mdl-layout-content>

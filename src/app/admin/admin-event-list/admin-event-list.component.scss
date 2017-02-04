@@ -5,5 +5,9 @@
 }
 
 .event-list-container{
-  width:300px;
+  width:450px;
+
+  &__type{
+    font-weight: bolder;
+  }
 }

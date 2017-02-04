@@ -6,7 +6,13 @@
         "TITLE": "Ajouter un parcours",
         "ACTION": "Ajouter",
         "DATE": "Date"
-      }
+      },
+      "CONFIRM_DELETE": "Évènement supprimé"
+    },
+    "TRACK": {
+      "CONFIRM_SAVE": "Parcours enregistré",
+      "CONFIRM_DELETE": "Parcours supprimé",
+      "SAVE": "Parcours sauvergardé"
     }
   },
   "TYPES": {

@@ -5,10 +5,9 @@
                        previousLabel="{{'PAGINATION.PREVIOUS' | translate}}"
                        nextLabel="{{'PAGINATION.NEXT' | translate}}"></pagination-controls>
   <mdl-list class="track-list__list">
-    <mdl-list-item lines="2" mdl-ripple
-                   *ngFor="let track of tracks$ | async | trackFilter:filter | paginate:{ itemsPerPage: itemsPerPage, currentPage: p}"
-                   (click)="onTrackClick(track)">
-      <mdl-list-item-primary-content>
+    <mdl-list-item lines="2"
+                   *ngFor="let track of tracks$ | async | trackFilter:filter | paginate:{ itemsPerPage: itemsPerPage, currentPage: p}">
+      <mdl-list-item-primary-content (click)="onTrackClick(track)" mdl-ripple>
         <span>{{track.name}}</span>
         <mdl-list-item-sub-title>
             <span class="mdl-list__item-text-body">

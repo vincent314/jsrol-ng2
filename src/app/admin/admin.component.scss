@@ -1,4 +1,4 @@
-@import "~angular2-mdl/scss/mdl/typography/_typography.scss";
+@import "../common.scss";
 
 main {
   margin: 20px;
@@ -8,12 +8,6 @@ main {
   position: absolute;
   width: 80%;
   heigth: 80%;
-}
-
-.mdl-navigation__link {
-  &.is-active {
-    @extend .mdl-typography--font-bold;
-  }
 }
 
 mdl-layout-content{

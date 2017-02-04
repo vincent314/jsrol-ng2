@@ -1,6 +1,13 @@
 <div class="mdl-grid">
   <div class="mdl-cell--6-col mdl-cell--4-col-phone">
-    <h1>Parcours</h1>
+    <div>
+      <h2>
+        <button mdl-button (click)="onGoBack()">
+          <mdl-icon>navigate_before</mdl-icon>
+        </button>
+        Parcours
+      </h2>
+    </div>
     <form (submit)="onSubmit()">
       <div>
         <mdl-textfield type="text" label="Nom"
@@ -9,7 +16,7 @@
                        floating-label required></mdl-textfield>
       </div>
       <div>
-        <label >Categorie</label>
+        <label>Categorie</label>
         <div *ngFor="let option of TYPES">
           <mdl-radio
             name="typeGroup"
@@ -22,21 +29,28 @@
       </div>
 
       <div>
-        <mdl-textfield type="number"
+        <mdl-textfield type="text"
                        name="distance"
                        label="Distance (km)"
                        floating-label required
                        [(ngModel)]="track.distance"
         ></mdl-textfield>
       </div>
+
+      <div>
+        <mdl-textfield type="text" name="openRunnerId" label="Openrunner ID"
+                       floating-label [(ngModel)]="track.openRunnerId">
+        </mdl-textfield>
+      </div>
+
       <div>
         <mdl-textfield type="text" rows="5"
                        label="Contenu KML"
                        name="kmlContent"
-                       floating-label required
+                       floating-label
                        placeholder="Contenu KML"
                        [(ngModel)]="kmlContent"
-        >Contenu KML
+        >
         </mdl-textfield>
       </div>
       <button type="submit" mdl-button mdl-button-type="mini-fab" mdl-colored="primary">

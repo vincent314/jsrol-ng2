@@ -1,33 +1,58 @@
 import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Subject} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
 import {Router} from '@angular/router';
+import {MdlSnackbarService} from 'angular2-mdl';
+import {TranslateService} from 'ng2-translate';
 import moment = require('moment');
+
+interface FilterForm {
+  fromDate?: string;
+  toDate?: string;
+}
+
 @Component({
   selector: 'admin-event-list',
   styleUrls: ['admin-event-list.component.scss'],
   templateUrl: './admin-event-list.component.html'
 })
-export class AdminEventListComponent{
-  events$:Observable<EventModel[]>;
+export class AdminEventListComponent {
+  events$: Subject<EventModel[]> = new Subject<EventModel[]>();
+  filterForm: FilterForm;
 
-  constructor(private jsrolService:JsrolService, private router:Router){}
+  constructor(private jsrolService: JsrolService, private router: Router, private snackbarService: MdlSnackbarService,
+              private translate: TranslateService) {
+  }
 
   ngOnInit() {
-    this.getEvents();
+    const fromDate: Date = new Date();
+    this.getEvents(fromDate);
+    this.filterForm = {fromDate: moment(fromDate).format('YYYY-MM-DD')};
   }
 
-  getEvents(){
-    const fromDate: number = moment('2017-01-20').valueOf();
-
-    this.events$ = this.jsrolService.getEvents(fromDate);
+  getEvents(fromDate: Date) {
+    this.jsrolService.getEvents(fromDate.valueOf(), 100)
+      .subscribe((events: EventModel[]) => {
+        this.events$.next(events);
+      });
   }
 
-  onEventClick(event:EventModel){
-    this.router.navigate(['admin','events','edit', event.$key])
+  onEventClick(event: EventModel) {
+    this.router.navigate(['admin', 'events', 'edit', event.$key])
   }
 
-  deleteEvent(event:EventModel){
-    console.log(`DELETE EVENT ${event.$key}`);
+  deleteEvent(event: EventModel) {
+    this.jsrolService.deleteEvent(event.$key);
+
+    this.snackbarService.showSnackbar({
+      message: this.translate.instant('ADMIN.EVENT.CONFIRM_DELETE')
+    })
+  }
+
+  onFilterChanged() {
+    if (this.filterForm.fromDate) {
+      console.log(`From : ${this.filterForm.fromDate}`);
+      this.getEvents(moment(this.filterForm.fromDate).toDate());
+    }
   }
 }

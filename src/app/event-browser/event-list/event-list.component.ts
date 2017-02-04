@@ -7,18 +7,7 @@ import moment = require('moment');
 
 @Component({
   selector: 'event-list',
-  template: `
-    <nav class="mdl-navigation">
-      <div class="mdl-navigation__link" *ngFor="let event of events$ | async " title="{{types[event.type]?.label}}">
-        <div (click)="onEventClick(event)">
-            <div class="mdl-card__title">
-                {{event.dateTime | date:'EEEE d MMMM y'}}
-            </div>
-            <div>{{event.name}}</div>
-        </div>
-      </div>
-    </nav>
-`
+  template: require('./event-list.component.html')
 })
 export class EventListComponent {
   events$: Observable<EventModel[]>;

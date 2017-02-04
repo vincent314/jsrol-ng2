@@ -1,13 +1,14 @@
 import {Component, OnInit, Inject, ViewChild} from '@angular/core';
+import {Location} from '@angular/common';
 import {JsrolService} from '../../services/jsrol.service';
-import {Params, ActivatedRoute, Router} from '@angular/router';
+import {Params, ActivatedRoute} from '@angular/router';
 import {AdminLoopPopinComponent} from '../admin-loop-dialog/admin-loop-dialog.component';
 import moment = require('moment');
 
 interface EditForm {
   name?: string,
   type?: string,
-  dateTime?: Date,
+  dateTime?: string,
   loop1?: string,
   loop2?: string,
   loop3?: string
@@ -28,7 +29,7 @@ export class AdminEditEventComponent implements OnInit {
   constructor(@Inject('TYPES') private TYPES: any[],
               private jsrolService: JsrolService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -50,10 +51,10 @@ export class AdminEditEventComponent implements OnInit {
 
   onSubmit() {
     const event: EventModel = Object.assign({}, this.editForm, {
-      dateTime: moment(this.editForm).valueOf()
+      dateTime: moment(this.editForm.dateTime).valueOf()
     });
     this.jsrolService.saveEvent(event);
-    this.router.navigate(['../../'], {relativeTo: this.route});
+    this.location.back();
   }
 
   deleteLoop(index: number) {
@@ -87,4 +88,9 @@ export class AdminEditEventComponent implements OnInit {
       this.loops[this.currentLoopIdx] = track;
     }
   }
+
+  onGoBack() {
+    this.location.back();
+  }
+
 }
