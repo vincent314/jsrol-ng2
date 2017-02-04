@@ -1,3 +1,5 @@
+@import "./variables";
+
 @mixin no-bullet-list{
   list-style: none;
   padding-left: 0;
@@ -11,4 +13,8 @@
       margin-right: 20px;
     }
   }
+}
+
+.pagination__controls /deep/ .ng2-pagination .current {
+  background: unquote("rgb(#{$color-primary})") !important;
 }

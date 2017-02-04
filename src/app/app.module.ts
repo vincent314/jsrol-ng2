@@ -49,7 +49,7 @@ const APP_PROVIDERS = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, {useHash: false}),
+    RouterModule.forRoot(ROUTES, {useHash: true}),
     EventBrowserModule,
     AdminModule,
     LoginModule,

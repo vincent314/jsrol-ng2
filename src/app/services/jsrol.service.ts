@@ -76,7 +76,7 @@ export class JsrolService {
 
     if(newTrack.$key){
       console.debug('Update track');
-      this.tracks$.update(newTrack.$key, newTrack);
+      this.tracks$.update(newTrack.$key, _.omit(newTrack,['$key','$exists']));
     } else {
       console.debug('Create a new track');
       this.tracks$.push(newTrack);
