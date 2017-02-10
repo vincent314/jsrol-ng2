@@ -1,56 +1,56 @@
-<mdl-card mdl-shadow="2">
-  <mdl-card-title>
-    <h2 mdl-card-title-text>
-      <button mdl-button (click)="onGoBack()">
-        <mdl-icon>navigate_before</mdl-icon>
-      </button>
-      {{'EVENT' | translate}}
-    </h2>
-  </mdl-card-title>
-  <form (submit)="onSubmit()">
+<div class="mdl-grid">
+  <div class="mdl-cell--6-col mdl-cell--4-col-phone">
     <div>
-      <mdl-textfield type="text" label="Nom"
-                     name="name"
-                     [(ngModel)]="editForm.name" floating-label required></mdl-textfield>
+      <h5>
+        <button mdl-button (click)="onGoBack()">
+          <mdl-icon>navigate_before</mdl-icon>
+        </button>
+        {{'EVENT' | translate}}
+      </h5>
     </div>
-    <mdl-select type="text"
-                [(ngModel)]="editForm.type"
-                label="Type"
-                placeholder="type"
-                name="type"
-                floating-label required>
-      <mdl-option *ngFor="let option of TYPES" [value]="option.key">{{option.value}}</mdl-option>
-    </mdl-select>
+    <form (submit)="onSubmit()">
+      <div>
+        <mdl-textfield type="text" label="Nom"
+                       name="name"
+                       [(ngModel)]="editForm.name" floating-label required></mdl-textfield>
+      </div>
+      <mdl-select type="text"
+                  [(ngModel)]="editForm.type"
+                  label="Type"
+                  placeholder="type"
+                  name="type"
+                  floating-label required>
+        <mdl-option *ngFor="let option of TYPES" [value]="option.key">{{option.value}}</mdl-option>
+      </mdl-select>
 
-    <div>
-      <mdl-textfield type="date"
-                     name="date"
-                     required
-                     [(ngModel)]="editForm.dateTime"
-      ></mdl-textfield>
-    </div>
+      <div>
+        <mdl-textfield type="date"
+                       name="date"
+                       required
+                       [(ngModel)]="editForm.dateTime"
+        ></mdl-textfield>
+      </div>
 
-    <div>{{'LOOPS' | translate}}
-      <mdl-button mdl-button-type="icon" mdl-ripple (click)="onAdd()"
-                  *ngIf="loops.length < 3">
-        <mdl-icon>add</mdl-icon>
-      </mdl-button>
-    </div>
-    <ul class="loop__list">
-      <li *ngFor="let loop of loops; let i=index">
-        <mdl-chip
-          mdl-action-icon="cancel" (action-click)="deleteLoop(i)" mdl-label="{{loop.name}}">
-          <span mdl-chip-contact class="mdl-color--blue mdl-color-text--white">{{i+1}}</span>
-        </mdl-chip>
-      </li>
-    </ul>
+      <div>{{'LOOPS' | translate}}
+        <mdl-button mdl-button-type="icon" mdl-ripple (click)="onAdd()"
+                    *ngIf="loops.length < 3">
+          <mdl-icon>add</mdl-icon>
+        </mdl-button>
+      </div>
+      <ul class="loop__list">
+        <li *ngFor="let loop of loops; let i=index">
+          <mdl-chip
+            mdl-action-icon="cancel" (action-click)="deleteLoop(i)" mdl-label="{{loop.name}}">
+            <span mdl-chip-contact class="mdl-color--blue mdl-color-text--white">{{i+1}}</span>
+          </mdl-chip>
+        </li>
+      </ul>
 
-    <div>
-      <button mdl-button mdl-button-type="fab" type="submit">
+      <button type="submit" mdl-button mdl-button-type="mini-fab" mdl-colored="primary">
         <mdl-icon>save</mdl-icon>
       </button>
-    </div>
-  </form>
-</mdl-card>
+    </form>
+  </div>
+</div>
 
 <admin-loop-dialog (trackClick)="onTrackClick($event)" #adminLoopDialog></admin-loop-dialog>

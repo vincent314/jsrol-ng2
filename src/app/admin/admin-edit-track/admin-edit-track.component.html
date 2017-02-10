@@ -1,18 +1,18 @@
 <div class="mdl-grid">
   <div class="mdl-cell--6-col mdl-cell--4-col-phone">
     <div>
-      <h2>
+      <h5>
         <button mdl-button (click)="onGoBack()">
           <mdl-icon>navigate_before</mdl-icon>
         </button>
-        Parcours
-      </h2>
+        {{'TRACK' | translate}}
+      </h5>
     </div>
     <form (submit)="onSubmit()">
       <div>
         <mdl-textfield type="text" label="Nom"
                        name="name"
-                       [(ngModel)]="track.name"
+                       [(ngModel)]="editForm.name"
                        floating-label required></mdl-textfield>
       </div>
       <div>
@@ -20,7 +20,7 @@
         <div *ngFor="let option of TYPES">
           <mdl-radio
             name="typeGroup"
-            [(ngModel)]="track.type"
+            [(ngModel)]="editForm.type"
             [value]="option.key"
             mdl-ripple>
             {{option.value}}
@@ -33,32 +33,26 @@
                        name="distance"
                        label="Distance (km)"
                        floating-label required
-                       [(ngModel)]="track.distance"
+                       [(ngModel)]="editForm.distance"
         ></mdl-textfield>
       </div>
 
       <div>
         <mdl-textfield type="text" name="openRunnerId" label="Openrunner ID"
-                       floating-label [(ngModel)]="track.openRunnerId">
+                       floating-label [(ngModel)]="editForm.openRunnerId">
         </mdl-textfield>
       </div>
 
       <div>
-        <mdl-textfield type="text" rows="5"
-                       label="Contenu KML"
-                       name="kmlContent"
-                       floating-label
-                       placeholder="Contenu KML"
-                       [(ngModel)]="kmlContent"
-        >
-        </mdl-textfield>
+        <input type="file" name="kmlFile" (change)="onFileChange($event)"/>
       </div>
+
       <button type="submit" mdl-button mdl-button-type="mini-fab" mdl-colored="primary">
         <mdl-icon>save</mdl-icon>
       </button>
     </form>
   </div>
   <div class="mdl-cell--6-col mdl-cell--4-col-phone">
-    <map [track]="track$ | async"></map>
+    <map [kml]="kmlContent"></map>
   </div>
 </div>

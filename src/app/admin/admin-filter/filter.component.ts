@@ -12,7 +12,6 @@ export class FilterComponent{
   constructor(@Inject('TYPES') private TYPES: any[]){}
 
   onTypeFilterChange(){
-    console.log({type: this.type});
     this.filterChanged.emit({type: this.type});
   }
 }

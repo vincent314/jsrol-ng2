@@ -43,7 +43,7 @@ describe('Test event-list', () => {
 
     expect(element.querySelectorAll('.mdl-navigation__link').length).toBe(2);
 
-    expect(element.querySelector('.mdl-navigation__link div').innerText.trim()).toMatch(/EVENT-1(\s+)12\/09\/2016/);
+    expect(element.querySelector('.mdl-navigation__link div').innerText.trim().replace('\n',' ')).toMatch(/Monday 12 September 2016 EVENT-1/);
 
   });
 });

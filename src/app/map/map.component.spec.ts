@@ -1,16 +1,14 @@
 import {TestBed, ComponentFixture} from '@angular/core/testing';
 import {MapComponent} from './map.component';
-import {JsrolService} from '../services/jsrol.service';
 import {TrackModel} from '../model/track.model';
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Component, ViewChild} from '@angular/core';
 
 describe('Test Map component', () => {
 
   describe('Test with host component', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let comp: TestHostComponent;
-    let jsrolService = jasmine.createSpyObj('jsrolService', ['getKml']);
+    let mapComponent: MapComponent;
 
     const KML_CONTENT = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
@@ -26,42 +24,38 @@ describe('Test Map component', () => {
 </kml>`;
 
     @Component({
-      template: `<div><map [track]="track"></map></div>`
+      template: `<div><map #mapComponent [kml]="kml"></map></div>`
     })
     class TestHostComponent{
-      track:TrackModel;
+      @ViewChild('mapComponent')
+      mapComponent:MapComponent;
+      kml:string;
     }
 
     beforeEach(() => {
-      jsrolService.getKml.and.returnValue(Observable.of({$value:KML_CONTENT}));
-
       TestBed.configureTestingModule({
         declarations: [TestHostComponent, MapComponent],
         providers: [
-          MapComponent,
-          {
-            provide: JsrolService,
-            useValue: jsrolService
-          }
+          MapComponent
         ]
       });
       fixture = TestBed.createComponent(TestHostComponent);
       comp = fixture.componentInstance;
 
-      comp.track = {};
+      mapComponent = comp.mapComponent;
+
+      spyOn(mapComponent, 'clearMap');
+      spyOn(mapComponent, 'displayKml');
 
       fixture.detectChanges();
     });
 
     it('should load KML content', () => {
-      comp.track = {
-        $key: '123456',
-        kml:'KML ID'
-      };
+      comp.kml = KML_CONTENT;
 
       fixture.detectChanges();
 
-      expect(jsrolService.getKml).toHaveBeenCalled();
+      expect(mapComponent.displayKml).toHaveBeenCalledWith(KML_CONTENT);
     });
   });
 });

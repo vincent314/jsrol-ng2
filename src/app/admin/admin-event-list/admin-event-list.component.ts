@@ -51,7 +51,6 @@ export class AdminEventListComponent {
 
   onFilterChanged() {
     if (this.filterForm.fromDate) {
-      console.log(`From : ${this.filterForm.fromDate}`);
       this.getEvents(moment(this.filterForm.fromDate).toDate());
     }
   }

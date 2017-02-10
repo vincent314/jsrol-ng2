@@ -18,7 +18,7 @@ const routes: Route[] = [
         component: AdminTrackListComponent
       },
       {
-        path: 'addTrack',
+        path: 'tracks/add',
         component: AdminEditTrackComponent
       },
       {

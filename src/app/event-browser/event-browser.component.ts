@@ -2,7 +2,7 @@ import {Component, ViewChild, OnInit} from '@angular/core';
 import {JsrolService} from '../services/jsrol.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import 'material-design-lite/material.js';
 import {MdlLayoutComponent} from 'angular2-mdl';
 import moment = require('moment');
@@ -24,6 +24,7 @@ export class EventBrowserComponent implements OnInit {
   event$ = new BehaviorSubject<EventModel>({});
   tracks$ = new BehaviorSubject<TrackModel[]>([]);
   currentTrack$ = new BehaviorSubject<TrackModel>({});
+  kml$ = new Subject<string>();
 
   static fromDate: number = moment('2016-07-01').valueOf();
 
@@ -39,7 +40,7 @@ export class EventBrowserComponent implements OnInit {
         } else if(params.eventId && !params.trackId){
           this.loadTracksAndRedirect(params.eventId);
         } else {
-          this.loadEventAndTrack(params.eventId, params.trackId);
+          this.loadEventAndTrackAndKml(params.eventId, params.trackId);
         }
       });
   }
@@ -65,6 +66,8 @@ export class EventBrowserComponent implements OnInit {
           this.event$.next(event);
           this.tracks$.next([]);
           this.currentTrack$.next(null);
+          this.kml$.next(null);
+          return;
         }
 
         this.router.navigate([''], {
@@ -76,14 +79,19 @@ export class EventBrowserComponent implements OnInit {
     });
   }
 
-  loadEventAndTrack(eventId: string, trackId: string){
+  loadEventAndTrackAndKml(eventId: string, trackId: string){
     this.jsRolService.getEvent(eventId)
       .do(event => this.event$.next(event))
       .flatMap(event => this.jsRolService.getEventLoops(event))
-      .subscribe((loops: TrackModel[]) => {
+      .map((loops: TrackModel[]) => {
         this.tracks$.next(loops);
-        this.currentTrack$.next(_.find(loops, {$key: trackId}));
-      });
+        const loop:TrackModel = _.find(loops, {$key: trackId});
+        this.currentTrack$.next(loop);
+        return loop.kml;
+      })
+      .flatMap((kmlId) => this.jsRolService.getKml(kmlId))
+      .map((kmlObj) => kmlObj.$value)
+      .subscribe((kml) => this.kml$.next(kml));
   }
 
   onEventClick() {

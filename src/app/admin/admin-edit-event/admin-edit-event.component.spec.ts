@@ -1,14 +1,17 @@
+import {Location} from '@angular/common';
 import {TestBed, ComponentFixture} from '@angular/core/testing';
 import {AdminEditEventComponent} from './admin-edit-event.component';
 import {JsrolService} from '../../services/jsrol.service';
 import {Observable} from 'rxjs';
-import {Router, ActivatedRoute} from '@angular/router';
-import {RouterStub, ActivatedRouteStub} from '../../../testing/router-stubs';
+import {ActivatedRoute} from '@angular/router';
+import {ActivatedRouteStub} from '../../../testing/router-stubs';
 import {SharedModule} from '../../shared/shared.module';
 describe('Test Admin Edit Event', () => {
   const jsrolService = jasmine.createSpyObj('JsrolService', ['getEvent', 'getEventLoops']);
   let fixture: ComponentFixture<AdminEditEventComponent>;
   let activatedRouteStub = new ActivatedRouteStub();
+
+  const locationStub = jasmine.createSpyObj('Location', ['back']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -17,7 +20,7 @@ describe('Test Admin Edit Event', () => {
       providers: [
         {provide: JsrolService, useValue: jsrolService},
         {provide: ActivatedRoute, useValue: activatedRouteStub},
-        {provide: Router, useClass: RouterStub}
+        {provide: Location, useValue: locationStub}
       ]
     });
 
@@ -76,9 +79,10 @@ describe('Test Admin Edit Event', () => {
 
     comp.deleteLoop(1);
 
-    expect(comp.editForm.name).toBe('TEST EVENT');
-    expect(comp.editForm.loop1).toBe('11111');
+    console.log(comp.editForm);
+
+    expect(comp.editForm.loop1).toBe('22222');
     expect(comp.editForm.loop2).toBe('33333');
-    expect(comp.editForm.loop3).toBe('');
+    expect(comp.editForm.loop3).toBeUndefined();
   });
 });

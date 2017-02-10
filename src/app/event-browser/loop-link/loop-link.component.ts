@@ -3,11 +3,10 @@ import {TrackModel} from '../model/track.model';
 import {EventModel} from '../model/event.model';
 @Component({
   selector: 'loop-link',
-  template: `<a class="mdl-layout__tab"
-         [class.is-active]="loop.$key === currentTrack?.$key"
-         [routerLink]="['']" [queryParams]="{eventId:event?.$key,trackId:loop.$key}">
-        Boucle {{index + 1}} (<i class="mdi mdi-math-compass"></i>{{loop.distance | number}} km)
-      </a>`,
+  template: require('./loop-link.component.html'),
+  styles: [
+    require('./loop-link.component.scss')
+  ],
   inputs: ['loop', 'index', 'currentTrack', 'event']
 })
 export class LoopLinkComponent {

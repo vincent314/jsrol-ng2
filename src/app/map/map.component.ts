@@ -1,7 +1,5 @@
 import 'leaflet';
-import {Component, OnChanges, OnInit} from '@angular/core';
-import {JsrolService} from '../services/jsrol.service';
-import {Observable, Subject} from 'rxjs';
+import {Component, OnChanges} from '@angular/core';
 import {TrackModel} from '../model/track.model';
 const omnivore = require('leaflet-omnivore');
 import Layer = L.Layer;
@@ -13,30 +11,33 @@ import LatLngBounds = L.LatLngBounds;
   template: `<div>
         <div id="mapid"></div>
     </div>`,
-  inputs: ['track']
+  inputs: ['kml']
 })
-export class MapComponent implements OnChanges, OnInit {
+export class MapComponent implements OnChanges {
   map: L.Map;
   COLORS: string[] = ['#0000AA'];
   track: TrackModel;
-  mapLayers: Layer[];
+  kml: string;
+  mapLayers: Layer[] = [];
 
-  track$ = new Subject<TrackModel>();
-
-  constructor(private jsrolService: JsrolService) {
+  constructor() {
   }
 
-  ngOnInit() {
-    this.mapLayers = [];
+  ngOnChanges(changes: any) {
+    if (!this.map) {
+      this.initLeaflet();
+    }
 
+    if (changes.kml) {
+      this.clearMap();
+      if (changes.kml.currentValue) {
+        this.displayKml(changes.kml.currentValue);
+      }
+    }
+  }
+
+  initLeaflet() {
     this.map = L.map('mapid');
-    Observable.fromEvent(this.map, 'load')
-      .combineLatest(this.track$, (load,track:TrackModel)=>{
-        return track.kml;
-      })
-      .flatMap(this.loadKml.bind(this))
-      .subscribe();
-
     this.map.setView([50.63, 3.06], 13);
     L.Icon.Default.imagePath = '/images';
 
@@ -48,35 +49,16 @@ export class MapComponent implements OnChanges, OnInit {
     this.map.addLayer(osm);
   }
 
-  ngOnChanges(changes: any) {
-    if (changes.track) {
-      this.clearMap();
+  displayKml(kmlContent: string) {
+    const layer: any = omnivore.kml.parse(kmlContent);
+    layer.addTo(this.map);
 
-      if (changes.track.currentValue) {
-        this.track$.next(changes.track.currentValue);
-      }
-    }
-  }
+    layer.setStyle({
+      color: this.getRandomColor()
+    });
 
-  loadKml(kmlId: string): Observable<any> {
-    if (!kmlId) {
-      return Observable.empty();
-    }
-
-    return this.jsrolService.getKml(kmlId)
-      .do((kmlObject) => {
-        var kmlContent = kmlObject.$value;
-        const layer: any = omnivore.kml.parse(kmlContent);
-
-        layer.addTo(this.map);
-
-        layer.setStyle({
-          color: this.getRandomColor()
-        });
-
-        this.map.fitBounds(layer.getBounds() as LatLngBounds, {});
-        this.mapLayers.push(layer);
-      });
+    this.map.fitBounds(layer.getBounds() as LatLngBounds, {});
+    this.mapLayers.push(layer);
   }
 
   clearMap() {

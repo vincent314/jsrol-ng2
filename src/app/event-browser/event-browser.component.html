@@ -17,7 +17,7 @@
     <event-list (click)="onEventClick()"></event-list>
   </mdl-layout-drawer>
   <mdl-layout-content>
-    <map [track]="currentTrack$ | async"></map>
+    <map [kml]="kml$ | async"></map>
   </mdl-layout-content>
 </mdl-layout>
 

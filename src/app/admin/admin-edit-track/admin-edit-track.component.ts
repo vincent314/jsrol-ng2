@@ -6,14 +6,18 @@ import {Subject} from 'rxjs';
 import {Location} from '@angular/common';
 import {TranslateService} from 'ng2-translate';
 
+interface EditForm extends TrackModel {
+  kmlFile?: File
+}
+
 @Component({
   selector: 'add-track',
   templateUrl: './admin-edit-track.component.html'
 })
 export class AdminEditTrackComponent implements OnInit {
-  kmlContent: string;
-  track: TrackModel;
+  editForm: EditForm;
   track$: Subject<TrackModel> = new Subject();
+  kmlContent: string;
 
   constructor(@Inject('TYPES') private TYPES: any[], private jsrolService: JsrolService,
               private route: ActivatedRoute, private snackbarService: MdlSnackbarService,
@@ -21,13 +25,12 @@ export class AdminEditTrackComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.track = {
+    this.editForm = {
       name: '',
       type: '',
       distance: 0,
       openRunnerId: ''
     };
-    this.kmlContent = '';
 
 
     this.route.params
@@ -35,18 +38,41 @@ export class AdminEditTrackComponent implements OnInit {
       .flatMap((params: Params) => {
         return this.jsrolService.getTrack(params['trackId']);
       })
-      .subscribe((track: TrackModel) => {
-        this.track = track;
+      .do((track: TrackModel) => {
+        this.editForm = Object.assign({}, track);
         this.track$.next(track);
+      })
+      .flatMap((track: TrackModel) => {
+        return this.jsrolService.getKml(track.kml);
+      })
+      .map((kmlObj) => kmlObj.$value)
+      .subscribe((kml) => {
+        this.kmlContent = kml;
       });
   }
 
+  formToTrack(form) {
+    return Object.assign({}, form);
+  }
+
   onSubmit(): void {
-    const newTrack = this.jsrolService.saveTrack(this.track, this.kmlContent);
+    const newTrack = this.jsrolService.saveTrack(this.formToTrack(this.editForm), this.kmlContent);
     this.track$.next(newTrack);
     this.snackbarService.showSnackbar({
       message: this.translate.instant('ADMIN.TRACK.SAVE')
     });
+  }
+
+  onFileChange(fileInput) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.kmlContent = reader.result;
+      };
+
+      reader.readAsText(fileInput.target.files[0]);
+    }
   }
 
   onGoBack() {
