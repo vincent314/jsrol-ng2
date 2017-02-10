@@ -12,7 +12,10 @@ interface EditForm extends TrackModel {
 
 @Component({
   selector: 'add-track',
-  templateUrl: './admin-edit-track.component.html'
+  template: require('./admin-edit-track.component.html'),
+  styles: [
+    require('./admin-edit-track.component.scss')
+  ]
 })
 export class AdminEditTrackComponent implements OnInit {
   editForm: EditForm;

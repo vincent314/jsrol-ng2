@@ -1,4 +1,4 @@
-<div class="mdl-grid">
+<div class="mdl-grid js edit-track__container">
   <div class="mdl-cell--6-col mdl-cell--4-col-phone">
     <div>
       <h5>
@@ -43,11 +43,13 @@
         </mdl-textfield>
       </div>
 
-      <div>
-        <input type="file" name="kmlFile" (change)="onFileChange($event)"/>
+      <div class="input-file-container">
+        <input class="input-file" id="kml-file" type="file" (change)="onFileChange($event)">
+        <label tabindex="0" for="kml-file" class="input-file-trigger">{{'ADMIN.TRACK.SELECT_FILE' | translate}}</label>
       </div>
 
-      <button type="submit" mdl-button mdl-button-type="mini-fab" mdl-colored="primary">
+      <button type="submit" mdl-button mdl-button-type="mini-fab" mdl-colored="primary"
+      class="edit-track__button">
         <mdl-icon>save</mdl-icon>
       </button>
     </form>

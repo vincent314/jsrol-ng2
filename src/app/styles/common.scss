@@ -8,13 +8,17 @@
 .jsrol-header {
   &__row {
     align-items: flex-end;
+  }
+}
 
-    .mdl-layout__tab {
-      margin-right: 20px;
-    }
+
+.loop-link {
+  &__tab {
+    margin-right: 20px;
   }
 }
 
 .pagination__controls /deep/ .ng2-pagination .current {
   background: unquote("rgb(#{$color-primary})") !important;
 }
+

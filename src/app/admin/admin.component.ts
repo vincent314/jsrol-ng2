@@ -21,17 +21,13 @@ interface RouteData{
   ])]
 })
 export class AdminComponent implements OnInit {
-  currentTab: string;
   stateExpression: string;
 
   constructor(private route: ActivatedRoute, private firebaseAuth$: FirebaseAuth) {
   }
 
   ngOnInit() {
-    // this.currentTab = this.route.pathFromRoot;
-    this.firebaseAuth$.subscribe((data) => {
-      console.log(data);
-    });
+    this.firebaseAuth$.subscribe();
 
     const data = this.route.snapshot.data as RouteData;
     this.stateExpression = (data.model) ? 'expanded' : 'collapsed';

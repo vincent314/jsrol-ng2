@@ -43,7 +43,7 @@ export class MapComponent implements OnChanges {
 
     // create the tile layer with correct attribution
     const osmUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    const osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    const osmAttrib = 'M1ap data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
     const osm: L.TileLayer = L.tileLayer(osmUrl, {attribution: osmAttrib});
 
     this.map.addLayer(osm);

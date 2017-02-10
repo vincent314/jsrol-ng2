@@ -19,7 +19,6 @@ export class AuthService {
       email: email,
       password: password
     }).then((state: FirebaseAuthState)=> {
-      console.log("LOGIN: ",state.auth);
       this.storeUser(state);
     });
   }

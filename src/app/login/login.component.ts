@@ -20,7 +20,6 @@ export class LoginComponent /*implements OnInit*/ {
 
   doLogin() {
     this.authService.login(this.email, this.password).then((authState: FirebaseAuthState) => {
-      console.log(authState);
       const redirect = this.authService.redirectUrl || '/admin/tracks';
       this.router.navigate([redirect]);
     })

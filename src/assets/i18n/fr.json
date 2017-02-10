@@ -12,7 +12,8 @@
     "TRACK": {
       "CONFIRM_SAVE": "Parcours enregistré",
       "CONFIRM_DELETE": "Parcours supprimé",
-      "SAVE": "Parcours sauvergardé"
+      "SAVE": "Parcours sauvergardé",
+      "SELECT_FILE": "Choix fichier KML"
     }
   },
   "TYPES": {
