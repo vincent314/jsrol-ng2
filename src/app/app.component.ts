@@ -2,17 +2,17 @@
  * Angular 2 decorators and services
  */
 import {Component, ViewEncapsulation} from '@angular/core';
-import {TranslateService} from 'ng2-translate';
+import {TranslateService} from '@ngx-translate/core';
 
 /*
  * App Component
  * Top Level Component
  */
 @Component({
-  selector: 'app',
+  selector: 'app-root',
   encapsulation: ViewEncapsulation.None,
-  styles: [
-    require('./app.component.scss')
+  styleUrls: [
+    './app.component.scss'
   ],
   template: ` 
     <main>

@@ -3,8 +3,8 @@ import {Subject} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
 import {Router} from '@angular/router';
 import {MdlSnackbarService} from 'angular2-mdl';
-import {TranslateService} from 'ng2-translate';
-import moment = require('moment');
+import * as moment from 'moment';
+import {TranslateService} from '@ngx-translate/core';
 
 interface FilterForm {
   fromDate?: string;

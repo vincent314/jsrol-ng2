@@ -3,7 +3,7 @@ import {Location} from '@angular/common';
 import {JsrolService} from '../../services/jsrol.service';
 import {Params, ActivatedRoute} from '@angular/router';
 import {AdminLoopPopinComponent} from '../admin-loop-dialog/admin-loop-dialog.component';
-import moment = require('moment');
+import * as moment from 'moment';
 
 interface EditForm {
   name?: string,
@@ -16,8 +16,8 @@ interface EditForm {
 
 @Component({
   selector: 'jsrol-edit-event',
-  template: require('./admin-edit-event.component.html'),
-  styles: [require('./admin-edit-event.component.scss')]
+  templateUrl: './admin-edit-event.component.html',
+  styleUrls: ['./admin-edit-event.component.scss']
 })
 export class AdminEditEventComponent implements OnInit {
   editForm: EditForm;

@@ -5,19 +5,19 @@ import * as _ from 'lodash';
 import {BehaviorSubject, Subject} from 'rxjs';
 import 'material-design-lite/material.js';
 import {MdlLayoutComponent} from 'angular2-mdl';
-import moment = require('moment');
+import * as moment from 'moment';
 
-interface EventBrowserParams{
+interface EventBrowserParams {
   eventId: string;
   trackId: string;
 }
 
 @Component({
   providers: [JsrolService],
-  styles: [
-    require('./event-browser.component.scss')
+  styleUrls: [
+    './event-browser.component.scss'
   ],
-  template: require('./event-browser.component.html')
+  templateUrl: './event-browser.component.html'
 })
 export class EventBrowserComponent implements OnInit {
   @ViewChild('mdlLayout') mdlLayout: MdlLayoutComponent;
@@ -35,9 +35,9 @@ export class EventBrowserComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams
       .subscribe((params: EventBrowserParams) => {
-        if(!params.eventId){
+        if (!params.eventId) {
           this.loadEventAndRedirect();
-        } else if(params.eventId && !params.trackId){
+        } else if (params.eventId && !params.trackId) {
           this.loadTracksAndRedirect(params.eventId);
         } else {
           this.loadEventAndTrackAndKml(params.eventId, params.trackId);
@@ -45,7 +45,7 @@ export class EventBrowserComponent implements OnInit {
       });
   }
 
-  loadEventAndRedirect(){
+  loadEventAndRedirect() {
     this.jsRolService.getEvents(EventBrowserComponent.fromDate, 1)
       .subscribe((events: EventModel[]) => {
         if (!_.isEmpty(events)) {
@@ -59,10 +59,10 @@ export class EventBrowserComponent implements OnInit {
       });
   }
 
-  loadTracksAndRedirect(eventId:string){
+  loadTracksAndRedirect(eventId: string) {
     this.jsRolService.getEvent(eventId)
       .subscribe((event) => {
-        if(!event.loop1){
+        if (!event.loop1) {
           this.event$.next(event);
           this.tracks$.next([]);
           this.currentTrack$.next(null);
@@ -76,16 +76,16 @@ export class EventBrowserComponent implements OnInit {
             trackId: event.loop1
           }
         })
-    });
+      });
   }
 
-  loadEventAndTrackAndKml(eventId: string, trackId: string){
+  loadEventAndTrackAndKml(eventId: string, trackId: string) {
     this.jsRolService.getEvent(eventId)
       .do(event => this.event$.next(event))
       .flatMap(event => this.jsRolService.getEventLoops(event))
       .map((loops: TrackModel[]) => {
         this.tracks$.next(loops);
-        const loop:TrackModel = _.find(loops, {$key: trackId});
+        const loop: TrackModel = _.find(loops, {$key: trackId});
         this.currentTrack$.next(loop);
         return loop.kml;
       })

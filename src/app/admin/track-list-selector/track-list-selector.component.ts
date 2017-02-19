@@ -2,12 +2,12 @@ import {Component, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
 import {MdlSnackbarService} from 'angular2-mdl';
-import {TranslateService} from 'ng2-translate';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'track-list-selector',
-  template: require('./track-list-selector.component.html'),
-  styles: [require('./track-list-selector.component.scss')],
+  templateUrl: './track-list-selector.component.html',
+  styleUrls: ['./track-list-selector.component.scss'],
   outputs: ['trackClick'],
   inputs: ['itemsPerPage', 'actionDelete']
 })

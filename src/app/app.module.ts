@@ -1,41 +1,32 @@
-import {NgModule, ApplicationRef, LOCALE_ID} from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpModule, Http} from '@angular/http';
 import {RouterModule} from '@angular/router';
-import {removeNgStyles, createNewHosts} from '@angularclass/hmr';
-import {ENV_PROVIDERS} from './environment';
 import {ROUTES} from './app.routes';
 import {App} from './app.component';
-import {APP_RESOLVER_PROVIDERS} from './app.resolver';
-import {FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders, AuthMethods} from 'angularfire2';
+import {FIREBASE_PROVIDERS, AuthProviders, AuthMethods, AngularFireModule, FirebaseAppConfig} from 'angularfire2';
 import {EventBrowserModule} from './event-browser/event-browser.module';
 import {AdminModule} from './admin/admin.module';
 import {LoginModule} from './login/login.module';
 import {MdlModule} from 'angular2-mdl';
-import {TranslateModule} from 'ng2-translate';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
-/*
- * Platform and Environment providers/directives/pipes
- */
-// App is our top level component
+const firebaseConfig:FirebaseAppConfig = {
+      apiKey: 'AIzaSyDOWtDx2pTTgY8jnqxI6_Yh-cvo8VByP-Y',
+      authDomain: 'fire-rol.firebaseapp.com',
+      databaseURL: 'https://fire-rol.firebaseio.com',
+      storageBucket: 'fire-rol.appspot.com',
+    };
+const firebaseAuthConfig: any = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+};
 
-// Application wide providers
-const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
-  FIREBASE_PROVIDERS,
-  defaultFirebase({
-    apiKey: 'AIzaSyDOWtDx2pTTgY8jnqxI6_Yh-cvo8VByP-Y',
-    authDomain: 'fire-rol.firebaseapp.com',
-    databaseURL: 'https://fire-rol.firebaseio.com',
-    storageBucket: 'fire-rol.appspot.com',
-  }),
-  firebaseAuthConfig({
-    provider: AuthProviders.Password,
-    method: AuthMethods.Password
-  }),
-  { provide: LOCALE_ID, useValue: "fr-FR" }
-];
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -54,37 +45,20 @@ const APP_PROVIDERS = [
     AdminModule,
     LoginModule,
     MdlModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    }),
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-    APP_PROVIDERS
+    FIREBASE_PROVIDERS,
+    { provide: LOCALE_ID, useValue: "fr-FR" }
   ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {
-  }
-
-  hmrOnInit(store) {
-    if (!store || !store.state) return;
-    console.log('HMR store', store);
-    this.appRef.tick();
-    delete store.state;
-  }
-
-  hmrOnDestroy(store) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-    // recreate elements
-    store.disposeOldHosts = createNewHosts(cmpLocation);
-    // remove styles
-    removeNgStyles();
-  }
-
-  hmrAfterDestroy(store) {
-    // display new elements
-    store.disposeOldHosts();
-    delete store.disposeOldHosts;
-  }
-
 }
 

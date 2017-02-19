@@ -4,7 +4,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {MdlSnackbarService} from 'angular2-mdl';
 import {Subject} from 'rxjs';
 import {Location} from '@angular/common';
-import {TranslateService} from 'ng2-translate';
+import {TranslateService} from '@ngx-translate/core';
 
 interface EditForm extends TrackModel {
   kmlFile?: File
@@ -12,10 +12,8 @@ interface EditForm extends TrackModel {
 
 @Component({
   selector: 'add-track',
-  template: require('./admin-edit-track.component.html'),
-  styles: [
-    require('./admin-edit-track.component.scss')
-  ]
+  templateUrl: './admin-edit-track.component.html',
+  styles: ['./admin-edit-track.component.scss']
 })
 export class AdminEditTrackComponent implements OnInit {
   editForm: EditForm;

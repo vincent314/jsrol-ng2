@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2/angularfire2';
 import {Observable} from 'rxjs/Rx';
 import * as _ from 'lodash';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Injectable()
 export class JsrolService {
@@ -64,9 +64,9 @@ export class JsrolService {
   saveTrack(track: TrackModel, kml?: string): TrackModel {
     // Should save a new KML or keep existing ?
     let kmlObject = {};
-    if(kml){
+    if (kml) {
       console.debug('Saving a new KML', kml);
-      kmlObject = {kml:this.saveKml(kml).key};
+      kmlObject = {kml: this.saveKml(kml).key};
     }
 
     const newTrack: TrackModel = Object.assign(
@@ -74,9 +74,9 @@ export class JsrolService {
       track,
       kmlObject);
 
-    if(newTrack.$key){
+    if (newTrack.$key) {
       console.debug('Update track');
-      this.tracks$.update(newTrack.$key, _.omit(newTrack,['$key','$exists']));
+      this.tracks$.update(newTrack.$key, _.omit(newTrack, ['$key', '$exists']));
     } else {
       console.debug('Create a new track');
       this.tracks$.push(newTrack);
@@ -89,18 +89,18 @@ export class JsrolService {
     return this.kmls$.push(kml);
   }
 
-  removeKml(kml: string){
+  removeKml(kml: string) {
     this.kmls$.remove(kml);
   }
 
   deleteTrack(track: TrackModel): void {
-    if(track.kml) {
+    if (track.kml) {
       this.removeKml(track.kml);
     }
     this.tracks$.remove(track.$key);
   }
 
-  deleteEvent(key:string){
+  deleteEvent(key: string) {
     this.events$.remove(key);
   }
 
@@ -122,13 +122,13 @@ export class JsrolService {
     return Observable.zip(...loopObservables);
   }
 
-  saveEvent(event:EventModel): EventModel {
-    if(!event){
+  saveEvent(event: EventModel): EventModel {
+    if (!event) {
       return null;
     }
 
-    if(event.$key) {
-      this.events$.update(event.$key, _.omit(event,['$key','$exists']));
+    if (event.$key) {
+      this.events$.update(event.$key, _.omit(event, ['$key', '$exists']));
     } else {
       this.events$.push(event);
     }

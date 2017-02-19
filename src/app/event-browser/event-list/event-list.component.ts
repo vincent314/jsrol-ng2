@@ -2,12 +2,11 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {JsrolService} from '../../services/jsrol.service';
 import {Router} from '@angular/router';
-import {EventModel} from '../../model/event.model';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
   selector: 'event-list',
-  template: require('./event-list.component.html')
+  templateUrl: './event-list.component.html'
 })
 export class EventListComponent {
   events$: Observable<EventModel[]>;

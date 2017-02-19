@@ -7,8 +7,8 @@ import 'material-design-lite/material.js';
 
 @Component({
   selector: 'login',
-  styles: [require('./login.scss')],
-  template: require('./login.component.html')
+  styleUrls: ['./login.scss'],
+  templateUrl: './login.component.html'
 })
 export class LoginComponent /*implements OnInit*/ {
   email:string;

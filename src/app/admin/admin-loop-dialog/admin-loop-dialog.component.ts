@@ -3,8 +3,8 @@ import {MdlDialogComponent} from 'angular2-mdl';
 
 @Component({
   selector: 'admin-loop-dialog',
-  template: require('./admin-loop-dialog.component.html'),
-  styles: [require('./admin-loop-dialog.component.scss')],
+  templateUrl: './admin-loop-dialog.component.html',
+  styleUrls: ['./admin-loop-dialog.component.scss'],
 })
 export class AdminLoopPopinComponent {
   @ViewChild('dialog')

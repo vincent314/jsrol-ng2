@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {JsrolService} from '../../services/jsrol.service';
 import {MdlSnackbarService} from 'angular2-mdl';
-import {TranslateService} from 'ng2-translate';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
   selector: 'admin-track-list',
-  styles: [require('./admin-track-list.component.scss')],
+  styleUrls: ['./admin-track-list.component.scss'],
   templateUrl: './admin-track-list.component.html'
 })
 export class AdminTrackListComponent {

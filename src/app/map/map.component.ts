@@ -1,13 +1,12 @@
 import 'leaflet';
 import {Component, OnChanges} from '@angular/core';
-import {TrackModel} from '../model/track.model';
 const omnivore = require('leaflet-omnivore');
 import Layer = L.Layer;
 import LatLngBounds = L.LatLngBounds;
 
 @Component({
   selector: 'map',
-  styles: [require('./map.scss')],
+  styleUrls: ['./map.scss'],
   template: `<div>
         <div id="mapid"></div>
     </div>`,
@@ -39,11 +38,11 @@ export class MapComponent implements OnChanges {
   initLeaflet() {
     this.map = L.map('mapid');
     this.map.setView([50.63, 3.06], 13);
-    L.Icon.Default.imagePath = '/images';
+    L.Icon.Default['imagePath'] = '/assets/images';
 
     // create the tile layer with correct attribution
     const osmUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    const osmAttrib = 'M1ap data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    const osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
     const osm: L.TileLayer = L.tileLayer(osmUrl, {attribution: osmAttrib});
 
     this.map.addLayer(osm);
