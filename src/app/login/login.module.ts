@@ -6,9 +6,10 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import {LogoutComponent} from './logout.component';
 import {MdlModule} from 'angular2-mdl';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, MdlModule, routing],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, MdlModule, routing, SharedModule],
     declarations: [LoginComponent, LogoutComponent],
     providers: [AuthService]
 })
