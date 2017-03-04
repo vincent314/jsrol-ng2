@@ -1,6 +1,6 @@
 import { JsrolNg2Page } from './app.po';
 
-describe('jsrol-ng2 App', function() {
+describe('jsrol-ng2 App', () => {
   let page: JsrolNg2Page;
 
   beforeEach(() => {

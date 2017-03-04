@@ -13,16 +13,21 @@ import {MdlModule} from 'angular2-mdl';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
-const firebaseConfig:FirebaseAppConfig = {
-      apiKey: 'AIzaSyDOWtDx2pTTgY8jnqxI6_Yh-cvo8VByP-Y',
-      authDomain: 'fire-rol.firebaseapp.com',
-      databaseURL: 'https://fire-rol.firebaseio.com',
-      storageBucket: 'fire-rol.appspot.com',
-    };
-const firebaseAuthConfig: any = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
-};
+export function firebaseConfig(): FirebaseAppConfig {
+  return {
+    apiKey: 'AIzaSyDOWtDx2pTTgY8jnqxI6_Yh-cvo8VByP-Y',
+    authDomain: 'fire-rol.firebaseapp.com',
+    databaseURL: 'https://fire-rol.firebaseio.com',
+    storageBucket: 'fire-rol.appspot.com',
+  }
+}
+
+export function firebaseAuthConfig() {
+  return {
+    provider: AuthProviders.Password,
+    method: AuthMethods.Password
+  }
+}
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,11 +57,11 @@ export function createTranslateLoader(http: Http) {
         deps: [Http]
       }
     }),
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig(), firebaseAuthConfig())
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     FIREBASE_PROVIDERS,
-    { provide: LOCALE_ID, useValue: "fr-FR" }
+    {provide: LOCALE_ID, useValue: "fr-FR"}
   ]
 })
 export class AppModule {
