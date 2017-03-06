@@ -1,6 +1,6 @@
 import 'leaflet';
 import {Component, OnChanges} from '@angular/core';
-const omnivore = require('@mapbox/leaflet-omnivore');
+import * as omnivore from '@mapbox/leaflet-omnivore';
 import Layer = L.Layer;
 import LatLngBounds = L.LatLngBounds;
 

@@ -31,3 +31,5 @@ interface TypeModel {
   $key: string;
   $value: string;
 }
+
+declare var omnivore:any;
