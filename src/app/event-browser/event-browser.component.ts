@@ -26,7 +26,7 @@ export class EventBrowserComponent implements OnInit {
   currentTrack$ = new BehaviorSubject<TrackModel>({});
   kml$ = new Subject<string>();
 
-  static fromDate: number = moment('2016-07-01').valueOf();
+  static fromDate: number = moment().valueOf();
 
   constructor(private jsRolService: JsrolService, private route: ActivatedRoute, private router: Router) {
 

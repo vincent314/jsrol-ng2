@@ -23,7 +23,7 @@ export class EventListComponent {
   }
 
   ngOnInit() {
-    const currentDate = moment('2016-07-01');
+    const currentDate = moment();
 
     this.dateTime = currentDate.toDate();
     this.events$ = this.jsrolService.getEvents(currentDate.valueOf());
