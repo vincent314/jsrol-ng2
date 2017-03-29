@@ -4,7 +4,7 @@ import {JsrolService} from '../../services/jsrol.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 describe('Test event-list', () => {
-  const jsrolService = jasmine.createSpyObj('JsrolService', ['getEvents']);
+  const jsrolService = jasmine.createSpyObj('JsrolService', ['getEventListSelector']);
   const router: Router = jasmine.createSpyObj('Router', ['navigate']);
 
   let fixture: ComponentFixture<EventListComponent>;

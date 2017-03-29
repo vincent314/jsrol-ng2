@@ -1,17 +1,23 @@
-import {NgModule, LOCALE_ID} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {HttpModule, Http} from '@angular/http';
-import {RouterModule} from '@angular/router';
-import {ROUTES} from './app.routes';
-import {App} from './app.component';
-import {FIREBASE_PROVIDERS, AuthProviders, AuthMethods, AngularFireModule, FirebaseAppConfig} from 'angularfire2';
-import {EventBrowserModule} from './event-browser/event-browser.module';
-import {AdminModule} from './admin/admin.module';
-import {LoginModule} from './login/login.module';
-import {MdlModule} from '@angular-mdl/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { Http, HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+import { ROUTES } from './app.routes';
+import { App } from './app.component';
+import { AngularFireModule, AuthMethods, AuthProviders, FIREBASE_PROVIDERS, FirebaseAppConfig } from 'angularfire2';
+import { EventBrowserModule } from './event-browser/event-browser.module';
+import { AdminModule } from './admin/admin.module';
+import { LoginModule } from './login/login.module';
+import { MdlModule } from '@angular-mdl/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
+import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { EventBrowserEffects } from './reducers/event-browser.effects';
+import * as fromReducer from './reducers/index';
 
 export function firebaseConfig(): FirebaseAppConfig {
   return {
@@ -50,6 +56,12 @@ export function createTranslateLoader(http: Http) {
     AdminModule,
     LoginModule,
     MdlModule,
+    StoreModule.provideStore(fromReducer.reducers),
+    RouterStoreModule.connectRouter(),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    }),
+    EffectsModule.run(EventBrowserEffects),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

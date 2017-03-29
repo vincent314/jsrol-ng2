@@ -1,8 +1,10 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {JsrolService} from '../../services/jsrol.service';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import { ListEventsAction } from '../../actions/event-browser.actions';
+import { AppState, getEventListSelector } from '../../reducers/index';
 
 @Component({
   selector: 'event-list',
@@ -19,14 +21,17 @@ export class EventListComponent {
     ROL_CITY: {label: 'ROL City', color: '#AA0000'}
   };
 
-  constructor(private jsrolService: JsrolService, private router: Router) {
+  constructor(private router: Router, private store:Store<AppState>) {
+    this.events$ = this.store.select(getEventListSelector)
+      .do((events)=> console.log('Events:', events));
   }
 
   ngOnInit() {
     const currentDate = moment();
 
     this.dateTime = currentDate.toDate();
-    this.events$ = this.jsrolService.getEvents(currentDate.valueOf());
+
+    this.store.dispatch(new ListEventsAction());
   }
 
   onEventClick(event: EventModel) {
