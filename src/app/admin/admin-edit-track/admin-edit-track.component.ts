@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {JsrolService} from '../../services/jsrol.service';
 import {ActivatedRoute, Params} from '@angular/router';
-import {MdlSnackbarService} from 'angular2-mdl';
+import {MdlSnackbarService} from '@angular-mdl/core';
 import {Subject} from 'rxjs';
 import {Location} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';

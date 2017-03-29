@@ -9,7 +9,7 @@ import {FIREBASE_PROVIDERS, AuthProviders, AuthMethods, AngularFireModule, Fireb
 import {EventBrowserModule} from './event-browser/event-browser.module';
 import {AdminModule} from './admin/admin.module';
 import {LoginModule} from './login/login.module';
-import {MdlModule} from 'angular2-mdl';
+import {MdlModule} from '@angular-mdl/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 

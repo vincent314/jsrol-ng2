@@ -1,10 +1,10 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
-import {JsrolService} from '../services/jsrol.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { JsrolService } from '../services/jsrol.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import {BehaviorSubject, Subject} from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import 'material-design-lite/material.js';
-import {MdlLayoutComponent} from 'angular2-mdl';
+import { MdlLayoutComponent } from '@angular-mdl/core';
 import * as moment from 'moment';
 
 interface EventBrowserParams {

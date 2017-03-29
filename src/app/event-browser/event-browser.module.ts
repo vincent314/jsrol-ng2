@@ -7,7 +7,7 @@ import {routing} from './event-browser.routing';
 import {BrowserModule} from '@angular/platform-browser';
 import {LoopLinkComponent} from './loop-link/loop-link.component';
 import {SharedModule} from '../shared/shared.module';
-import {MdlModule} from 'angular2-mdl';
+import {MdlModule} from '@angular-mdl/core';
 @NgModule({
         imports: [BrowserModule, routing, SharedModule, MdlModule],
         declarations: [

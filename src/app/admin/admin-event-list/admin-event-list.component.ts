@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Subject} from 'rxjs';
 import {JsrolService} from '../../services/jsrol.service';
 import {Router} from '@angular/router';
-import {MdlSnackbarService} from 'angular2-mdl';
+import {MdlSnackbarService} from '@angular-mdl/core';
 import * as moment from 'moment';
 import {TranslateService} from '@ngx-translate/core';
 

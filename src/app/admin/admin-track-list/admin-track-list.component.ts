@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {JsrolService} from '../../services/jsrol.service';
-import {MdlSnackbarService} from 'angular2-mdl';
+import {MdlSnackbarService} from '@angular-mdl/core';
 import {TranslateService} from '@ngx-translate/core';
 
 

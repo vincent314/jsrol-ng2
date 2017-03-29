@@ -1,5 +1,5 @@
 @import "styles/variables";
-@import '~angular2-mdl/scss/material-design-lite';
+@import '~@angular-mdl/core/scss/material-design-lite';
 @import '~mdi/scss/materialdesignicons.scss';
 
 html, body{
@@ -11,5 +11,5 @@ span.active {
   background-color: gray;
 }
 
-@import '~@angular2-mdl-ext/popover/popover';
-@import '~@angular2-mdl-ext/select/select';
+@import '~@angular-mdl/popover/popover';
+@import '~@angular-mdl/select/select';

@@ -1,5 +1,5 @@
 import {Component, ViewChild, EventEmitter, Output} from '@angular/core';
-import {MdlDialogComponent} from 'angular2-mdl';
+import {MdlDialogComponent} from '@angular-mdl/core';
 
 @Component({
   selector: 'admin-loop-dialog',

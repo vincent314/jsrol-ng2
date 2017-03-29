@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {FormBuilder} from '@angular/forms';
 import {FirebaseAuthState} from 'angularfire2';
 import 'material-design-lite/material.js';
-import {MdlSnackbarService} from 'angular2-mdl';
+import {MdlSnackbarService} from '@angular-mdl/core';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
