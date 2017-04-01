@@ -1,16 +1,13 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { JsrolService } from '../services/jsrol.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { BehaviorSubject, Subject } from 'rxjs';
 import 'material-design-lite/material.js';
 import { MdlLayoutComponent } from '@angular-mdl/core';
-import * as moment from 'moment';
-
-interface EventBrowserParams {
-  eventId: string;
-  trackId: string;
-}
+import { Store } from '@ngrx/store';
+import { AppState, getLoadEventSelector } from '../reducers/index';
+import { EventBrowserGuard } from './event-browser.guard';
 
 @Component({
   providers: [JsrolService],
@@ -22,61 +19,24 @@ interface EventBrowserParams {
 export class EventBrowserComponent implements OnInit {
   @ViewChild('mdlLayout') mdlLayout: MdlLayoutComponent;
   event$ = new BehaviorSubject<EventModel>({});
-  tracks$ = new BehaviorSubject<TrackModel[]>([]);
   currentTrack$ = new BehaviorSubject<TrackModel>({});
+
+  tracks$ = new BehaviorSubject<TrackModel[]>([]);
+
   kml$ = new Subject<string>();
 
-  static fromDate: number = moment().valueOf();
-
-  constructor(private jsRolService: JsrolService, private route: ActivatedRoute, private router: Router) {
-
+  constructor(private jsRolService: JsrolService, private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
+    // store.select(getLoadEventSelector)
+    //   .subscribe(event => this.event$.next(event));
   }
 
   ngOnInit() {
-    this.route.queryParams
-      .subscribe((params: EventBrowserParams) => {
-        if (!params.eventId) {
-          this.loadEventAndRedirect();
-        } else if (params.eventId && !params.trackId) {
-          this.loadTracksAndRedirect(params.eventId);
-        } else {
-          this.loadEventAndTrackAndKml(params.eventId, params.trackId);
-        }
-      });
-  }
 
-  loadEventAndRedirect() {
-    this.jsRolService.getEvents(EventBrowserComponent.fromDate, 1)
-      .subscribe((events: EventModel[]) => {
-        if (!_.isEmpty(events)) {
-          const event = events[0];
-          this.router.navigate([''], {
-            queryParams: {
-              eventId: event.$key,
-            }
-          });
-        }
-      });
-  }
-
-  loadTracksAndRedirect(eventId: string) {
-    this.jsRolService.getEvent(eventId)
-      .subscribe((event) => {
-        if (!event.loop1) {
-          this.event$.next(event);
-          this.tracks$.next([]);
-          this.currentTrack$.next(null);
-          this.kml$.next(null);
-          return;
-        }
-
-        this.router.navigate([''], {
-          queryParams: {
-            eventId: eventId,
-            trackId: event.loop1
-          }
-        })
-      });
+    this.route.data.subscribe((data: { event: EventModel, track: TrackModel }) => {
+      const {event,track} = data;
+      this.event$.next(event);
+      this.currentTrack$.next(track);
+    });
   }
 
   loadEventAndTrackAndKml(eventId: string, trackId: string) {

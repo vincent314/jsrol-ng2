@@ -15,3 +15,5 @@ export const reducers = {
 export const getEventBrowserState = (state: AppState) => state.eventBrowser;
 
 export const getEventListSelector = createSelector(getEventBrowserState, fromEventBrowser.getEventListSelector);
+
+export const getLoadEventSelector = createSelector(getEventBrowserState, fromEventBrowser.getLoadEvent);

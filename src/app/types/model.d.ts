@@ -31,3 +31,9 @@ interface TypeModel {
   $key: string;
   $value: string;
 }
+
+
+interface EventBrowserParams {
+  eventId: string;
+  trackId: string;
+}

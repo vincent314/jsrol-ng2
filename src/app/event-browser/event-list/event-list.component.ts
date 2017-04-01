@@ -22,8 +22,7 @@ export class EventListComponent {
   };
 
   constructor(private router: Router, private store:Store<AppState>) {
-    this.events$ = this.store.select(getEventListSelector)
-      .do((events)=> console.log('Events:', events));
+    this.events$ = this.store.select(getEventListSelector);
   }
 
   ngOnInit() {
