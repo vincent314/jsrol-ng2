@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
-import { ListEventsAction } from '../../actions/event-browser.actions';
-import { AppState, getEventListSelector } from '../../reducers/index';
+import { ListEventsAction } from '../../store/event-browser/event-browser.actions';
+import { AppState } from '../../store/state';
+import { getEventListSelector } from '../../store/selectors';
 
 @Component({
   selector: 'event-list',

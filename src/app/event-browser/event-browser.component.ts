@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JsrolService } from '../services/jsrol.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as _ from 'lodash';
-import { BehaviorSubject, Subject } from 'rxjs';
 import 'material-design-lite/material.js';
 import { MdlLayoutComponent } from '@angular-mdl/core';
 import { Store } from '@ngrx/store';
-import { AppState, getLoadEventSelector } from '../reducers/index';
-import { EventBrowserGuard } from './event-browser.guard';
+import { AppState } from '../store/index';
+import { Observable } from 'rxjs/Observable';
+import * as fromSelector from '../store/selectors';
+import * as fromAction from '../store/event-browser/event-browser.actions';
 
 @Component({
   providers: [JsrolService],
@@ -18,47 +18,38 @@ import { EventBrowserGuard } from './event-browser.guard';
 })
 export class EventBrowserComponent implements OnInit {
   @ViewChild('mdlLayout') mdlLayout: MdlLayoutComponent;
-  event$ = new BehaviorSubject<EventModel>({});
-  currentTrack$ = new BehaviorSubject<TrackModel>({});
+  event$: Observable<EventModel>;
+  currentTrack$: Observable<TrackModel>;
+  tracks$: Observable<EventModel>;
+  kml$: Observable<EventModel>;
 
-  tracks$ = new BehaviorSubject<TrackModel[]>([]);
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {
+    this.event$ = store.select(fromSelector.getLoadEventSelector);
+    this.currentTrack$ = store.select(fromSelector.getTrackSelector);
 
-  kml$ = new Subject<string>();
+    this.tracks$ = this.event$.switchMap((event: EventModel) => {
+      store.dispatch(new fromAction.LoadEventLoopsAction(event));
+      return store.select(fromSelector.getEventLoopsSelector);
+    });
 
-  constructor(private jsRolService: JsrolService, private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
-    // store.select(getLoadEventSelector)
-    //   .subscribe(event => this.event$.next(event));
+    this.kml$ = this.currentTrack$
+      .filter(track => !!track)
+      .switchMap(track => {
+        store.dispatch(new fromAction.LoadKmlAction(track.kml));
+        return store.select(fromSelector.getKmlSelector);
+      });
   }
 
   ngOnInit() {
-
-    this.route.data.subscribe((data: { event: EventModel, track: TrackModel }) => {
-      const {event,track} = data;
-      this.event$.next(event);
-      this.currentTrack$.next(track);
+    this.route.queryParams.subscribe(({eventId, trackId}) => {
+      this.store.dispatch(new fromAction.LoadEventAction(eventId));
+      if (trackId) {
+        this.store.dispatch(new fromAction.LoadTrackAction(trackId));
+      }
     });
-  }
-
-  loadEventAndTrackAndKml(eventId: string, trackId: string) {
-    this.jsRolService.getEvent(eventId)
-      .do(event => this.event$.next(event))
-      .flatMap(event => this.jsRolService.getEventLoops(event))
-      .map((loops: TrackModel[]) => {
-        this.tracks$.next(loops);
-        const loop: TrackModel = _.find(loops, {$key: trackId});
-        this.currentTrack$.next(loop);
-        return loop.kml;
-      })
-      .flatMap((kmlId) => this.jsRolService.getKml(kmlId))
-      .map((kmlObj) => kmlObj.$value)
-      .subscribe((kml) => this.kml$.next(kml));
   }
 
   onEventClick() {
     this.mdlLayout.toggleDrawer();
-  }
-
-  onTrackLoaded(track: TrackModel) {
-    this.currentTrack$.next(track);
   }
 }

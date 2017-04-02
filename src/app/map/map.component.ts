@@ -1,5 +1,5 @@
 import 'leaflet';
-import {Component, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import * as omnivore from '@mapbox/leaflet-omnivore';
 import Layer = L.Layer;
 import LatLngBounds = L.LatLngBounds;
@@ -9,14 +9,14 @@ import LatLngBounds = L.LatLngBounds;
   styleUrls: ['./map.scss'],
   template: `<div>
         <div id="mapid"></div>
-    </div>`,
-  inputs: ['kml']
+    </div>`
 })
 export class MapComponent implements OnChanges {
+  @Input() kml: string;
+
   map: L.Map;
   COLORS: string[] = ['#0000AA'];
   track: TrackModel;
-  kml: string;
   mapLayers: Layer[] = [];
 
   constructor() {

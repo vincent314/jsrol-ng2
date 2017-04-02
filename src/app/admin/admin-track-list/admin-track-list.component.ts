@@ -26,4 +26,8 @@ export class AdminTrackListComponent {
       message: this.translate.instant('ADMIN.TRACK.CONFIRM_DELETE')
     });
   }
+
+  onAddButtonClick(){
+    this.router.navigate(['admin', 'tracks', 'add']);
+  }
 }

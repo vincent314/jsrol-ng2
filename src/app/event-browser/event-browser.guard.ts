@@ -19,6 +19,8 @@ export class EventBrowserGuard implements CanActivate {
     | boolean {
     const {eventId, trackId} = <EventBrowserParams>route.queryParams;
 
+    console.log('~~~~~ GUARD', {eventId, trackId});
+
     if (!eventId) {
       return this.getNextEvent();
     } else if (eventId && !trackId) {

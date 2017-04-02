@@ -19,6 +19,7 @@ interface FilterForm {
 export class AdminEventListComponent {
   events$: Subject<EventModel[]> = new Subject<EventModel[]>();
   filterForm: FilterForm;
+  p:number;
 
   constructor(private jsrolService: JsrolService, private router: Router, private snackbarService: MdlSnackbarService,
               private translate: TranslateService) {
@@ -53,5 +54,9 @@ export class AdminEventListComponent {
     if (this.filterForm.fromDate) {
       this.getEvents(moment(this.filterForm.fromDate).toDate());
     }
+  }
+
+  onAddButtonClick(){
+    this.router.navigate(['admin', 'events', 'edit']);
   }
 }

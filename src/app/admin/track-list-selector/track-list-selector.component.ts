@@ -17,6 +17,7 @@ export class TrackListSelectComponent {
   trackClick = new EventEmitter<TrackModel>();
   itemsPerPage: number;
   actionDelete: boolean = true;
+  p:number;
 
   constructor(private jsrolService: JsrolService, private snackbarService: MdlSnackbarService,
               private translate: TranslateService) {

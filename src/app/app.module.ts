@@ -16,8 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { EventBrowserEffects } from './reducers/event-browser.effects';
-import * as fromReducer from './reducers/index';
+import { EventBrowserEffects } from './store/event-browser/event-browser.effects';
+import * as fromReducer from './store/index';
 
 export function firebaseConfig(): FirebaseAppConfig {
   return {

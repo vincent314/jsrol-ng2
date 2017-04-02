@@ -26,7 +26,7 @@ export class AdminEditEventComponent implements OnInit {
   adminLoopDialog: AdminLoopPopinComponent;
   currentLoopIdx: number;
 
-  constructor(@Inject('TYPES') private TYPES: any[],
+  constructor(@Inject('TYPES') public TYPES: any[],
               private jsrolService: JsrolService,
               private route: ActivatedRoute,
               private location: Location) {

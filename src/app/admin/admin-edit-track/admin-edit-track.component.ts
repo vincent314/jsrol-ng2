@@ -20,7 +20,7 @@ export class AdminEditTrackComponent implements OnInit {
   track$: Subject<TrackModel> = new Subject();
   kmlContent: string;
 
-  constructor(@Inject('TYPES') private TYPES: any[], private jsrolService: JsrolService,
+  constructor(@Inject('TYPES') public TYPES: any[], private jsrolService: JsrolService,
               private route: ActivatedRoute, private snackbarService: MdlSnackbarService,
               private location: Location, private translate: TranslateService) {
   }
