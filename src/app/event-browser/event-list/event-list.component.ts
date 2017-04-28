@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
-import { ListEventsAction } from '../../store/event-browser/event-browser.actions';
+import * as fromAction from '../../store/event-browser/event-browser.actions';
 import { AppState } from '../../store/state';
 import { getEventListSelector } from '../../store/selectors';
 
@@ -31,14 +31,10 @@ export class EventListComponent {
 
     this.dateTime = currentDate.toDate();
 
-    this.store.dispatch(new ListEventsAction());
+    this.store.dispatch(new fromAction.ListEventsAction());
   }
 
   onEventClick(event: EventModel) {
-    this.router.navigate([''], {
-      queryParams: {
-        eventId: event.$key
-      }
-    });
+    this.store.dispatch(new fromAction.LoadEventSuccessAction(event));
   }
 }

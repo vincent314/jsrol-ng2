@@ -8,8 +8,6 @@
       <loop-link *ngFor="let loop of tracks$ | async; let i = index"
                  [loop]="loop"
                  [index]="i"
-                 [currentTrack]="currentTrack$ | async"
-                 [event]="event$ | async"
       ></loop-link>
     </div>
   </mdl-layout-header>

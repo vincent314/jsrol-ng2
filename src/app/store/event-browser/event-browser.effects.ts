@@ -3,17 +3,10 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import {
-  actionTypes,
-  ListEventSuccessAction,
-  LoadEventAction, LoadEventLoopsAction,
-  LoadEventLoopsSuccessAction,
-  LoadEventSuccessAction, LoadKmlAction, LoadKmlSuccessAction,
-  LoadTrackAction,
-  LoadTrackSuccessAction
-} from './event-browser.actions';
+import * as fromAction from './event-browser.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state';
+import * as _ from 'lodash';
 
 @Injectable()
 export class EventBrowserEffects {
@@ -22,44 +15,56 @@ export class EventBrowserEffects {
   }
 
   @Effect() listEvents$ = this.actions$
-    .ofType(actionTypes.LIST_EVENTS)
+    .ofType(fromAction.actionTypes.LIST_EVENTS)
     .switchMap(() => this.jsrolService
       .getEvents(moment().valueOf())
-      .map(events => new ListEventSuccessAction(events))
-      .catch(() => Observable.of(new ListEventSuccessAction()))
+      .map(events => new fromAction.ListEventSuccessAction(events))
+      .catch(() => Observable.of(new fromAction.ListEventSuccessAction()))
     );
 
   @Effect() loadEvent$ = this.actions$
-    .ofType(actionTypes.LOAD_EVENT)
-    .switchMap((action: LoadEventAction) => this.jsrolService.getEvent(action.payload)
+    .ofType(fromAction.actionTypes.LOAD_EVENT)
+    .switchMap((action: fromAction.LoadEventAction) => this.jsrolService.getEvent(action.payload)
       .do(event => {
         if (event.loop1) {
-          this.store.dispatch(new LoadTrackAction(<string>event.loop1));
+          this.store.dispatch(new fromAction.LoadTrackAction(<string>event.loop1));
         }
       })
-      .map((event) => new LoadEventSuccessAction(event))
-      .catch(() => Observable.of(new LoadEventSuccessAction()))
+      .do(event => {
+        this.store.dispatch(new fromAction.LoadEventLoopsAction(event))
+      })
+      .map((event) => new fromAction.LoadEventSuccessAction(event))
+      .catch(() => Observable.of(new fromAction.LoadEventSuccessAction()))
     );
 
   @Effect() loadTrack$ = this.actions$
-    .ofType(actionTypes.LOAD_TRACK)
-    .switchMap((action: LoadTrackAction) => this.jsrolService.getTrack(action.payload)
-      .do(track => this.store.dispatch(new LoadKmlAction(track.kml)))
-      .map(track => new LoadTrackSuccessAction(track))
-      .catch(() => Observable.of(new LoadTrackSuccessAction()))
+    .ofType(fromAction.actionTypes.LOAD_TRACK)
+    .switchMap((action: fromAction.LoadTrackAction) => this.jsrolService.getTrack(action.payload)
+      .do(track => this.store.dispatch(new fromAction.LoadKmlAction(track.kml)))
+      .map(track => new fromAction.LoadTrackSuccessAction(track))
+      .catch(() => Observable.of(new fromAction.LoadTrackSuccessAction()))
     );
 
   @Effect() loadEventLoops$ = this.actions$
-    .ofType(actionTypes.LOAD_EVENT_LOOPS)
-    .switchMap((action: LoadEventLoopsAction) => this.jsrolService.getEventLoops(action.payload)
-      .map(loops => new LoadEventLoopsSuccessAction(loops))
-      .catch(() => Observable.of(new LoadEventSuccessAction()))
+    .ofType(fromAction.actionTypes.LOAD_EVENT_LOOPS)
+    .switchMap((action: fromAction.LoadEventLoopsAction) => this.jsrolService.getEventLoops(action.payload)
+      .map(loops => new fromAction.LoadEventLoopsSuccessAction(loops))
+      .catch(() => Observable.of(new fromAction.LoadEventSuccessAction()))
     );
 
   @Effect() loadKml$ = this.actions$
-    .ofType(actionTypes.LOAD_KML)
-    .switchMap((action: LoadKmlAction) => this.jsrolService.getKml(action.payload)
-      .map(kml => new LoadKmlSuccessAction(kml.$value))
-      .catch(() => Observable.of(new LoadKmlSuccessAction()))
+    .ofType(fromAction.actionTypes.LOAD_KML)
+    .switchMap((action: fromAction.LoadKmlAction) => this.jsrolService.getKml(action.payload)
+      .map(kml => new fromAction.LoadKmlSuccessAction(kml.$value))
+      .catch(() => Observable.of(new fromAction.LoadKmlSuccessAction()))
     );
+
+  @Effect() loadDefault$ = this.actions$
+    .ofType(fromAction.actionTypes.LOAD_DEFAULT_EVENT)
+    .switchMap(() => {
+      const fromDate = moment().valueOf();
+      return this.jsrolService.getEvents(fromDate, 1)
+        .map((events) => _.head(events))
+        .map((event) => new fromAction.LoadEventSuccessAction(event));
+    });
 }

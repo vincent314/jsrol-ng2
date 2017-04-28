@@ -1,65 +1,27 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JsrolService } from '../services/jsrol.service';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import { AppState } from '../store/state';
+import { Store } from '@ngrx/store';
+import { LoadDefaultAction } from '../store/event-browser/event-browser.actions';
+import { getLoadEventSelector } from '../store/selectors';
 
 @Injectable()
 export class EventBrowserGuard implements CanActivate {
-  static fromDate: number = moment().valueOf();
+  eventLoaded$:Observable<boolean>;
 
-  constructor(private jsrolService: JsrolService, private router: Router) {
 
+  constructor(private store: Store<AppState>) {
+    this.eventLoaded$ = this.store.select(getLoadEventSelector)
+      .filter((event) => !!event)
+      .map((event) => true);
   }
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>
     | Promise<boolean>
     | boolean {
-    const {eventId, trackId} = <EventBrowserParams>route.queryParams;
-
-    console.log('~~~~~ GUARD', {eventId, trackId});
-
-    if (!eventId) {
-      return this.getNextEvent();
-    } else if (eventId && !trackId) {
-      return this.getEvent(eventId);
-    } else {
-      return true;
-    }
-  }
-
-  getNextEvent(): Observable<EventModel> {
-    return this.jsrolService.getEvents(EventBrowserGuard.fromDate, 1)
-      .map((events: EventModel[]) => {
-        if (!_.isEmpty(events)) {
-          const event = events[0];
-
-          this.router.navigate([''], {
-            queryParams: {
-              eventId: event.$key,
-            }
-          });
-        }
-        return false;
-      });
-  }
-
-  getEvent(eventId: string) {
-    return this.jsrolService.getEvent(eventId)
-      .map((event) => {
-        if (!event.loop1) {
-          return true;
-        }
-
-        this.router.navigate([''], {
-          queryParams: {
-            eventId: eventId,
-            trackId: event.loop1
-          }
-        });
-        return false;
-      });
+    this.store.dispatch(new LoadDefaultAction());
+    return this.eventLoaded$;
   }
 }

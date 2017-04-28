@@ -1,5 +1,5 @@
 <a class="mdl-layout__tab loop-link__tab"
-   [class.is-active]="loop.$key === currentTrack?.$key"
-   [routerLink]="['']" [queryParams]="{eventId:event?.$key,trackId:loop.$key}">
+   [class.is-active]="loop.$key === (currentTrack$ | async)?.$key"
+   (click)="onLoopClick(loop)">
   Boucle {{index + 1}} (<i class="mdi mdi-math-compass"></i>{{loop.distance | number}} km)
 </a>

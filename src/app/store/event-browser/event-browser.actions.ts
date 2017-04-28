@@ -13,7 +13,9 @@ export const actionTypes = {
   LOAD_EVENT_LOOPS: '[EVENT BROWSER] load event loops',
   LOAD_EVENT_LOOPS_SUCCESS: '[EVENT BROWSER] load event loops success',
   LOAD_KML: '[EVENT BROWSER] load kml',
-  LOAD_KML_SUCCESS: '[EVENT BROWSER] load kml success'
+  LOAD_KML_SUCCESS: '[EVENT BROWSER] load kml success',
+  CHANGE_TRACK: '[EVENT BROWSER] change track',
+  REMOVE_KML: '[EVENT BROWSER] remove kml'
 };
 
 export class ListEventsAction implements Action {
@@ -88,4 +90,17 @@ export class LoadKmlSuccessAction implements Action {
   constructor(public payload?: string) {
 
   }
+}
+
+export class ChangeTrackAction implements Action {
+  type = actionTypes.CHANGE_TRACK;
+
+  constructor(public payload?: TrackModel){
+
+  }
+}
+
+export class RemoveKmlAction implements Action {
+  type = actionTypes.REMOVE_KML;
+  constructor(){}
 }

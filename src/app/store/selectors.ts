@@ -16,3 +16,5 @@ export const getTrackSelector = createSelector(getEventBrowserState, getTrack);
 export const getEventLoopsSelector = createSelector(getEventBrowserState, getLoops);
 
 export const getKmlSelector = createSelector(getEventBrowserState, getKml);
+
+export const getLoopsSelector = createSelector(getEventBrowserState, getLoops);
