@@ -1,0 +1,9 @@
+@import "../../styles/common";
+
+input:required:invalid {
+  background-color: #0074D9;
+}
+
+.loop__list {
+  @include no-bullet-list();
+}

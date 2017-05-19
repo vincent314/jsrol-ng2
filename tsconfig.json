@@ -1,16 +1,21 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
     "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "outFile": "./tmp/out.js"
-  },
-  "filesGlob": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "!typings/**",
-    "!node_modules/**"
-  ]
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/firebase"
+    ],
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  }
 }

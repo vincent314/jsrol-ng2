@@ -1,0 +1,41 @@
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import * as fromAction from '../../store/event-browser/event-browser.actions';
+import { AppState } from '../../store/state';
+import { getEventListSelector } from '../../store/selectors';
+
+@Component({
+  selector: 'event-list',
+  templateUrl: './event-list.component.html'
+})
+export class EventListComponent {
+  events$: Observable<EventModel[]>;
+  dateTime: Date;
+
+  types: any = {
+    LRFN: {label: 'Friday Night', color: '#0000AA'},
+    ROL_PARADE: {label: 'ROL parade', color: '#FFFFFF'},
+    RANDOXYGENE: {label: 'Randoxygène', color: '#00AA00'},
+    ROL_CITY: {label: 'ROL City', color: '#AA0000'},
+    VILLENEUVE: {label: 'Villeneuve d\'Ascq', color: '#AAAAAA'}
+  };
+
+  constructor(private router: Router, private store:Store<AppState>) {
+    this.events$ = this.store.select(getEventListSelector);
+  }
+
+  ngOnInit() {
+    const currentDate = moment();
+
+    this.dateTime = currentDate.toDate();
+
+    this.store.dispatch(new fromAction.ListEventsAction());
+  }
+
+  onEventClick(event: EventModel) {
+    this.store.dispatch(new fromAction.LoadEventSuccessAction(event));
+  }
+}

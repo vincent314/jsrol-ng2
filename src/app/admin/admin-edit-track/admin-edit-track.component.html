@@ -1,0 +1,60 @@
+<div class="mdl-grid js edit-track__container">
+  <div class="mdl-cell--6-col mdl-cell--4-col-phone">
+    <div>
+      <h5>
+        <button mdl-button (click)="onGoBack()">
+          <mdl-icon>navigate_before</mdl-icon>
+        </button>
+        {{'TRACK' | translate}}
+      </h5>
+    </div>
+    <form (submit)="onSubmit()">
+      <div>
+        <mdl-textfield type="text" label="Nom"
+                       name="name"
+                       [(ngModel)]="editForm.name"
+                       floating-label required></mdl-textfield>
+      </div>
+      <div>
+        <label>Categorie</label>
+        <div *ngFor="let option of TYPES">
+          <mdl-radio
+            name="typeGroup"
+            [(ngModel)]="editForm.type"
+            [value]="option.key"
+            mdl-ripple>
+            {{option.value}}
+          </mdl-radio>
+        </div>
+      </div>
+
+      <div>
+        <mdl-textfield type="text"
+                       name="distance"
+                       label="Distance (km)"
+                       floating-label required
+                       [(ngModel)]="editForm.distance"
+        ></mdl-textfield>
+      </div>
+
+      <div>
+        <mdl-textfield type="text" name="openRunnerId" label="Openrunner ID"
+                       floating-label [(ngModel)]="editForm.openRunnerId">
+        </mdl-textfield>
+      </div>
+
+      <div class="input-file-container">
+        <input class="input-file" id="kml-file" type="file" (change)="onFileChange($event)">
+        <label tabindex="0" for="kml-file" class="input-file-trigger">{{'ADMIN.TRACK.SELECT_FILE' | translate}}</label>
+      </div>
+
+      <button type="submit" mdl-button mdl-button-type="mini-fab" mdl-colored="primary"
+      class="edit-track__button">
+        <mdl-icon>save</mdl-icon>
+      </button>
+    </form>
+  </div>
+  <div class="mdl-cell--6-col mdl-cell--4-col-phone">
+    <map [kml]="kmlContent"></map>
+  </div>
+</div>

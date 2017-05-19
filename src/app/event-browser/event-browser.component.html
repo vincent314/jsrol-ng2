@@ -1,0 +1,21 @@
+<mdl-layout #mdlLayout mdl-layout-fixed-header>
+  <mdl-layout-header>
+    <mdl-layout-header-row>
+      <event-details [event]="event$ | async"></event-details>
+      <mdl-layout-spacer></mdl-layout-spacer>
+    </mdl-layout-header-row>
+    <div class="jsrol-header__row mdl-layout__header-row">
+      <loop-link *ngFor="let loop of tracks$ | async; let i = index"
+                 [loop]="loop"
+                 [index]="i"
+      ></loop-link>
+    </div>
+  </mdl-layout-header>
+  <mdl-layout-drawer #drawer>
+    <event-list (click)="onEventClick()"></event-list>
+  </mdl-layout-drawer>
+  <mdl-layout-content>
+    <map [kml]="kml$ | async"></map>
+  </mdl-layout-content>
+</mdl-layout>
+

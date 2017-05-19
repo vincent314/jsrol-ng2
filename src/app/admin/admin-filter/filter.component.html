@@ -1,0 +1,18 @@
+<div class="filter">
+  <div>
+    <mdl-select type="text"
+                [(ngModel)]="type"
+                label="Type"
+                placeholder="type"
+                name="type"
+                (change)="onTypeFilterChange()"
+                floating-label required>
+      <mdl-option value="">Tous</mdl-option>
+      <mdl-option *ngFor="let option of TYPES" [value]="option.key">{{option.value}}</mdl-option>
+    </mdl-select>
+  </div>
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="textSearch" [(ngModel)]="textSearch" (change)="onTextSearch()">
+    <label class="mdl-textfield__label" for="textSearch">Rechercher...</label>
+  </div>
+</div>

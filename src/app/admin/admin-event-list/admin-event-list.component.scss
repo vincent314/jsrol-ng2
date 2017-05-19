@@ -1,0 +1,15 @@
+@import "../../styles/common";
+
+#add-button {
+  position: fixed;
+  right: 48px;
+  bottom: 48px;
+}
+
+.event-list-container{
+  width:450px;
+
+  &__type{
+    font-weight: bolder;
+  }
+}

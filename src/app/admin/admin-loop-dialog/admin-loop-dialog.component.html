@@ -1,0 +1,13 @@
+<mdl-dialog #dialog
+            [mdl-dialog-config]="{
+              clickOutsideToClose: true,
+              styles: {width:'500px'},
+              isModal:true,
+              enterTransitionDuration: 400,
+              leaveTransitionDuration: 400}">
+
+  <h3 class="mdl-dialog__title">{{'ADMIN.EVENT.ADD_LOOP.TITLE' | translate}}</h3>
+  <div class="mdl-dialog__content loop__content">
+    <track-list-selector itemsPerPage="5" [actionDelete]="false" (trackClick)="onTrackClick($event)"></track-list-selector>
+  </div>
+</mdl-dialog>

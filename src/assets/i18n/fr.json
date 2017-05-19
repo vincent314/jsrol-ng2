@@ -1,0 +1,42 @@
+{
+  "ADMIN": {
+    "TITLE": "Administration",
+    "EVENT": {
+      "ADD_LOOP": {
+        "TITLE": "Ajouter un parcours",
+        "ACTION": "Ajouter",
+        "DATE": "Date"
+      },
+      "CONFIRM_DELETE": "Évènement supprimé"
+    },
+    "TRACK": {
+      "CONFIRM_SAVE": "Parcours enregistré",
+      "CONFIRM_DELETE": "Parcours supprimé",
+      "SAVE": "Parcours sauvergardé",
+      "SELECT_FILE": "Choix fichier KML"
+    },
+    "LOGIN": {
+      "CONNEXION": "Connexion",
+      "RESET": "Reset du mot de passe",
+      "EMAIL_SENT": "Un email vous a été envoyé",
+      "NO_EMAIL": "Veuillez spécifier un email",
+      "ERROR": "Une erreur s'est produite sur l'envoi de l'email"
+    }
+  },
+  "TYPES": {
+    "LRFN": "Friday Night",
+    "RANDOXYGENE": "Randoxygène",
+    "ROL_CITY": "ROL City",
+    "ROL_PARADE": "ROL Parade",
+    "VILLENEUVE": "Villeneuve d'Ascq"
+  },
+  "TRACK": "Parcours",
+  "EVENT": "Évènement",
+  "BACK": "Retour",
+  "TYPE": "Type",
+  "LOOPS": "Boucles",
+  "PAGINATION": {
+    "PREVIOUS": "Précédent",
+    "NEXT": "Suivant"
+  }
+}

@@ -1,0 +1,15 @@
+@import "styles/variables";
+@import '~@angular-mdl/core/scss/material-design-lite';
+@import '~mdi/scss/materialdesignicons.scss';
+
+html, body{
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+span.active {
+  background-color: gray;
+}
+
+@import '~@angular-mdl/popover/popover';
+@import '~@angular-mdl/select/select';

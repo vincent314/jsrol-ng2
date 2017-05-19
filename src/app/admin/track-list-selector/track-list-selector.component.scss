@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+@import "../../styles/common";
+
+.track-list {
+  &__container {
+    height: 100vh;
+  }
+
+  &__list{
+    width: 400px;
+  }
+}
+
+.track-list-item {
+  &__type {
+    font-weight: bolder;
+  }
+}
