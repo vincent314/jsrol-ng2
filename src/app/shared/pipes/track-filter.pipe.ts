@@ -9,7 +9,18 @@ export class TrackFilterPipe implements PipeTransform {
     }
     return tracks.filter((track: TrackModel) => {
       const filter = args[0] as FilterModel;
-      return (track.type === filter.type) || filter.type === '';
+      let found = (track.type === filter.type)
+        || filter.type === '';
+
+      if(track.openRunnerId) {
+        found = found || track.openRunnerId.toString().indexOf(filter.textSearch) >= 0;
+      }
+
+      if(track.name){
+        found = found || track.name.indexOf(filter.textSearch) >= 0;
+      }
+
+      return found;
     })
   }
 
