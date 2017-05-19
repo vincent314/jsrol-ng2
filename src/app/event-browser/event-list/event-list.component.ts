@@ -19,7 +19,8 @@ export class EventListComponent {
     LRFN: {label: 'Friday Night', color: '#0000AA'},
     ROL_PARADE: {label: 'ROL parade', color: '#FFFFFF'},
     RANDOXYGENE: {label: 'Randoxygène', color: '#00AA00'},
-    ROL_CITY: {label: 'ROL City', color: '#AA0000'}
+    ROL_CITY: {label: 'ROL City', color: '#AA0000'},
+    VILLENEUVE: {label: 'Villeneuve d\'Ascq', color: '#AAAAAA'}
   };
 
   constructor(private router: Router, private store:Store<AppState>) {

@@ -9,7 +9,8 @@ interface EventModel {
 }
 
 interface FilterModel{
-  type:string;
+  type?:string;
+  textSearch?:string;
 }
 
 interface KmlModel{

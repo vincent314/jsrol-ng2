@@ -15,7 +15,8 @@ import {TranslateModule} from '@ngx-translate/core';
       {key: 'RANDOXYGENE', value: 'Randoxygène'},
       {key: 'LRFN', value: 'Friday Night'},
       {key: 'ROL_CITY', value: 'ROL City'},
-      {key: 'ROL_PARADE', value: 'ROL Parade'}
+      {key: 'ROL_PARADE', value: 'ROL Parade'},
+      {key: 'VILLENEUVE', value: 'Villeneuve d\'Ascq'}
     ]
     }
   ],
